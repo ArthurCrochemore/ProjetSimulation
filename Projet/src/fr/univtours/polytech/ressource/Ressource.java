@@ -2,11 +2,9 @@ package fr.univtours.polytech.ressource;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import fr.univtours.polytech.ressource.Salle.listeEtats;
 import fr.univtours.polytech.util.Tuple;
 
 public abstract class Ressource {
@@ -37,7 +35,15 @@ public abstract class Ressource {
 		return tempsAttente;
 	}
 	
-	public void setEtat(listeEtats etat) {
+	public void setEtat(listeEtats etat, LocalTime heure) {
+		if(this.etat == Ressource.listeEtats.LIBRE && etat == Ressource.listeEtats.OCCUPE) {
+			tempsAttente.get(taille - 1).setSecondElement(heure);
+			taille ++;
+		} else {
+			if(this.etat == Ressource.listeEtats.OCCUPE && etat == Ressource.listeEtats.LIBRE) {
+				tempsAttente.add(new Tuple<LocalTime, LocalTime>(heure));
+			}
+		}
 		this.etat = etat;
 	}
 	

@@ -67,4 +67,8 @@ public class Patient extends Entite {
 		
 		this.tempsAttente = new HashMap<listeEtats, Tuple<LocalTime, LocalTime>>();
 	}
+	
+	public boolean estUrgent() {
+		return false;
+	}
 }
