@@ -4,17 +4,19 @@
  */
 package fenetreinitialisation;
 
+import com.raven.event.EventTimePicker;
+import fr.univtours.polytech.util.LoiDePoisson;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
-
-import com.raven.event.EventTimePicker;
 
 /**
  *
@@ -669,29 +671,21 @@ public class SaisiePatient extends javax.swing.JFrame {
     private void btnValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValiderActionPerformed
         // TODO add your handling code here:
         Map<Integer, List<LocalTime>> map = new HashMap<Integer, List<LocalTime>>();
-        System.out.println(nbPatientsRDVPE + "-" + nbPatientsRDVSE  + "-" + nbPatientsRDVTE + "-" + nbPatientsUrgent);
         for (int i = 0; i < nbPatientsRDVPE; i ++) {
             //se balader dans le tableau
             map.put(i, mapPE.get(i));
-            System.out.println(i);
         }
-        System.out.println("-");
         for (int i = 0; i < nbPatientsRDVSE; i ++) {
             //se balader dans le tableau
             map.put(i + nbPatientsRDVPE, mapSE.get(i));
-            System.out.println(i+ nbPatientsRDVPE);
         }
-        System.out.println("-");
         for (int i = 0; i < nbPatientsRDVTE; i ++) {
             //se balader dans le tableau
             map.put(i + nbPatientsRDVPE + nbPatientsRDVSE, mapTE.get(i));
-            System.out.println(i+ nbPatientsRDVPE + nbPatientsRDVSE);
         }
-        System.out.println("-");
         for (int i = 0; i < nbPatientsUrgent; i ++) {
             //se balader dans le tableau
             map.put(i + nbPatientsRDVPE + nbPatientsRDVSE + nbPatientsRDVTE, mapUrgent.get(i));
-            System.out.println(i+ nbPatientsRDVPE + nbPatientsRDVSE + nbPatientsRDVTE);
         }
         
         saisie.setNbPatientsRDVPE(nbPatientsRDVPE);
@@ -763,6 +757,7 @@ public class SaisiePatient extends javax.swing.JFrame {
         for (int i = 0; i < nbPatientsUrgentAcreer; i ++) {
             currTempsOperation = LoiDePoisson.genererEntier(currTempsOperationMin, currTempsOperationMax, 50);
             currHeureArrivee = LoiDePoisson.genererHeure(saisie.getHeureDebutJournee(), saisie.getHeureFinJournee(), 50);
+            currHeureDeclaration = currHeureArrivee.plusMinutes(LoiDePoisson.genererEntier(5, 45, 50));
             
             ajouterPatientUrgent(id, currHeureArrivee, null, currHeureDeclaration);
         }
@@ -811,8 +806,8 @@ public class SaisiePatient extends javax.swing.JFrame {
     private void ajouterPatientUrgent(Integer id, LocalTime heureArrive, LocalTime tempsOperation, LocalTime heureDeclaration) {
         DefaultTableModel modele = (DefaultTableModel) tableau.getModel();
         try {
-            if(heureArrive.isAfter(heureDeclaration)) {
-                throw new IOException();
+            if(heureArrive.isBefore(heureDeclaration)) {
+                throw new Exception();
             }
             List<LocalTime> liste = new ArrayList();
             liste.add(heureArrive);
@@ -830,8 +825,8 @@ public class SaisiePatient extends javax.swing.JFrame {
 
             modele.addRow(new Object[]{id, "Oui", heureArrive, currTempsOperation, "Tres Equipee", heureDeclaration});
             this.id++;            
-        } catch (IOException e) {
-            
+        } catch (Exception e) {
+            System.err.println("Le patient urgent ne peut pas etre declare apres etre arrive");
         }
     }
     
