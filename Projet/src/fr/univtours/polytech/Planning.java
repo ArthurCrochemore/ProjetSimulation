@@ -49,13 +49,11 @@ public class Planning {
 		return patients;
 	}
 	
-	public Planning(Planning autrePlanning) {
-        this.planning = new HashMap<>(); // Initialisation d'une nouvelle map pour éviter les références partagées
-
-        // Copie des données de l'autre instance de Planning
-        for (Salle salle : autrePlanning.planning.keySet()) {
-            List<Patient> patients = autrePlanning.planning.get(salle);
-            this.planning.put(salle, new ArrayList<>(patients)); // Copie profonde de la liste des patients
-        }
+	public Planning(Map<Salle, List<Patient>> planning) {
+        this.planning = planning;
+	}
+	
+	public Planning() {
+		
 	}
 }

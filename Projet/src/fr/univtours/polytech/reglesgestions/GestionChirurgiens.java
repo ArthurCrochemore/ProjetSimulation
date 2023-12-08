@@ -4,7 +4,7 @@ import fr.univtours.polytech.ressource.Salle;
 /**
  * Interface des regles de gestions pour les chirurgiens.
  */
-public interface GestionChirurgiens extends Regle{
+public interface GestionChirurgiens {
 	public Salle solution();
 	public void ajoutSalle(Salle salle);
 }

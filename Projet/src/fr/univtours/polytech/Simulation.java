@@ -158,7 +158,8 @@ public class Simulation {
 					new EvDeclarationPatientUrgent(heureDeclaration, nvPatient, null, null, null, deroulement));
 			
 		}
+		
+		//Creation du Planning
+		this.planning = regles.getRegleGestionPlanning().solution(null);
 	}
-
-	
 }

@@ -57,6 +57,10 @@ public class Patient extends Entite {
 	public void setTempsAttente(Map<listeEtats, Tuple<LocalTime, LocalTime>> tempsAttente) {
 		this.tempsAttente = tempsAttente;
 	}
+	
+	public PatientRDV.listeGravite getGravite() {
+		return PatientRDV.listeGravite.PEUEQUIPE;
+	}
 
 	public Patient(Integer id, LocalTime heure, LocalTime temps) {
 		super(id);

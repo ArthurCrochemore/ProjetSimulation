@@ -13,6 +13,10 @@ public class PatientRDV extends Patient {
 		return false;
 	}
 
+	public PatientRDV.listeGravite getGravite() {
+		return gravite;
+	}
+	
 	public PatientRDV(Integer id, LocalTime heure, PatientRDV.listeGravite gravite) {
 		super(id, heure, (LocalTime) null);
 		

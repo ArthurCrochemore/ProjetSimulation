@@ -10,26 +10,27 @@ import fr.univtours.polytech.entite.Patient;
 
 public class ReglesDeGestion  {
 	private Simulation simulation;
-	private List<Regle> regles;
+	private GestionInfirmiers regleGestionInfirmiers;
+	private GestionPlanning regleGestionPlanning;
+	private GestionChirurgiens regleGestionChirurgiens;
 	private Integer nbRegles;
 
 	public ReglesDeGestion(Simulation simulation, int regle1, int regle2, int regle3)  throws Exception {
 		this.simulation = simulation;
-		regles = new ArrayList<Regle>();
 		nbRegles = 2;
 
 		switch (regle1) {
 		case 1:
-			regles.add(new GIPrioritePreparation(simulation));
+			regleGestionInfirmiers = new GIPrioritePreparation(simulation);
 			break;
 		case 2:
-			regles.add(new GIPrioriteLiberation(simulation));
+			regleGestionInfirmiers = new GIPrioriteLiberation(simulation);
 			break;
 		case 3:
-			regles.add(new GIPrioritePremierEnAttente(simulation));
+			regleGestionInfirmiers = new GIPrioritePremierEnAttente(simulation);
 			break;
 		case 4:
-			regles.add(new GIPrioriteUrgence(simulation));
+			regleGestionInfirmiers = new GIPrioriteUrgence(simulation);
 			break;
 		default:
 			throw new Exception("Entier regle de gestion de type Salle trop grand");
@@ -37,13 +38,13 @@ public class ReglesDeGestion  {
 
 		switch (regle2) {
 		case 1:
-			regles.add(new GPPrioriteAbsoluUrgenceReserveStatique(simulation));
+			regleGestionPlanning = new GPPrioriteAbsoluUrgenceReserveStatique(simulation);
 			break;
 		case 2:
-			regles.add(new GPPrioriteRDV(simulation));
+			regleGestionPlanning = new GPPrioriteRDV(simulation);
 			break;
 		case 3:
-			regles.add(new GPPrioritePremierArriveReserveDynamique(simulation));
+			regleGestionPlanning = new GPPrioritePremierArriveReserveDynamique(simulation);
 			break;
 		default:
 			throw new Exception("Entier regle de gestion de type Infirmier trop grand");
@@ -51,15 +52,27 @@ public class ReglesDeGestion  {
 		
 		switch (regle3) {
 		case 1:
-			regles.add(new GCPrioritePremierEnAttente(simulation));
+			regleGestionChirurgiens = new GCPrioritePremierEnAttente(simulation);
 			break;
 		case 2:
-			regles.add(new GCPrioriteUrgent(simulation));
+			regleGestionChirurgiens = new GCPrioriteUrgent(simulation);
 			break;
 		default:
 			throw new Exception("Entier regle de gestion des chirurgiens trop grand");
 		
 		}
+	}
+	
+	public GestionInfirmiers getRegleGestionInfirmiers() {
+		return regleGestionInfirmiers;
+	}
+
+	public GestionPlanning getRegleGestionPlanning() {
+		return regleGestionPlanning;
+	}
+
+	public GestionChirurgiens getRegleGestionChirurgiens() {
+		return regleGestionChirurgiens;
 	}
 
 	public Simulation getSimulation() {
