@@ -46,9 +46,6 @@ public class EvArriveDansLaSalle extends Evenement {
 				salle.setEtat(Salle.listeEtats.ATTENTEPREPARATION);
 			}
 		}
-
-		// Sinon
-
 	}
 
 	public EvArriveDansLaSalle(LocalTime heureDebut, Patient patient, Infirmier infirmier, Salle salle,

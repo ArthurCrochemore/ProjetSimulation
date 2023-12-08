@@ -7,6 +7,8 @@ public class Constantes {
 	private LocalTime tempsAnesthesie;
 	private LocalTime tempsLiberation;
 	private Integer nbReserve;
+	private Integer tempsMoyenOperation;
+	private LocalTime tempsMoyen;
 
 	public LocalTime getTempsPreparation() {
 		return tempsPreparation;
@@ -40,11 +42,13 @@ public class Constantes {
 		this.nbReserve = nbReserve;
 	}
 
-	public Constantes(LocalTime tempsPreparation, LocalTime tempsAnesthesie, LocalTime tempsLiberation, Integer nbReserve) {
+	public Constantes(LocalTime tempsPreparation, LocalTime tempsAnesthesie, LocalTime tempsLiberation, Integer nbReserve, Integer tempsMoyenOperation) {
 		this.tempsPreparation = tempsPreparation;
 		this.tempsAnesthesie = tempsAnesthesie;
 		this.tempsLiberation = tempsLiberation;
 		this.nbReserve = nbReserve;
+		this.tempsMoyenOperation = tempsMoyenOperation;
+		this.tempsMoyen = tempsPreparation.plusHours(tempsAnesthesie.getHour() + tempsLiberation.getHour()).plusMinutes(tempsAnesthesie.getMinute() + tempsLiberation.getMinute() + tempsMoyenOperation);
 	}
 
 }

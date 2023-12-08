@@ -128,7 +128,7 @@ public class Simulation {
 
 		// Definition des constantes
 		this.constantes = new Constantes(data.getTempsPreparation(), data.getTempsAnesthesie(),
-				data.getTempsLiberation(), nbReserve);
+				data.getTempsLiberation(), nbReserve, data.getMoyTempsOperation());
 
 		// Creation des patients et des Evenements
 		this.patientsRDV = new ArrayList<PatientRDV>();

@@ -16,8 +16,8 @@ public class EvDebutOperation extends Evenement {
 		patient.getTempsAttente().get(Patient.listeEtats.ATTENTECHIRURGIEN).setSecondElement(heureDebut);
 		patient.setEtat(Patient.listeEtats.ENOPERATION);
 		
-		/*chirurgien.setEtat(Ressource.listeEtats.OCCUPE);
-		chirurgien.getTempsAttente().get(chirurgien.getTaille() - 1).setSecondElement(heureDebut);*/
+		chirurgien.getTempsAttente().get(chirurgien.getTaille() - 1).setSecondElement(heureDebut);
+		chirurgien.setEtat(Ressource.listeEtats.OCCUPE, heureDebut);
 
 		LocalTime tempsOperation = patient.getTempsOperation();
 		LocalTime heureDebutEvSuivant = heureDebut.plusHours(tempsOperation.getHour()).plusMinutes(tempsOperation.getMinute());
