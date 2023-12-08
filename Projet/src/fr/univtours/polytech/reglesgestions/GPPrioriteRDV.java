@@ -22,6 +22,10 @@ public class GPPrioriteRDV implements GestionPlanning {
 	 * avec la liste d'attente la plus courte.COmment on lui met l'heure.
 	 * 
 	 */
+	//creer une structure avec heure de debut heure de fin index et salle
+		//creer une fonction qui liste les trous dans le planning superieur ou  egale a c+c+c + temps moyen operation. Liste des structure
+		//parcourir les salles tres equipes et stocker la valeur du creneau potentiel faire le min de cette valeur.
+		
 	public Planning solution(PatientUrgent patientUrgent) {
 		//Planning  newPlanning = new Planning();
 		//List<PatientRDV> ListePatientRDV = simulation.getPatientsRDV();
