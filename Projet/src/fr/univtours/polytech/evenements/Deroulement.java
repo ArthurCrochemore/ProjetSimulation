@@ -1,4 +1,4 @@
-package fr.univtours.polytech.evenements;
+ package fr.univtours.polytech.evenements;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -77,7 +77,7 @@ public class Deroulement {
 	public Evenement prochainEvenement() {
 		while (!evenements.containsKey(heureSimulation)) {
 			heureSimulation = heureSimulation.plusMinutes(1);
-
+			
 			if (!heureSimulation.isBefore(heureFinSimulation)) {
 				return null;
 			}

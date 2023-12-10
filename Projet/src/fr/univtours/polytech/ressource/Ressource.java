@@ -38,13 +38,14 @@ public abstract class Ressource {
 	public void setEtat(listeEtats etat, LocalTime heure) {
 		if(this.etat == Ressource.listeEtats.LIBRE && etat == Ressource.listeEtats.OCCUPE) {
 			tempsAttente.get(taille - 1).setSecondElement(heure);
-			taille ++;
+			this.etat = etat;
 		} else {
 			if(this.etat == Ressource.listeEtats.OCCUPE && etat == Ressource.listeEtats.LIBRE) {
 				tempsAttente.add(new Tuple<LocalTime, LocalTime>(heure));
+				this.etat = etat;
+				taille ++;
 			}
 		}
-		this.etat = etat;
 	}
 	
 	public Ressource(Integer id, LocalTime heureDebut) {

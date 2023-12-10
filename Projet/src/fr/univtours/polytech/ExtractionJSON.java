@@ -140,7 +140,7 @@ public class ExtractionJSON {
 	private void ecrirePatient(Patient p, PrintWriter writer, int i) {
 		Map<Patient.listeEtats, Tuple<LocalTime, LocalTime>> temps = p.getTempsAttente();
 
-		writer.println("\t\t\t\"id\" : " + i + ",");
+		writer.println("\t\t" + i + " : {");
 		if (p.getEtat() == Patient.listeEtats.TERMINE) {
 			writer.println("\t\t\t\"ATTENTESALLE\" : [ " + temps.get(Patient.listeEtats.ATTENTESALLE).getPremierElement()
 							+ " , " + temps.get(Patient.listeEtats.ATTENTESALLE).getSecondElement() + " ],");
@@ -235,6 +235,7 @@ public class ExtractionJSON {
 				writer.println("\t\t\t\"ATTENTELIBERATION\" : [ " + "]");
 			}
 		}
+		writer.println("\t\t}");
 	}
 	
 	/**
@@ -243,8 +244,7 @@ public class ExtractionJSON {
 	 * @param i, indice de la ressource
 	 */
 	private void ecrireRessource(List<Tuple<LocalTime, LocalTime>> temps, PrintWriter writer, int i) {
-		writer.println("\t\t\"id\" : " + i + " ,");
-		writer.println("\t\t\"attente\" : [");
+		writer.println("\t\t" + i + " : [");
 		for(int j = 0; j < temps.size() - 1; j ++) {
 			writer.println("\t\t\t[" + temps.get(j).getPremierElement() + ", " + temps.get(j).getSecondElement() + "],\n\t],");
 		}
@@ -257,8 +257,7 @@ public class ExtractionJSON {
 	 * @param i, indice de la salle
 	 */
 	private void ecrireSalle(List<Tuple<LocalTime, LocalTime>> temps, PrintWriter writer, int i) {
-		writer.println("\t\t\t\"id\" : " + i + " ,");
-		writer.println("\t\t\t\"libre\" : [");
+		writer.println("\t\t" + i + " : [");
 		for(int j = 0; j < temps.size() - 1; j ++) {
 			writer.println("\t\t\t\t[" + temps.get(j).getPremierElement() + ", " + temps.get(j).getSecondElement() + "],\n\t\t],");
 		}

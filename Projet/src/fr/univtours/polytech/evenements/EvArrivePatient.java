@@ -16,7 +16,7 @@ public class EvArrivePatient extends Evenement {
 		patient.setEtat(Patient.listeEtats.ATTENTESALLE);
 		patient.getTempsAttente().put(Patient.listeEtats.ATTENTESALLE, new Tuple<LocalTime, LocalTime>(heureDebut));
 		// salleAffectee = deroulement.getSimulation().getPlanning().lireSalle(patient);
-		this.salle = new Salle(1, Salle.typeSalles.PEUEQUIPE, heureDebut);
+		//this.salle = new Salle(1, Salle.typeSalles.PEUEQUIPE, heureDebut);
 		// SI une salle est affectee
 		deroulement.ajouterEvenement(heureDebut, new EvArriveDansLaSalle(heureDebut, patient, infirmier,
 				salle /* salleAffectee */, chirurgien, deroulement));

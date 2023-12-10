@@ -2,7 +2,9 @@ package fr.univtours.polytech.reglesgestions;
 
 import fr.univtours.polytech.ListesAttentes;
 import fr.univtours.polytech.Simulation;
+import fr.univtours.polytech.entite.Patient;
 import fr.univtours.polytech.ressource.Salle;
+import fr.univtours.polytech.util.Tuple;
 
 /**
  * Regle de gestion priorisant l'affectation des chirurgiens dans la premiere
@@ -17,20 +19,24 @@ public class GCPrioriteUrgent implements GestionChirurgiens {
 		this.simulation = simulation;
 	}
 
-	public Salle solution() {
+	public Tuple<Salle, Patient> solution() {
 		// Verifie si La liste des salle en attente de chirurgien et qui on un patient
 		// urgent est vide
-		if (simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LACU) == null) {
+		if (simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LACU).size() > 0) {
 			// Renvoie la premiere salle en attente de chrirugien
-			return simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAC).get(0);
+			Tuple<Salle, Patient> retour =  simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LACU).get(0);
+			simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LACU).remove(0);
+			return retour;
 		}
 		
-		if (simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LACU) != null) {
+		if (simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAC).size()  > 0) {
 			// Renvoie la premiere salle en attente de chrirugien
-			return simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LACU).get(0);
+			Tuple<Salle, Patient> retour =  simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAC).get(0);
+			simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAC).remove(0);
+			return retour;
 		}
+		
 		return null;
-
 	}
 	
 
@@ -38,7 +44,7 @@ public class GCPrioriteUrgent implements GestionChirurgiens {
 		return simulation;
 	}
 
-	public void ajoutSalle(Salle salle) {
-		simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LACU).add(salle);
+	public void ajoutSalle(Salle salle, Patient patient) {
+		simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LACU).add(new Tuple<Salle, Patient>(salle, patient));
 	}
 }

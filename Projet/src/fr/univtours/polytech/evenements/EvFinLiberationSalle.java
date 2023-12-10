@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import fr.univtours.polytech.entite.Patient;
 import fr.univtours.polytech.ressource.Chirurgien;
 import fr.univtours.polytech.ressource.Infirmier;
+import fr.univtours.polytech.ressource.Ressource;
 import fr.univtours.polytech.ressource.Salle;
 import fr.univtours.polytech.util.Tuple;
 
@@ -16,11 +17,9 @@ public class EvFinLiberationSalle extends Evenement {
 		
 		//salle.setEtat(Salle.listeEtats.LIBRE);
 		
-		/*infirmier.setEtat(Ressource.listeEtats.LIBRE);
-		infirmier.incrementerTaille();
-		infirmier.getTempsAttente().add(new Tuple<LocalTime, LocalTime>(heureDebut));*/
+		infirmier.setEtat(Ressource.listeEtats.LIBRE, heureDebut);
 		
-		//deroulement.ajouterEvenement(heureDebut, new EvInfirmiereDisponible(heureDebut, null, infirmier, null, chirurgien, deroulement));
+		deroulement.ajouterEvenement(heureDebut, new EvInfirmiereDisponible(heureDebut, null, infirmier, null, chirurgien, deroulement));
 		
 
 		/*patient = deroulement.getSimulation().getPlanning().lireProchainPatient(salle);

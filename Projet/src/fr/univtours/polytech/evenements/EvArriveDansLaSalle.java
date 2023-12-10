@@ -13,16 +13,14 @@ import fr.univtours.polytech.util.Tuple;
 public class EvArriveDansLaSalle extends Evenement {
 
 	public void deroulement() {
-		// System.out.println(deroulement.getHeureSimulation() + " : arrivee dans la
-		// salle");
+		// System.out.println(deroulement.getHeureSimulation() + " : arrivee dans la salle");
 
 		patient.getTempsAttente().get(Patient.listeEtats.ATTENTESALLE).setSecondElement(heureDebut);
-		;
 
 		patient.setEtat(Patient.listeEtats.ATTENTEPREPARATION);
 		patient.getTempsAttente().put(Patient.listeEtats.ATTENTEPREPARATION,
 				new Tuple<LocalTime, LocalTime>(heureDebut));
-		salle.setEtat(Salle.listeEtats.ATTENTEPREPARATION);
+		/*salle.setEtat(Salle.listeEtats.ATTENTEPREPARATION);*/  
 		
 
 		Integer i = 0;
@@ -31,20 +29,15 @@ public class EvArriveDansLaSalle extends Evenement {
 			if (pott.getEtat() == Ressource.listeEtats.LIBRE) {
 				infirmier = pott;
 			}
+			
+			i++;
 		}
 
 		if (infirmier != null) {
 			deroulement.ajouterEvenement(heureDebut,
 					new EvDebutPreparation(heureDebut, patient, infirmier, salle, chirurgien, deroulement));
 		} else {
-			deroulement.getSimulation().getListes().ajouter(ListesAttentes.typeListes.LAI, salle);
-			deroulement.getSimulation().getListes().ajouter(ListesAttentes.typeListes.LAIP, salle);
-			salle.setEtat(Salle.listeEtats.ATTENTEPREPARATION);
-
-			if (patient.estUrgent()) {
-				deroulement.getSimulation().getListes().ajouter(ListesAttentes.typeListes.LAIU, salle);
-				salle.setEtat(Salle.listeEtats.ATTENTEPREPARATION);
-			}
+			deroulement.getSimulation().getRegles().getRegleGestionInfirmiers().ajoutSalle(salle, patient);
 		}
 	}
 

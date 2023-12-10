@@ -13,7 +13,7 @@ import fr.univtours.polytech.util.Tuple;
 public class EvFinPreparation extends Evenement {
 
 	public void deroulement() {
-		// System.out.println(deroulement.getHeureSimulation() + " : fin prepa");
+		//System.out.println(deroulement.getHeureSimulation() + " : fin prepa");
 
 		patient.setEtat(Patient.listeEtats.ATTENTECHIRURGIEN);
 		patient.getTempsAttente().put(Patient.listeEtats.ATTENTECHIRURGIEN,
@@ -23,24 +23,21 @@ public class EvFinPreparation extends Evenement {
 
 		deroulement.ajouterEvenement(heureDebut,
 				new EvInfirmiereDisponible(heureDebut, null, infirmier, null, chirurgien, deroulement));
-
+		 
 		Integer i = 0;
-		while (i < deroulement.getSimulation().getInfirmiers().size() && chirurgien == null) {
+		while (i < deroulement.getSimulation().getChirurgiens().size() && chirurgien == null) {
 			Chirurgien pott = deroulement.getSimulation().getChirurgiens().get(i);
 			if (pott.getEtat() == Ressource.listeEtats.LIBRE) {
 				chirurgien = pott;
 			}
+			i++;
 		}
 
 		if (chirurgien != null) {
 			deroulement.ajouterEvenement(heureDebut,
 					new EvDebutOperation(heureDebut, patient, null, salle, chirurgien, deroulement));
 		} else {
-			deroulement.getSimulation().getListes().ajouter(ListesAttentes.typeListes.LAC, salle);
-			
-			if(patient.estUrgent()) {
-				deroulement.getSimulation().getListes().ajouter(ListesAttentes.typeListes.LACU, salle);
-			}
+			deroulement.getSimulation().getRegles().getRegleGestionChirurgiens().ajoutSalle(salle, patient);
 		}
 	}
 

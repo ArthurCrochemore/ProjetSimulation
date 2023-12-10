@@ -20,8 +20,11 @@ public class EvFinOperation extends Evenement {
 		
 		chirurgien.setEtat(Ressource.listeEtats.LIBRE, heureDebut);
 		
-		//////// GERER AFFECTATION //////////
+		Tuple<Salle, Patient> tuple = deroulement.getSimulation().getRegles().getRegleGestionChirurgiens().solution();
 		
+		if (tuple != null) {
+			deroulement.ajouterEvenement(heureDebut, new EvDebutOperation(heureDebut, tuple.getSecondElement(), infirmier, tuple.getPremierElement(), chirurgien, deroulement));
+		}
 		
 		Integer i = 0;
 		while (i < deroulement.getSimulation().getInfirmiers().size() && infirmier == null) {
@@ -29,19 +32,13 @@ public class EvFinOperation extends Evenement {
 			if (pott.getEtat() == Ressource.listeEtats.LIBRE) {
 				infirmier = pott;
 			}
+			i++;
 		}
 		
 		if (infirmier != null) {
-			deroulement.ajouterEvenement(heureDebut, new EvDebutLiberationSalle(heureDebut, patient, infirmier, salle, chirurgien, deroulement));
+			deroulement.ajouterEvenement(heureDebut, new EvDebutLiberationSalle(heureDebut, patient, infirmier, salle, null, deroulement));
 		} else {
-			ListesAttentes liste = deroulement.getSimulation().getListes();
-			liste.ajouter(ListesAttentes.typeListes.LAI, salle);
-			liste.ajouter(ListesAttentes.typeListes.LAIL, salle);
-			
-			if (patient.estUrgent()) {
-				liste.ajouter(ListesAttentes.typeListes.LAIU, salle);
-			}
-			salle.setEtat(Salle.listeEtats.ATTENTELIBERATION);
+			deroulement.getSimulation().getRegles().getRegleGestionInfirmiers().ajoutSalle(salle, patient);
 		}
 	}
 	

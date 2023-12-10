@@ -10,10 +10,6 @@ public class Chirurgien extends Ressource {
 	public listeEtats getEtat() {
 		return etat;
 	}
-
-	public Integer getTaille() {
-		return taille;
-	}
 	
 	public Chirurgien(Integer id, LocalTime heureDebut) {
 		super(id, heureDebut);

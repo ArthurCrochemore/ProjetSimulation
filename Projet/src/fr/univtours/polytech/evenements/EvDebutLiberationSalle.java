@@ -17,8 +17,8 @@ public class EvDebutLiberationSalle extends Evenement {
 		patient.getTempsAttente().get(Patient.listeEtats.ATTENTELIBERATION).setSecondElement(heureDebut);
 		patient.setEtat(Patient.listeEtats.TERMINE);
 		
-		/*infirmier.setEtat(Ressource.listeEtats.OCCUPE);
-		infirmier.getTempsAttente().get(infirmier.getTaille() - 1).setSecondElement(heureDebut);*/
+		infirmier.setEtat(Ressource.listeEtats.OCCUPE, heureDebut);
+		infirmier.getTempsAttente().get(infirmier.getTaille() - 1).setSecondElement(heureDebut);
 		
 		LocalTime tempsLiberation = deroulement.getSimulation().getConstantes().getTempsLiberation();
 		LocalTime heureDebutEvSuivant = heureDebut.plusHours(tempsLiberation.getHour()).plusMinutes(tempsLiberation.getMinute());
