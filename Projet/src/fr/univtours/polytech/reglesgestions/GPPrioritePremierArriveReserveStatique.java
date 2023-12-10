@@ -23,28 +23,32 @@ public class GPPrioritePremierArriveReserveStatique implements GestionPlanning {
 		this.simulation = simulation;
 	}
 
-	public Planning solution(PatientUrgent patientUrgent) {
-		// Recuperation de l'ancien planning
-
-		Planning ancienPlanning = simulation.getPlanning();
-		List<Patient> nouvListePatient = ancienPlanning.extraiteDonnee();
-
-		// Mise a jour de la liste de patient avec l'ajout du nouveau patient urgent
-
-		nouvListePatient.add(patientUrgent);
-		Collection<List<Salle>> pileSalle = simulation.getSalles().values();
+	public Planning solution(Patient patientUrgent) {
+		List<Patient> nouvListePatient = new ArrayList<Patient>();
+		if(patientUrgent != null) {
+			// Recuperation de l'ancien planning
+			Planning ancienPlanning = simulation.getPlanning();
+			nouvListePatient = ancienPlanning.extraiteDonnee();
+			
+			// Mise a jour de la liste de patient avec l'ajout du nouveau patient urgent
+			nouvListePatient.add(patientUrgent);
+		} else {
+			for (Patient p : simulation.getPatientsRDV()) {
+				nouvListePatient.add(p);
+			}
+		}
+		
+		Collection<List<Salle>> pileSalle = simulation.getSalles().values(); //Pb ici, la pile n'est pas triee
 
 		// Tri de la liste de patient dans l'ordre croissant des heures d'arrivee
 
 		ReglesDeGestion.trierParHeureArrivee(nouvListePatient);
 
 		// Création d'une nouvelle Map pour construire le planning
-
 		Map<Salle, List<Patient>> nouvelleMapPlanning = new HashMap<>();
 
 		for (List<Salle> salles : pileSalle) {
 			for (Salle salle : salles) {
-
 				nouvelleMapPlanning.put(salle, new ArrayList<>());
 			}
 

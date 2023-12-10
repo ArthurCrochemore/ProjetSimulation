@@ -1,11 +1,8 @@
 package fr.univtours.polytech.reglesgestions;
 
-import java.util.List;
-
 import fr.univtours.polytech.Planning;
 import fr.univtours.polytech.Simulation;
-import fr.univtours.polytech.entite.PatientRDV;
-import fr.univtours.polytech.entite.PatientUrgent;
+import fr.univtours.polytech.entite.Patient;
 /**
  * Regle de gestion priorisant la prise en charge des RDV 
  * Lorsqu'un patient urgent est déclaré il est affecté aux salles reserve
@@ -26,7 +23,7 @@ public class GPPrioriteRDV implements GestionPlanning {
 		//creer une fonction qui liste les trous dans le planning superieur ou  egale a c+c+c + temps moyen operation. Liste des structure
 		//parcourir les salles tres equipes et stocker la valeur du creneau potentiel faire le min de cette valeur.
 		
-	public Planning solution(PatientUrgent patientUrgent) {
+	public Planning solution(Patient patientUrgent) {
 		//Planning  newPlanning = new Planning();
 		//List<PatientRDV> ListePatientRDV = simulation.getPatientsRDV();
 		//simulation.creerPlanning(ListePatientRDV);

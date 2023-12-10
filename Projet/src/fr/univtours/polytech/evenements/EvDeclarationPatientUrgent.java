@@ -9,7 +9,7 @@ import fr.univtours.polytech.ressource.Salle;
 
 public class EvDeclarationPatientUrgent extends Evenement {
 	public void deroulement() {
-		//RegleGestionPlanning(patient);
+		deroulement.getSimulation().setPlanning(deroulement.getSimulation().getRegles().getRegleGestionPlanning().solution(patient));
 		
 		deroulement.ajouterEvenement(patient.getHeureArrive(),
 				new EvArrivePatient(patient.getHeureArrive(), patient, infirmier, salle, chirurgien, deroulement));

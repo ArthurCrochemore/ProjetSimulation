@@ -2,9 +2,11 @@ package fr.univtours.polytech.reglesgestions;
 
 import fr.univtours.polytech.Planning;
 import fr.univtours.polytech.Simulation;
-import fr.univtours.polytech.entite.PatientUrgent;
+import fr.univtours.polytech.entite.Patient;
+
 /**
- * Regle de gestion priorisant le patient arriver en premier dans la file d'attente pour la prochaine operation
+ * Regle de gestion priorisant le patient arriver en premier dans la file
+ * d'attente pour la prochaine operation
  */
 public class GPPrioritePremierArriveReserveDynamique implements GestionPlanning {
 	private Simulation simulation;
@@ -12,7 +14,8 @@ public class GPPrioritePremierArriveReserveDynamique implements GestionPlanning 
 	public GPPrioritePremierArriveReserveDynamique(Simulation simulation) {
 		this.simulation = simulation;
 	}
-	public Planning solution(PatientUrgent patientUrgent) {
+
+	public Planning solution(Patient patientUrgent) {
 		return null;
 	}
 }

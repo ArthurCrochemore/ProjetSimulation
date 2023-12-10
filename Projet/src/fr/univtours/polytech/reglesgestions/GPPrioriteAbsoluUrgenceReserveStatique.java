@@ -2,7 +2,7 @@ package fr.univtours.polytech.reglesgestions;
 
 import fr.univtours.polytech.Planning;
 import fr.univtours.polytech.Simulation;
-import fr.univtours.polytech.entite.PatientUrgent;
+import fr.univtours.polytech.entite.Patient;
 
 /**
  * Regle de gestion qui lorsque qu'un patient urgent est declare dans la
@@ -16,7 +16,7 @@ public class GPPrioriteAbsoluUrgenceReserveStatique implements GestionPlanning {
 		this.simulation = simulation;
 	}
 
-	public Planning solution(PatientUrgent patientUrgent) {
+	public Planning solution(Patient patientUrgent) {
 
 		return null;
 	}
