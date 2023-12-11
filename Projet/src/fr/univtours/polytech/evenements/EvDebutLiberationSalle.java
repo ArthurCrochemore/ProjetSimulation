@@ -17,8 +17,8 @@ public class EvDebutLiberationSalle extends Evenement {
 		patient.getTempsAttente().get(Patient.listeEtats.ATTENTELIBERATION).setSecondElement(heureDebut);
 		patient.setEtat(Patient.listeEtats.TERMINE);
 		patient = null;
-		
-		salle.setEtat(Salle.listeEtats.OCCUPE);
+
+		salle.setEtat(Salle.listeEtats.LIBERATION, heureDebut);
 		
 		infirmier.setEtat(Ressource.listeEtats.OCCUPE, heureDebut);
 		

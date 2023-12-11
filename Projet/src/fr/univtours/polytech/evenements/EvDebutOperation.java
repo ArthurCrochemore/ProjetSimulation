@@ -18,6 +18,8 @@ public class EvDebutOperation extends Evenement {
 				
 		chirurgien.setEtat(Ressource.listeEtats.OCCUPE, heureDebut);
 
+		salle.setEtat(Salle.listeEtats.OPERATION, heureDebut);
+		
 		LocalTime tempsOperation = patient.getTempsOperation();
 		LocalTime heureDebutEvSuivant = heureDebut.plusHours(tempsOperation.getHour()).plusMinutes(tempsOperation.getMinute());
 		deroulement.ajouterEvenement(heureDebutEvSuivant, new EvFinOperation(heureDebutEvSuivant, patient, infirmier, salle, chirurgien, deroulement));

@@ -14,7 +14,7 @@ public class EvFinLiberationSalle extends Evenement {
 	public void deroulement() {
 		//System.out.println(deroulement.getHeureSimulation() + " : fin libe");
 		
-		salle.setEtat(Salle.listeEtats.LIBRE);
+		salle.setEtat(Salle.listeEtats.LIBRE, heureDebut);
 		
 		infirmier.setEtat(Ressource.listeEtats.LIBRE, heureDebut);
 		

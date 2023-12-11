@@ -18,7 +18,7 @@ public class EvFinOperation extends Evenement {
 		patient.setEtat(Patient.listeEtats.ATTENTELIBERATION);
 		patient.getTempsAttente().put(Patient.listeEtats.ATTENTELIBERATION, new Tuple<LocalTime, LocalTime>(heureDebut));
 		
-		salle.setEtat(Salle.listeEtats.ATTENTELIBERATION);
+		salle.setEtat(Salle.listeEtats.ATTENTELIBERATION, heureDebut);
 		
 		chirurgien.setEtat(Ressource.listeEtats.LIBRE, heureDebut);
 		

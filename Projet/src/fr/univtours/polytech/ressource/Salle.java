@@ -9,7 +9,7 @@ import fr.univtours.polytech.util.Tuple;
 public class Salle extends Ressource {
 	
 	public static enum listeEtats {
-		LIBRE, OCCUPE, ATTENTEPREPARATION, ATTENTELIBERATION
+		LIBRE, ATTENTEPREPARATION, PREPARATION, ATTENTEOPERATION, OPERATION, ATTENTELIBERATION, LIBERATION
 	};
 
 	private listeEtats etat;
@@ -24,8 +24,19 @@ public class Salle extends Ressource {
 		return etat;
 	}
 
-	public void setEtat(listeEtats etat) {
+	public void setEtat(listeEtats etat, LocalTime heure) {
 		this.etat = etat;
+		
+		if(this.etat == Salle.listeEtats.LIBRE && etat == Salle.listeEtats.ATTENTEPREPARATION) {
+			getTempsAttente().get(taille - 1).setSecondElement(heure);
+			this.etat = etat;
+		} else {
+			if(this.etat == Salle.listeEtats.LIBERATION && etat == Salle.listeEtats.LIBRE) {
+				getTempsAttente().add(new Tuple<LocalTime, LocalTime>(heure));
+				this.etat = etat;
+				taille ++;
+			}
+		}
 	}
 
 	public typeSalles getType() {

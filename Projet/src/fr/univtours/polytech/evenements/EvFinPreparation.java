@@ -21,6 +21,8 @@ public class EvFinPreparation extends Evenement {
 		
 		infirmier.setEtat(Ressource.listeEtats.LIBRE, heureDebut);
 
+		salle.setEtat(Salle.listeEtats.ATTENTEOPERATION, heureDebut);
+		
 		deroulement.ajouterEvenement(heureDebut,
 				new EvInfirmiereDisponible(heureDebut, null, infirmier, null, chirurgien, deroulement));
 		 
