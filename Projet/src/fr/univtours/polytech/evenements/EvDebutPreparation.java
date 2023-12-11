@@ -20,8 +20,7 @@ public class EvDebutPreparation extends Evenement {
 		
 		infirmier.setEtat(Ressource.listeEtats.OCCUPE, heureDebut);
 		
-		//Salle s = deroulement.getSimulation().getRegles().
-		//salle.setEtat(Salle.listeEtats.OCCUPE);
+		salle.setEtat(Salle.listeEtats.OCCUPE);
 		
 		LocalTime tempsPreparation = deroulement.getSimulation().getConstantes().getTempsPreparation();
 		LocalTime heureDebutEvSuivant = heureDebut.plusHours(tempsPreparation.getHour()).plusMinutes(tempsPreparation.getMinute());

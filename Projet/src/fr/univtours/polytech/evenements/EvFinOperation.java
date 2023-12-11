@@ -18,6 +18,8 @@ public class EvFinOperation extends Evenement {
 		patient.setEtat(Patient.listeEtats.ATTENTELIBERATION);
 		patient.getTempsAttente().put(Patient.listeEtats.ATTENTELIBERATION, new Tuple<LocalTime, LocalTime>(heureDebut));
 		
+		salle.setEtat(Salle.listeEtats.ATTENTELIBERATION);
+		
 		chirurgien.setEtat(Ressource.listeEtats.LIBRE, heureDebut);
 		
 		Tuple<Salle, Patient> tuple = deroulement.getSimulation().getRegles().getRegleGestionChirurgiens().solution();

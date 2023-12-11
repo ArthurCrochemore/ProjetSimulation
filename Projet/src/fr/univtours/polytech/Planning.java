@@ -19,10 +19,12 @@ public class Planning {
 	 */
 	public Salle lireSalle(Patient patient) {
 		for(Salle salle : planning.keySet()) {
-			if(patient == planning.get(salle).get(0) ) {
+			if(planning.get(salle).size() > 0) {
+				if (patient.getId() == planning.get(salle).get(0).getId()) {
 				if (salle.getEtat() == Salle.listeEtats.LIBRE)
 					return salle;
 				return null;
+				}
 			}
 		}
 		return null;
@@ -34,7 +36,10 @@ public class Planning {
 	 * @return
 	 */
 	public Patient lireProchainPatient(Salle salle) {
-		return planning.get(salle).get(0);
+		if(planning.get(salle).size() > 0) {
+			return planning.get(salle).get(0);
+		}
+		return null;
 	}
 	
 	public List<Patient> extraiteDonnee() {

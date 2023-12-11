@@ -11,6 +11,8 @@ import fr.univtours.polytech.util.Tuple;
 public class EvInfirmiereDisponible extends Evenement {
 
 	public void deroulement() {
+		//System.out.println(deroulement.getHeureSimulation() + " : affectation infirmiere prepa");
+		
 		Tuple<Salle, Patient> tuple = deroulement.getSimulation().getRegles().getRegleGestionInfirmiers().solution();
 		
 		if (tuple != null) {

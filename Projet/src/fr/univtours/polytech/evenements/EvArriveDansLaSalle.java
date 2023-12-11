@@ -13,16 +13,16 @@ import fr.univtours.polytech.util.Tuple;
 public class EvArriveDansLaSalle extends Evenement {
 
 	public void deroulement() {
-		// System.out.println(deroulement.getHeureSimulation() + " : arrivee dans la salle");
+		System.out.println(deroulement.getHeureSimulation() + " : arrivee patient " + patient.getId() +" dans la salle " + salle.getId());
 
 		patient.getTempsAttente().get(Patient.listeEtats.ATTENTESALLE).setSecondElement(heureDebut);
 
 		patient.setEtat(Patient.listeEtats.ATTENTEPREPARATION);
 		patient.getTempsAttente().put(Patient.listeEtats.ATTENTEPREPARATION,
 				new Tuple<LocalTime, LocalTime>(heureDebut));
-		/*salle.setEtat(Salle.listeEtats.ATTENTEPREPARATION);*/  
 		
-
+		salle.setEtat(Salle.listeEtats.ATTENTEPREPARATION);
+		
 		Integer i = 0;
 		while (i < deroulement.getSimulation().getInfirmiers().size() && infirmier == null) {
 			Infirmier pott = deroulement.getSimulation().getInfirmiers().get(i);

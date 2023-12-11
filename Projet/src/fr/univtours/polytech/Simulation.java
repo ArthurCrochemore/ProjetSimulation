@@ -161,5 +161,8 @@ public class Simulation {
 		
 		//Creation du Planning
 		this.planning = regles.getRegleGestionPlanning().solution(null);
+		
+		deroulement.setASuppr(nbPatientsRDV+nbPatientsUrgent);
+		deroulement.setASuppr2(0);
 	}
 }

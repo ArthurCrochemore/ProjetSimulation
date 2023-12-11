@@ -17,7 +17,24 @@ public class Deroulement {
 	private LocalTime heureSimulation;
 	private LocalTime heureFinSimulation;
 	private Map<LocalTime, List<Evenement>> evenements;
-
+	
+	//===========================================
+	Integer aSuppr;
+	Integer aSuppr2;
+	public void setASuppr(Integer i) {
+		aSuppr = i;
+	}
+	public Integer getASuppr() {
+		return aSuppr;
+	}
+	public void setASuppr2(Integer i) {
+		aSuppr2 = i;
+	}
+	public Integer getASuppr2() {
+		return aSuppr2;
+	}
+	//===========================================	
+	
 	/**
 	 * Accesseur en lecture de la simulation
 	 * 
@@ -154,6 +171,8 @@ public class Deroulement {
 				tuple.setSecondElement(heureFinSimulation);
 			}
 		}
+		
+		System.out.println("\n===================================================\n" + aSuppr2 + " patients traites / " + aSuppr + " patients\n Y a t-il un probleme : " + (!(aSuppr == aSuppr2)));
 	}
 
 	/**
