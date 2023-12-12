@@ -151,7 +151,7 @@ public class Simulation {
 
 		for (int i = 0; i < nbPatientsUrgent; i++) {
 			LocalTime heureDeclaration = mapDeclaration.get(i + nbPatientsRDV);
-			PatientUrgent nvPatient = new PatientUrgent(i, mapArrivees.get(i + nbPatientsRDV), mapTempsOperation.get(i + nbPatientsRDV),
+			PatientUrgent nvPatient = new PatientUrgent(i + nbPatientsRDV, mapArrivees.get(i + nbPatientsRDV), mapTempsOperation.get(i + nbPatientsRDV),
 					heureDeclaration);
 			patientsUrgent.add(nvPatient);
 			deroulement.ajouterEvenement(heureDeclaration,

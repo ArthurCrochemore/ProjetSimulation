@@ -40,22 +40,22 @@ public class ExtractionJSON {
 			writer.println("{\n\t\"patientRDV\": {\n");
 			for (int i = 0; i < nbPatientsRDV - 1; i++) {
 				Patient p = simulation.getPatientsRDV().get(i);
-				ecrirePatient(p, writer, i);
+				ecrirePatient(p, writer);
 				writer.println("\t\t,\n");
 			}
 			
-			ecrirePatient(simulation.getPatientsRDV().get(nbPatientsRDV - 1), writer, nbPatientsRDV - 1);
+			ecrirePatient(simulation.getPatientsRDV().get(nbPatientsRDV - 1), writer);
 			writer.println("\t},\n");
 			
 			/* Ecriture des donnees de PatientUrgent */
 			writer.println("\t\"patientUrgent\": {\n");
 			for (int i = 0; i < nbPatientsUrgent - 1; i++) {
 				Patient p = simulation.getPatientsUrgent().get(i);
-				ecrirePatient(p, writer, i);
+				ecrirePatient(p, writer);
 				writer.println("\t\t,\n");
 			}
 			
-			ecrirePatient(simulation.getPatientsUrgent().get(nbPatientsUrgent - 1), writer, nbPatientsUrgent - 1);
+			ecrirePatient(simulation.getPatientsUrgent().get(nbPatientsUrgent - 1), writer);
 			writer.println("\t},\n");
 			
 			/* Ecriture des donnees de Infirmier */
@@ -137,7 +137,8 @@ public class ExtractionJSON {
 	 * @param writer
 	 * @param i, indice du patient
 	 */
-	private void ecrirePatient(Patient p, PrintWriter writer, int i) {
+	private void ecrirePatient(Patient p, PrintWriter writer) {
+		int i = p.getId();
 		Map<Patient.listeEtats, Tuple<LocalTime, LocalTime>> temps = p.getTempsAttente();
 
 		writer.println("\t\t" + i + " : {");
