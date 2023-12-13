@@ -1,4 +1,4 @@
- package fr.univtours.polytech.evenements;
+package fr.univtours.polytech.evenements;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -9,6 +9,7 @@ import java.util.Map;
 import fr.univtours.polytech.Simulation;
 import fr.univtours.polytech.entite.Patient;
 import fr.univtours.polytech.entite.PatientRDV;
+import fr.univtours.polytech.entite.PatientUrgent;
 import fr.univtours.polytech.ressource.Chirurgien;
 import fr.univtours.polytech.ressource.Infirmier;
 import fr.univtours.polytech.ressource.Salle;
@@ -19,24 +20,28 @@ public class Deroulement {
 	private LocalTime heureSimulation;
 	private LocalTime heureFinSimulation;
 	private Map<LocalTime, List<Evenement>> evenements;
-	
-	//===========================================
+
+	// ===========================================
 	Integer aSuppr;
 	Integer aSuppr2;
+
 	public void setASuppr(Integer i) {
 		aSuppr = i;
 	}
+
 	public Integer getASuppr() {
 		return aSuppr;
 	}
+
 	public void setASuppr2(Integer i) {
 		aSuppr2 = i;
 	}
+
 	public Integer getASuppr2() {
 		return aSuppr2;
 	}
-	//===========================================	
-	
+	// ===========================================
+
 	/**
 	 * Accesseur en lecture de la simulation
 	 * 
@@ -96,7 +101,7 @@ public class Deroulement {
 	public Evenement prochainEvenement() {
 		while (!evenements.containsKey(heureSimulation)) {
 			heureSimulation = heureSimulation.plusMinutes(1);
-			
+
 			if (!heureSimulation.isBefore(heureFinSimulation)) {
 				return null;
 			}
@@ -146,14 +151,14 @@ public class Deroulement {
 				tuple.setSecondElement(heureFinSimulation);
 			}
 		}
-		
+
 		for (Chirurgien c : simulation.getChirurgiens()) {
 			Tuple<LocalTime, LocalTime> tuple = c.getTempsAttente().get(c.getTaille() - 1);
 			if (tuple.getSecondElement() == null) {
 				tuple.setSecondElement(heureFinSimulation);
 			}
 		}
-		
+
 		Map<Salle.typeSalles, List<Salle>> salles = simulation.getSalles();
 		for (Salle s : salles.get(Salle.typeSalles.PEUEQUIPE)) {
 			Tuple<LocalTime, LocalTime> tuple = s.getTempsAttente().get(s.getTaille() - 1);
@@ -175,23 +180,42 @@ public class Deroulement {
 		}
 		for (PatientRDV p : simulation.getPatientsRDV()) {
 			Patient.listeEtats e = p.getEtat();
-			if(e == Patient.listeEtats.ATTENTESALLE) {
+			if (e == Patient.listeEtats.ATTENTESALLE) {
 				p.setEtat(Patient.listeEtats.AATTENDUUNESALLE, heureFinSimulation);
 			} else {
-				if(e == Patient.listeEtats.ATTENTEPREPARATION) {
+				if (e == Patient.listeEtats.ATTENTEPREPARATION) {
 					p.setEtat(Patient.listeEtats.ENPREPARATION, heureFinSimulation);
 				} else {
-					if(e == Patient.listeEtats.ATTENTECHIRURGIEN) {
+					if (e == Patient.listeEtats.ATTENTECHIRURGIEN) {
 						p.setEtat(Patient.listeEtats.ENOPERATION, heureFinSimulation);
 					} else {
-						if(e == Patient.listeEtats.ATTENTELIBERATION) {
+						if (e == Patient.listeEtats.ATTENTELIBERATION) {
 							p.setEtat(Patient.listeEtats.TERMINE, heureFinSimulation);
-						} 
+						}
 					}
 				}
 			}
 		}
-		System.out.println("\n===================================================\n" + aSuppr2 + " patients traites / " + aSuppr + " patients\n Y a t-il un probleme : " + (!(aSuppr == aSuppr2)));
+		for (PatientUrgent p : simulation.getPatientsUrgent()) {
+			Patient.listeEtats e = p.getEtat();
+			if (e == Patient.listeEtats.ATTENTESALLE) {
+				p.setEtat(Patient.listeEtats.AATTENDUUNESALLE, heureFinSimulation);
+			} else {
+				if (e == Patient.listeEtats.ATTENTEPREPARATION) {
+					p.setEtat(Patient.listeEtats.ENPREPARATION, heureFinSimulation);
+				} else {
+					if (e == Patient.listeEtats.ATTENTECHIRURGIEN) {
+						p.setEtat(Patient.listeEtats.ENOPERATION, heureFinSimulation);
+					} else {
+						if (e == Patient.listeEtats.ATTENTELIBERATION) {
+							p.setEtat(Patient.listeEtats.TERMINE, heureFinSimulation);
+						}
+					}
+				}
+			}
+		}
+		System.out.println("\n===================================================\n" + aSuppr2 + " patients traites / "
+				+ aSuppr + " patients\n Y a t-il un probleme : " + (!(aSuppr == aSuppr2)));
 	}
 
 	/**
