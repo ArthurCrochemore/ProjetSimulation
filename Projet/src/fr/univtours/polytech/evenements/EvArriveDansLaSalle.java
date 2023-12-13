@@ -15,11 +15,8 @@ public class EvArriveDansLaSalle extends Evenement {
 	public void deroulement() {
 		System.out.println(deroulement.getHeureSimulation() + " : arrivee patient " + patient.getId() +" dans la salle " + salle.getId());
 
-		patient.getTempsAttente().get(Patient.listeEtats.ATTENTESALLE).setSecondElement(heureDebut);
-
-		patient.setEtat(Patient.listeEtats.ATTENTEPREPARATION);
-		patient.getTempsAttente().put(Patient.listeEtats.ATTENTEPREPARATION,
-				new Tuple<LocalTime, LocalTime>(heureDebut));
+		patient.setEtat(Patient.listeEtats.AATTENDUUNESALLE, heureDebut);
+		patient.setEtat(Patient.listeEtats.ATTENTEPREPARATION, heureDebut);
 		
 		salle.setEtat(Salle.listeEtats.ATTENTEPREPARATION, heureDebut);
 		

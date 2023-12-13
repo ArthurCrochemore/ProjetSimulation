@@ -2,30 +2,26 @@ package fr.univtours.polytech.evenements;
 
 import java.time.LocalTime;
 
-import fr.univtours.polytech.ListesAttentes;
 import fr.univtours.polytech.entite.Patient;
 import fr.univtours.polytech.ressource.Chirurgien;
 import fr.univtours.polytech.ressource.Infirmier;
 import fr.univtours.polytech.ressource.Ressource;
 import fr.univtours.polytech.ressource.Salle;
-import fr.univtours.polytech.util.Tuple;
 
 public class EvFinPreparation extends Evenement {
 
 	public void deroulement() {
-		//System.out.println(deroulement.getHeureSimulation() + " : fin prepa");
+		// System.out.println(deroulement.getHeureSimulation() + " : fin prepa");
 
-		patient.setEtat(Patient.listeEtats.ATTENTECHIRURGIEN);
-		patient.getTempsAttente().put(Patient.listeEtats.ATTENTECHIRURGIEN,
-				new Tuple<LocalTime, LocalTime>(heureDebut));
-		
+		patient.setEtat(Patient.listeEtats.ATTENTECHIRURGIEN, heureDebut);
+
 		infirmier.setEtat(Ressource.listeEtats.LIBRE, heureDebut);
 
 		salle.setEtat(Salle.listeEtats.ATTENTEOPERATION, heureDebut);
-		
+
 		deroulement.ajouterEvenement(heureDebut,
 				new EvInfirmiereDisponible(heureDebut, null, infirmier, null, chirurgien, deroulement));
-		 
+
 		Integer i = 0;
 		while (i < deroulement.getSimulation().getChirurgiens().size() && chirurgien == null) {
 			Chirurgien pott = deroulement.getSimulation().getChirurgiens().get(i);

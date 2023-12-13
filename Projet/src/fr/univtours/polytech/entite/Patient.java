@@ -12,7 +12,7 @@ public class Patient extends Entite {
 	private LocalTime tempsOperation;
 
 	public static enum listeEtats {
-		PASARRIVE, ATTENTESALLE, ATTENTEPREPARATION, ENPREPARATION, ATTENTECHIRURGIEN, ENOPERATION, ATTENTELIBERATION, TERMINE
+		PASARRIVE, ATTENTESALLE, AATTENDUUNESALLE, ATTENTEPREPARATION, ENPREPARATION, ATTENTECHIRURGIEN, ENOPERATION, ATTENTELIBERATION, TERMINE
 	};
 
 	private listeEtats etat;
@@ -46,7 +46,27 @@ public class Patient extends Entite {
 		return etat;
 	}
 
-	public void setEtat(listeEtats etat) {
+	public void setEtat(listeEtats etat, LocalTime heure) {
+		if(etat == Patient.listeEtats.ATTENTESALLE || etat == Patient.listeEtats.ATTENTEPREPARATION || etat == Patient.listeEtats.ATTENTECHIRURGIEN || etat == Patient.listeEtats.ATTENTELIBERATION) {
+			tempsAttente.put(etat, new Tuple<LocalTime, LocalTime>(heure));
+		} else {
+			switch(etat) {
+				case AATTENDUUNESALLE:
+					tempsAttente.get(Patient.listeEtats.ATTENTESALLE).setSecondElement(heure);
+					break;
+				case ENPREPARATION:
+					tempsAttente.get(Patient.listeEtats.ATTENTEPREPARATION).setSecondElement(heure);
+					break;
+				case ENOPERATION:
+					tempsAttente.get(Patient.listeEtats.ATTENTECHIRURGIEN).setSecondElement(heure);
+					break;
+				case TERMINE:
+					tempsAttente.get(Patient.listeEtats.ATTENTELIBERATION).setSecondElement(heure);
+					break;
+			}
+		}
+		
+		
 		this.etat = etat;
 	}
 

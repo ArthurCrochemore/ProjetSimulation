@@ -12,9 +12,8 @@ public class EvDebutOperation extends Evenement {
 	
 	public void deroulement() {
 		//System.out.println(deroulement.getHeureSimulation() + " : debut ope");		
-		
-		patient.getTempsAttente().get(Patient.listeEtats.ATTENTECHIRURGIEN).setSecondElement(heureDebut);
-		patient.setEtat(Patient.listeEtats.ENOPERATION);
+
+		patient.setEtat(Patient.listeEtats.ENOPERATION, heureDebut);
 				
 		chirurgien.setEtat(Ressource.listeEtats.OCCUPE, heureDebut);
 
