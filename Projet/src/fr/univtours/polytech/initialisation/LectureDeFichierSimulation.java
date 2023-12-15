@@ -25,7 +25,6 @@ public class LectureDeFichierSimulation extends LectureDeFichier {
 		return LocalTime.parse(getLigneLue());
 	}
 
-
 	/**
 	 * Initialise un objet DonneeInitialisation a partir du fichier lu
 	 * 
@@ -58,21 +57,21 @@ public class LectureDeFichierSimulation extends LectureDeFichier {
 		donnees.setNbPatientsRDV(nbPatientPeuEquipe + nbPatientSemiEquipe + nbPatientTresEquipe);
 		donnees.setNbPatientsUrgent(nbPatientUrgent);
 
-		// On stocke  les informations des nbPatientPeuEquipe premiers patients
+		// On stocke les informations des nbPatientPeuEquipe premiers patients
 		for (Integer indice = 0; indice < nbPatientPeuEquipe; indice++) {
 			donnees.ajouterPatientMapArrivees(indice, lireTemps());
 			donnees.ajouterPatientMapGravites(indice, PatientRDV.listeGravite.PEUEQUIPE);
 			donnees.ajouterPatientMapTempsOperation(indice, lireTemps());
 		}
 
-		// On stocke  les informations des nbPatientSemiEquipe patients suivants
+		// On stocke les informations des nbPatientSemiEquipe patients suivants
 		for (Integer indice = nbPatientPeuEquipe; indice < nbPatientSemiEquipe + nbPatientPeuEquipe; indice++) {
 			donnees.ajouterPatientMapArrivees(indice, lireTemps());
 			donnees.ajouterPatientMapGravites(indice, PatientRDV.listeGravite.SEMIEQUIPE);
 			donnees.ajouterPatientMapTempsOperation(indice, lireTemps());
 		}
 
-		// On stocke  les informations des nbPatientTresEquipe patients suivants
+		// On stocke les informations des nbPatientTresEquipe patients suivants
 		for (Integer indice = nbPatientSemiEquipe + nbPatientPeuEquipe; indice < nbPatientTresEquipe
 				+ nbPatientSemiEquipe + nbPatientPeuEquipe; indice++) {
 			donnees.ajouterPatientMapArrivees(indice, lireTemps());
@@ -80,7 +79,7 @@ public class LectureDeFichierSimulation extends LectureDeFichier {
 			donnees.ajouterPatientMapTempsOperation(indice, lireTemps());
 		}
 
-		// On stocke  les informations des nbPatientUrgent derniers patients
+		// On stocke les informations des nbPatientUrgent derniers patients
 		for (Integer indice = nbPatientTresEquipe + nbPatientSemiEquipe + nbPatientPeuEquipe; indice < nbPatientUrgent
 				+ nbPatientTresEquipe + nbPatientSemiEquipe + nbPatientPeuEquipe; indice++) {
 			donnees.ajouterPatientMapArrivees(indice, lireTemps());

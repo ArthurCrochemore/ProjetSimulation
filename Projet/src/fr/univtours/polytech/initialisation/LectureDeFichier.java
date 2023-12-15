@@ -10,7 +10,7 @@ class LectureDeFichier {
 	private FileReader fichier;
 	private BufferedReader buffer;
 	private StringBuffer contenu;
-	
+
 	/**
 	 * Bouge le buffer sur la ligne suivante et actualise l'attribut contenu
 	 */
@@ -19,26 +19,25 @@ class LectureDeFichier {
 			ligneLue = buffer.readLine();
 			contenu.append(ligneLue);
 			contenu.append("\n");
-		}
-		catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Ferme le fichier lu
 	 */
 	public void fermer() {
 		try {
 			fichier.close();
-		}
-		catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-		
+
 	/**
 	 * Accesseur en lecture du contenu de la ligne lue
+	 * 
 	 * @return ligneLue
 	 */
 	public String getLigneLue() {
@@ -47,6 +46,7 @@ class LectureDeFichier {
 
 	/**
 	 * Constructeur de confort a partir de l'adresse d'un fichier
+	 * 
 	 * @param adresse
 	 */
 	public LectureDeFichier(String adresse) {
@@ -56,8 +56,7 @@ class LectureDeFichier {
 			buffer = new BufferedReader(fichier);
 			contenu = new StringBuffer();
 			ligneLue = null;
-		}
-		catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

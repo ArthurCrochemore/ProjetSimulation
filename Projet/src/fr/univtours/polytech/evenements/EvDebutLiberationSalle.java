@@ -15,6 +15,7 @@ public class EvDebutLiberationSalle extends Evenement {
 		System.out.println(deroulement.getHeureSimulation() + " : Patient " + patient.getId() + " sort du modele");
 
 		patient.setEtat(Patient.listeEtats.TERMINE, heureDebut);
+		patient.setHeureSortie(heureDebut);
 		patient = null;
 
 		salle.setEtat(Salle.listeEtats.LIBERATION, heureDebut);

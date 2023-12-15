@@ -8,24 +8,24 @@ import fr.univtours.polytech.Simulation;
 import fr.univtours.polytech.entite.PatientRDV;
 
 public class DonneeInitialisation {
-	//regles de gestion appliquees
+	// regles de gestion appliquees
 	private Integer regle1;
 	private Integer regle2;
 	private Integer regle3;
 
-	//heures de la journee
+	// heures de la journee
 	private LocalTime heureDebutJournee;
 	private LocalTime heureFinJournee;
-	
-	//Nb de Ressource
+
+	// Nb de Ressource
 	private Integer nbInfirmiere;
 	private Integer nbChirurgien;
 	private Integer nbSallesPeuEquipee;
 	private Integer nbSallesSemiEquipee;
 	private Integer nbSallesTresEquipee;
 	private Integer nbSallesReserveesUrgence;
-	
-	//Constantes
+
+	// Constantes
 	private LocalTime tempsPreparation;
 	private LocalTime tempsAnesthesie;
 	private LocalTime tempsLiberation;
@@ -62,7 +62,7 @@ public class DonneeInitialisation {
 	public void setRegle3(Integer regle3) {
 		this.regle3 = regle3;
 	}
-	
+
 	public LocalTime getHeureDebutJournee() {
 		return heureDebutJournee;
 	}
@@ -118,7 +118,7 @@ public class DonneeInitialisation {
 	public void setTempsLiberation(LocalTime tempsLiberation) {
 		this.tempsLiberation = tempsLiberation;
 	}
-	
+
 	public Integer getMoyTempsOperation() {
 		return moyTempsOperation;
 	}
@@ -226,7 +226,7 @@ public class DonneeInitialisation {
 	public Simulation creerSimultation() throws Exception {
 		return new Simulation(this);
 	}
-	
+
 	public DonneeInitialisation() {
 		mapArrivees = new HashMap<Integer, LocalTime>();
 		mapGravites = new HashMap<Integer, PatientRDV.listeGravite>();

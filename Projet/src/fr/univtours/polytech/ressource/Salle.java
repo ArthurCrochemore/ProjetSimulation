@@ -7,13 +7,14 @@ import java.util.List;
 import fr.univtours.polytech.util.Tuple;
 
 public class Salle extends Ressource {
-	
+	/* Etats par lesquels la salle passe detaillées */
 	public static enum listeEtats {
 		LIBRE, ATTENTEPREPARATION, PREPARATION, ATTENTEOPERATION, OPERATION, ATTENTELIBERATION, LIBERATION
 	};
 
 	private listeEtats etat;
 
+	/* Type qui définies la salle */ 
 	public static enum typeSalles {
 		PEUEQUIPE, SEMIEQUIPE, TRESEQUIPE, RESERVE
 	};
@@ -24,19 +25,28 @@ public class Salle extends Ressource {
 		return etat;
 	}
 
+	/**
+	 * Accesseur en écriture de l'attribut etat. 
+	 * Gère aussi la mise à jour de l'attente 
+	 * 
+	 * @param etat
+	 * @param heure, heure à partir de laquelle la salle change d'état
+	 */
 	public void setEtat(listeEtats etat, LocalTime heure) {
-		this.etat = etat;
-		
+		/* Si la ressource devient occupée, on ferme l'intervalle de temps précedemment ouvert */
 		if(this.etat == Salle.listeEtats.LIBRE && etat == Salle.listeEtats.ATTENTEPREPARATION) {
 			getTempsAttente().get(taille - 1).setSecondElement(heure);
-			this.etat = etat;
-		} else {
+		} 
+		/* Sinon, on ouvre un nouvel intervalle de temps */
+		else {
 			if(this.etat == Salle.listeEtats.LIBERATION && etat == Salle.listeEtats.LIBRE) {
 				getTempsAttente().add(new Tuple<LocalTime, LocalTime>(heure));
-				this.etat = etat;
-				taille ++;
+				
+				incrementerTaille();
 			}
 		}
+		
+		this.etat = etat;
 	}
 
 	public typeSalles getType() {
