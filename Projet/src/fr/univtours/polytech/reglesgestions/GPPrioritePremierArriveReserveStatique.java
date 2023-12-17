@@ -2,11 +2,8 @@ package fr.univtours.polytech.reglesgestions;
 
 // Import des classes nécessaires
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -34,105 +31,104 @@ public class GPPrioritePremierArriveReserveStatique implements GestionPlanning {
 			// Si un patient urgent est donné, récupérer le planning existant et l'ajouter à
 			// la nouvelle liste
 			Planning ancienPlanning = simulation.getPlanning();
+
 			nouvListePatient = ancienPlanning.extraiteDonnee();
 			nouvListePatient.add(patientUrgent);
+
 			System.out.println("changememnt planning");
 		} else {
-			// Sinon,cela signifie que c'est la création du premier et planning et donc il faut récupérer les patients prévus pour un rendez-vous et les ajouter à la
+			// Sinon,cela signifie que c'est la création du premier et planning et donc il
+			// faut récupérer les patients prévus pour un rendez-vous et les ajouter à la
 			// nouvelle liste
 			System.out.println("premier planning");
 			List<PatientRDV> patientsRDV = simulation.getPatientsRDV();
+
 			for (Patient p : patientsRDV) {
-				if (p != null && !nouvListePatient.contains(p)) {
-					nouvListePatient.add(p);
-				}
+				nouvListePatient.add(p);
 			}
 		}
-
-		// Récupération des salles de la simulation
-		Collection<List<Salle>> pileSalle = simulation.getSalles().values();
-
-		// Comparateur pour trier les salles en fonction de leur état et type
-		Comparator<Salle> etatComparator = Comparator.comparing((Salle salle) -> {
-			// Comparaison des états pour trier les salles
-			Salle.listeEtats[] orderedStates = { Salle.listeEtats.LIBRE, Salle.listeEtats.LIBERATION,
-					Salle.listeEtats.ATTENTELIBERATION, Salle.listeEtats.OPERATION, Salle.listeEtats.ATTENTEOPERATION,
-					Salle.listeEtats.PREPARATION, Salle.listeEtats.ATTENTEPREPARATION };
-			for (int i = 0; i < orderedStates.length; i++) {
-				if (salle.getEtat() == orderedStates[i]) {
-					return i;
-				}
-			}
-			return orderedStates.length;
-		}).thenComparing((Salle salle) -> {
-			// Comparaison des types pour trier les salles
-			Salle.typeSalles[] orderedTypes = { Salle.typeSalles.RESERVE, Salle.typeSalles.PEUEQUIPE,
-					Salle.typeSalles.SEMIEQUIPE, Salle.typeSalles.TRESEQUIPE };
-			for (int i = 0; i < orderedTypes.length; i++) {
-				if (salle.getType() == orderedTypes[i]) {
-					return i;
-				}
-			}
-			return orderedTypes.length;
-		});
-
-		// Tri des salles en utilisant le comparateur d'état et type
-		for (List<Salle> salles : pileSalle) {
-			Collections.sort(salles, etatComparator);
-		}
-
-		// Tri de la liste de patients par heure d'arrivée
-		ReglesDeGestion.trierParHeureArrivee(nouvListePatient);
-
-		// Initialisation de la nouvelle carte de planification
-		Map<Salle, List<Patient>> nouvelleMapPlanning = new HashMap<>();
-
-		// Association de chaque salle à une liste vide dans la carte de planification
-		for (List<Salle> salles : pileSalle) {
-			for (Salle salle : salles) {
-				nouvelleMapPlanning.put(salle, new ArrayList<>());
-			}
-		}
-
-		// Attribution des salles aux patients en fonction de leur urgence ou gravité
-		for (Patient patient : nouvListePatient) {
-			if (patient.estUrgent()) {
-				for (List<Salle> salles : pileSalle) {
-					for (Iterator<Salle> iterator = salles.iterator(); iterator.hasNext();) {
-						Salle salle = iterator.next();
-						// Attribution des salles "RESERVE" ou "TRESEQUIPE" aux patients urgents
-						if ((salle.getType() == Salle.typeSalles.RESERVE
-								|| salle.getType() == Salle.typeSalles.TRESEQUIPE)) {
-							nouvelleMapPlanning.get(salle).add(patient);
-							iterator.remove();
-							salles.add(salle);
-							break;
-						}
-					}
-				}
-			} else {
-				for (List<Salle> salles : pileSalle) {
-					for (Iterator<Salle> iterator = salles.iterator(); iterator.hasNext();) {
-						Salle salle = iterator.next();
-						// Attribution des salles correspondant à la gravité du patient
-						if ((salle.getType() == Salle.typeSalles.PEUEQUIPE
-								&& patient.getGravite() == PatientRDV.listeGravite.PEUEQUIPE)
-								|| (salle.getType() == Salle.typeSalles.SEMIEQUIPE
-										&& patient.getGravite() == PatientRDV.listeGravite.SEMIEQUIPE)
-								|| (salle.getType() == Salle.typeSalles.TRESEQUIPE
-										&& patient.getGravite() == PatientRDV.listeGravite.TRESEQUIPE)) {
-							nouvelleMapPlanning.get(salle).add(patient);
-							iterator.remove();
-							salles.add(salle);
-							break;
-						}
-					}
-				}
-			}
-		}
-
-		// Retourne un nouvel objet Planning basé sur la carte de planification mise à jour
+		Collections.sort(nouvListePatient, (p1, p2) -> p1.getHeureArrive().compareTo(p2.getHeureArrive()));
 		
-		return new Planning(nouvelleMapPlanning);
+		// Récupération des salles de la simulation
+		Map<Salle.typeSalles, List<Salle>> sallesMap = simulation.getSalles();
+		List<Salle> pileSalle = new ArrayList<Salle>();
+
+		Map<Salle, List<Patient>> renvoi = new HashMap<Salle, List<Patient>>();
+
+		for (Salle.listeEtats etat : Salle.listeEtats.values()) {
+			for (Salle.typeSalles type : Salle.typeSalles.values()) {
+				if (sallesMap.containsKey(type)) {
+					for (Salle salle : sallesMap.get(type)) {
+						if (salle.getEtat() == etat) {
+							pileSalle.add(salle);
+							renvoi.put(salle, new ArrayList<Patient>());
+						}
+					}
+				}
+
+			}
+		}
+
+		for (Patient patient : nouvListePatient) {
+//			System.out.println("On place le patient " + patient.getId() + "   - Gravite / urgent : "
+//					+ patient.getGravite() + " / " + patient.estUrgent());
+
+			int indice = 0;
+
+			boolean place = false;
+			Salle salle;
+			while (!place) {
+				salle = pileSalle.get(indice);
+				//System.out.println("Salle " + salle.getId() + "   - Gravite : " + salle.getType());
+
+				if (patient.estUrgent()) {
+					if (salle.getType() == Salle.typeSalles.TRESEQUIPE 
+							|| salle.getType() == Salle.typeSalles.RESERVE) {
+						renvoi.get(salle).add(patient);
+						place = true;
+
+						pileSalle.remove(indice);
+						pileSalle.add(salle);
+					}
+				} else {
+					if (patient.getGravite() == PatientRDV.listeGravite.TRESEQUIPE) {
+						if (salle.getType() == Salle.typeSalles.TRESEQUIPE) {
+							renvoi.get(salle).add(patient);
+							place = true;
+
+							pileSalle.remove(indice);
+							pileSalle.add(salle);
+						}
+					} else {
+						if (patient.getGravite() == PatientRDV.listeGravite.SEMIEQUIPE) {
+							if (salle.getType() == Salle.typeSalles.TRESEQUIPE
+									|| salle.getType() == Salle.typeSalles.SEMIEQUIPE) {
+								renvoi.get(salle).add(patient);
+								place = true;
+
+								pileSalle.remove(indice);
+								pileSalle.add(salle);
+							}
+						} else {
+							if (salle.getType() == Salle.typeSalles.TRESEQUIPE
+									|| salle.getType() == Salle.typeSalles.SEMIEQUIPE
+									|| salle.getType() == Salle.typeSalles.PEUEQUIPE) {
+
+								renvoi.get(salle).add(patient);
+								place = true;
+
+								pileSalle.remove(indice);
+								pileSalle.add(salle);
+							}
+						}
+					}
+
+				}
+
+				indice++;
+			}
+		}
+
+		return new Planning(renvoi);
 	}
 }

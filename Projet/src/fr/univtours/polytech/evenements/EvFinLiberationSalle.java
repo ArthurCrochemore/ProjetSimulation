@@ -11,7 +11,7 @@ import fr.univtours.polytech.ressource.Salle;
 public class EvFinLiberationSalle extends Evenement {
 
 	public void deroulement() {
-		// System.out.println(deroulement.getHeureSimulation() + " : fin libe");
+		System.out.println(deroulement.getHeureSimulation() + " : fin libe ");
 
 		salle.setEtat(Salle.listeEtats.LIBRE, heureDebut);
 

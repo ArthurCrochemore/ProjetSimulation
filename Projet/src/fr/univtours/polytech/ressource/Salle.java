@@ -9,14 +9,14 @@ import fr.univtours.polytech.util.Tuple;
 public class Salle extends Ressource {
 	/* Etats par lesquels la salle passe detaillées */
 	public static enum listeEtats {
-		LIBRE, ATTENTEPREPARATION, PREPARATION, ATTENTEOPERATION, OPERATION, ATTENTELIBERATION, LIBERATION
+		LIBRE, LIBERATION, ATTENTELIBERATION, OPERATION, ATTENTEOPERATION, PREPARATION, ATTENTEPREPARATION
 	};
 
 	private listeEtats etat;
 
 	/* Type qui définies la salle */ 
 	public static enum typeSalles {
-		PEUEQUIPE, SEMIEQUIPE, TRESEQUIPE, RESERVE
+		RESERVE, PEUEQUIPE, SEMIEQUIPE, TRESEQUIPE
 	};
 
 	private typeSalles type;

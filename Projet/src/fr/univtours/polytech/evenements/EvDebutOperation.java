@@ -9,22 +9,26 @@ import fr.univtours.polytech.ressource.Ressource;
 import fr.univtours.polytech.ressource.Salle;
 
 public class EvDebutOperation extends Evenement {
-	
+
 	public void deroulement() {
-		//System.out.println(deroulement.getHeureSimulation() + " : debut ope");		
+		System.out.println(deroulement.getHeureSimulation() + " : debut ope " + patient.getId());
 
 		patient.setEtat(Patient.listeEtats.ENOPERATION, heureDebut);
-				
+
 		chirurgien.setEtat(Ressource.listeEtats.OCCUPE, heureDebut);
 
 		salle.setEtat(Salle.listeEtats.OPERATION, heureDebut);
-		
+
 		LocalTime tempsOperation = patient.getTempsOperation();
-		LocalTime heureDebutEvSuivant = heureDebut.plusHours(tempsOperation.getHour()).plusMinutes(tempsOperation.getMinute());
-		deroulement.ajouterEvenement(heureDebutEvSuivant, new EvFinOperation(heureDebutEvSuivant, patient, infirmier, salle, chirurgien, deroulement));
+		LocalTime tempsAnesthesie = deroulement.getSimulation().getConstantes().getTempsAnesthesie();
+		LocalTime heureDebutEvSuivant = heureDebut.plusHours(tempsOperation.getHour() + tempsAnesthesie.getHour())
+				.plusMinutes(tempsOperation.getMinute() + tempsAnesthesie.getMinute());
+		deroulement.ajouterEvenement(heureDebutEvSuivant,
+				new EvFinOperation(heureDebutEvSuivant, patient, infirmier, salle, chirurgien, deroulement));
 	}
-	
-	public EvDebutOperation(LocalTime heureDebut, Patient patient, Infirmier infirmier, Salle salle, Chirurgien chirurgien, Deroulement deroulement) {
+
+	public EvDebutOperation(LocalTime heureDebut, Patient patient, Infirmier infirmier, Salle salle,
+			Chirurgien chirurgien, Deroulement deroulement) {
 		super(heureDebut, patient, infirmier, salle, chirurgien, deroulement);
 	}
 

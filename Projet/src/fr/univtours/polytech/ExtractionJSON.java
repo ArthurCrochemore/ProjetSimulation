@@ -66,9 +66,9 @@ public class ExtractionJSON {
 				Infirmier infirmier = simulation.getInfirmiers().get(i);
 				ecrireRessource(infirmier.getTempsAttente(), writer, i);
 				if (i < nbInfirmier - 1)
-					writer.println("\t,");
+					writer.println("\t\t],");
 				else
-					writer.println("\t},");
+					writer.println("\t\t]\n\t},");
 			}
 
 			/* Ecriture des donnees de Chirurgien */
@@ -77,9 +77,9 @@ public class ExtractionJSON {
 				Chirurgien chirurgien = simulation.getChirurgiens().get(i);
 				ecrireRessource(chirurgien.getTempsAttente(), writer, i);
 				if (i < nbChirurgien - 1)
-					writer.println("\t,");
+					writer.println("\t\t],");
 				else
-					writer.println("\t},");
+					writer.println("\t\t]\n\t},");
 			}
 
 			/* Ecriture des donnees de Salle */
@@ -90,9 +90,9 @@ public class ExtractionJSON {
 				Salle salle = salles.get(Salle.typeSalles.PEUEQUIPE).get(i);
 				ecrireSalle(salle.getTempsAttente(), writer, i);
 				if (i < nbSallePE - 1)
-					writer.println("\t\t,");
+					writer.println( "\t\t],");
 				else
-					writer.println("\t\t}");
+					writer.println("\t\t]\n\t\t}");
 			}
 			writer.println("\t,");
 			writer.println("\t\t\"semiEquipe\" : {");
@@ -100,9 +100,9 @@ public class ExtractionJSON {
 				Salle salle = salles.get(Salle.typeSalles.SEMIEQUIPE).get(i);
 				ecrireSalle(salle.getTempsAttente(), writer, i);
 				if (i < nbSalleSE - 1)
-					writer.println("\t\t,");
+					writer.println( "\t\t],");
 				else
-					writer.println("\t\t}");
+					writer.println("\t\t]\n\t\t}");
 			}
 			writer.println("\t,");
 			writer.println("\t\t\"tresEquipe\" : {");
@@ -110,9 +110,9 @@ public class ExtractionJSON {
 				Salle salle = salles.get(Salle.typeSalles.TRESEQUIPE).get(i);
 				ecrireSalle(salle.getTempsAttente(), writer, i);
 				if (i < nbSalleTE - 1)
-					writer.println("\t\t,");
+					writer.println( "\t\t],");
 				else
-					writer.println("\t\t}");
+					writer.println("\t\t]\n\t\t}");
 			}
 			writer.println("\t}");
 
@@ -211,10 +211,10 @@ public class ExtractionJSON {
 		writer.println("\t\t" + i + " : [");
 		for (int j = 0; j < temps.size() - 1; j++) {
 			writer.println(
-					"\t\t\t[" + temps.get(j).getPremierElement() + ", " + temps.get(j).getSecondElement() + "],\n\t],");
+					"\t\t\t[" + temps.get(j).getPremierElement() + ", " + temps.get(j).getSecondElement() + "],\n");
 		}
 		writer.println("\t\t\t[" + temps.get(temps.size() - 1).getPremierElement() + ", "
-				+ temps.get(temps.size() - 1).getSecondElement() + "]\n\t\t]");
+				+ temps.get(temps.size() - 1).getSecondElement() + "]");
 	}
 
 	/**
@@ -226,10 +226,10 @@ public class ExtractionJSON {
 		writer.println("\t\t" + i + " : [");
 		for (int j = 0; j < temps.size() - 1; j++) {
 			writer.println("\t\t\t\t[" + temps.get(j).getPremierElement() + ", " + temps.get(j).getSecondElement()
-					+ "],\n\t\t],");
+					+ "],\n");
 		}
 		writer.println("\t\t\t\t[" + temps.get(temps.size() - 1).getPremierElement() + ", "
-				+ temps.get(temps.size() - 1).getSecondElement() + "]\n\t\t\t]");
+				+ temps.get(temps.size() - 1).getSecondElement() + "]");
 	}
 
 	public ExtractionJSON(Simulation simulation) {
