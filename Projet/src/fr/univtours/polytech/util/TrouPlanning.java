@@ -81,14 +81,18 @@ public class TrouPlanning {
 					LocalTime heureArrivePatient2 = patient2.getHeureArrive();
 
 					// Calcul du délai entre les deux heures d'arrivée des patients
-					LocalTime delaiPatients = heureArrivePatient2.minusMinutes(heureArrivePatient1.getMinute());
+					LocalTime delaiPatients = heureArrivePatient2.minusHours(heureArrivePatient1.getHour())
+							.minusMinutes(heureArrivePatient1.getMinute());
 
 					// Vérification si le délai entre les patients est supérieur au temps total
 					// d'attente requis
 					if (delaiPatients.isAfter(tempsMoyen.plusMinutes(tempsMoyen.getMinute()))) {
-						 listTrouPlanning.add(new TrouPlanning(heureArrivePatient1.plusMinutes(tempsMoyen.getMinute()),heureArrivePatient2.minusMinutes(tempsMoyen.getMinute()), i+1, salle));
+						listTrouPlanning.add(new TrouPlanning(
+								heureArrivePatient1.plusHours(tempsMoyen.getHour()).plusMinutes(tempsMoyen.getMinute()),
+								heureArrivePatient2.minusHours(tempsMoyen.getHour())
+										.plusMinutes(tempsMoyen.getMinute()),
+								i + 1, salle));
 					}
-					
 
 				}
 			}
