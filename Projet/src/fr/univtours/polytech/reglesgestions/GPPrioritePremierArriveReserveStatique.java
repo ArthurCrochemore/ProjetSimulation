@@ -47,6 +47,7 @@ public class GPPrioritePremierArriveReserveStatique implements GestionPlanning {
 				nouvListePatient.add(p);
 			}
 		}
+		//Tri de la liste de patient en fcontion du temps d'arrivée
 		Collections.sort(nouvListePatient, (p1, p2) -> p1.getHeureArrive().compareTo(p2.getHeureArrive()));
 		
 		// Récupération des salles de la simulation
@@ -54,7 +55,7 @@ public class GPPrioritePremierArriveReserveStatique implements GestionPlanning {
 		List<Salle> pileSalle = new ArrayList<Salle>();
 
 		Map<Salle, List<Patient>> renvoi = new HashMap<Salle, List<Patient>>();
-
+		//Tri des salles
 		for (Salle.listeEtats etat : Salle.listeEtats.values()) {
 			for (Salle.typeSalles type : Salle.typeSalles.values()) {
 				if (sallesMap.containsKey(type)) {

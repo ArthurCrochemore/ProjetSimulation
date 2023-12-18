@@ -48,7 +48,15 @@ public class Constantes {
 		this.tempsLiberation = tempsLiberation;
 		this.nbReserve = nbReserve;
 		this.tempsMoyenOperation = tempsMoyenOperation;
-		this.tempsMoyen = tempsPreparation.plusHours(tempsAnesthesie.getHour() + tempsLiberation.getHour()).plusMinutes(tempsAnesthesie.getMinute() + tempsLiberation.getMinute() + tempsMoyenOperation);
+		this.setTempsMoyen(tempsPreparation.plusHours(tempsAnesthesie.getHour() + tempsLiberation.getHour()).plusMinutes(tempsAnesthesie.getMinute() + tempsLiberation.getMinute() + tempsMoyenOperation));
+	}
+
+	public LocalTime getTempsMoyen() {
+		return tempsMoyen;
+	}
+
+	public void setTempsMoyen(LocalTime tempsMoyen) {
+		this.tempsMoyen = tempsMoyen;
 	}
 
 }
