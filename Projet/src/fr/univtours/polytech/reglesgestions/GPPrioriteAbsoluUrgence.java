@@ -11,6 +11,7 @@ import fr.univtours.polytech.Constantes;
 import fr.univtours.polytech.Planning;
 import fr.univtours.polytech.Simulation;
 import fr.univtours.polytech.entite.Patient;
+import fr.univtours.polytech.entite.PatientRDV;
 import fr.univtours.polytech.ressource.Salle;
 import fr.univtours.polytech.util.TrouPlanning;
 
@@ -140,7 +141,7 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 
 		}
 
-		for (Patient patient : nouvListePatientRDV) {
+		for (Patient patient : nouvListePatientUrgent) {
 //			System.out.println("On place le patient " + patient.getId() + "   - Gravite / urgent : "
 //					+ patient.getGravite() + " / " + patient.estUrgent());
 
@@ -152,20 +153,89 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 				salle = pileSalleUrgent.get(indice);
 				// System.out.println("Salle " + salle.getId() + " - Gravite : " +
 				// salle.getType());
+				
+				renvoi.get(salle).add(patient);
+				place = true;
 
-				if (salle.getType() == Salle.typeSalles.TRESEQUIPE || salle.getType() == Salle.typeSalles.RESERVE) {
-					renvoi.get(salle).add(patient);
-					place = true;
+				pileSalleUrgent.remove(indice);
+				pileSalleUrgent.add(salle);
 
-					pileSalleUrgent.remove(indice);
-					pileSalleUrgent.add(salle);
+			}
+
+			indice++;
+		}
+		
+		mapTrousParSalle = TrouPlanning.RechercheTrouPlanning(sallesTresEquipees, mapTrousParSalle, tempsMoyen);
+
+		for (Patient patient : nouvListePatientUrgent) {
+//			System.out.println("On place le patient " + patient.getId() + "   - Gravite / urgent : "
+//					+ patient.getGravite() + " / " + patient.estUrgent());
+			LocalTime heureArrivePatient = patient.getHeureArrive();
+			Map<Salle, LocalTime> mapPourTrie = new HashMap<>();
+			
+			for(Salle salle : mapTrousParSalle.keySet()) {
+				while(mapTrousParSalle.get(salle).get(0).getheureLimiteDebutNouveauPatient().isBefore(heureArrivePatient)) {
+					mapTrousParSalle.get(salle).remove(0);
+				}
+				
+				mapPourTrie.put(salle, mapTrousParSalle.get(salle).get(0).getheureLimiteDebutNouveauPatient());
+			}
+			
+			List<LocalTime> heureATriee = new ArrayList<>(mapPourTrie.values());
+			Collections.sort(heureATriee);
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			int indice = 0;
+
+			boolean place = false;
+			Salle salle;
+			while (!place) {
+				if (patient.getGravite() == PatientRDV.listeGravite.TRESEQUIPE) {
+					if (salle.getType() == Salle.typeSalles.TRESEQUIPE) {
+						renvoi.get(salle).add(patient);
+						place = true;
+
+						pileSalleRDV.remove(indice);
+						pileSalleRDV.add(salle);
+					}
+				} else {
+					if (patient.getGravite() == PatientRDV.listeGravite.SEMIEQUIPE) {
+						if (salle.getType() == Salle.typeSalles.TRESEQUIPE
+								|| salle.getType() == Salle.typeSalles.SEMIEQUIPE) {
+							renvoi.get(salle).add(patient);
+							place = true;
+
+							pileSalleRDV.remove(indice);
+							pileSalleRDV.add(salle);
+						}
+					} else {
+						if (salle.getType() == Salle.typeSalles.TRESEQUIPE
+								|| salle.getType() == Salle.typeSalles.SEMIEQUIPE
+								|| salle.getType() == Salle.typeSalles.PEUEQUIPE) {
+
+							renvoi.get(salle).add(patient);
+							place = true;
+
+							pileSalleRDV.remove(indice);
+							pileSalleRDV.add(salle);
+						}
+					}
 				}
 
 			}
 
 			indice++;
 		}
-
+		
 		return new Planning(renvoi);
 	}
 }
