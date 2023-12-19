@@ -16,11 +16,9 @@ public class TrouPlanning {
 	private int indice;
 	private Salle salle;
 
-	public static TrouPlanning CreerPlaning(LocalTime heureArriveePatient1, LocalTime heureArriveePatient2, int indice,
+	public static TrouPlanning CreerPlaningDepuisHeureFinPatient1(LocalTime heureFinPatient1, LocalTime heureArriveePatient2, int indice,
 			Salle salle, LocalTime tempsMoyen) {
 		try {
-			LocalTime heureFinPatient1 = heureArriveePatient1.plusHours(tempsMoyen.getHour())
-					.plusMinutes(tempsMoyen.getMinute());
 			LocalTime heureLimiteDebutNouveauPatient = heureArriveePatient2.minusHours(tempsMoyen.getHour())
 					.minusMinutes(tempsMoyen.getMinute());
 			if (heureFinPatient1.isBefore(heureLimiteDebutNouveauPatient))
@@ -30,6 +28,15 @@ public class TrouPlanning {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+	
+	public static TrouPlanning CreerPlaning(LocalTime heureArriveePatient1, LocalTime heureArriveePatient2, int indice,
+			Salle salle, LocalTime tempsMoyen) {
+		
+		LocalTime heureFinPatient1 = heureArriveePatient1.plusHours(tempsMoyen.getHour())
+				.plusMinutes(tempsMoyen.getMinute());
+		
+		return CreerPlaningDepuisHeureFinPatient1(heureFinPatient1, heureArriveePatient2, indice, salle, tempsMoyen);		
 	}
 
 	// Constructeur pour initialiser les champs

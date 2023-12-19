@@ -1,5 +1,6 @@
 package fr.univtours.polytech.reglesgestions;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,7 +11,6 @@ import fr.univtours.polytech.Constantes;
 import fr.univtours.polytech.Planning;
 import fr.univtours.polytech.Simulation;
 import fr.univtours.polytech.entite.Patient;
-import fr.univtours.polytech.entite.PatientRDV;
 import fr.univtours.polytech.ressource.Salle;
 import fr.univtours.polytech.util.TrouPlanning;
 
@@ -42,7 +42,8 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 			nouvListePatientUrgent.add(patientUrgent);
 			System.out.println("changememnt planning");
 		} else {
-			return new GPPrioritePremierArriveReserveStatique(simulation).solution(null); // On applique la règle de Gestion la plus simple
+			return new GPPrioritePremierArriveReserveStatique(simulation).solution(null); // On applique la règle de
+																							// Gestion la plus simple
 		}
 
 		for (Patient p : listePatient) {
@@ -61,14 +62,18 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 		Map<Salle.typeSalles, List<Salle>> sallesMap = simulation.getSalles();
 		List<Salle> pileSalleUrgent = new ArrayList<Salle>(); // Pile utilisée pour placer les patients Urgents
 		List<Salle> pileSalleRDV = new ArrayList<Salle>(); // Pile utilisée pour placer les patients RDV
-		
-		List<Salle> sallesTresEquipees = new ArrayList<Salle>(); // Servira à chercher les trous possibles entre les patientsUrgents pour placer les patientsRDV
-		Map<Salle, List<TrouPlanning>> mapTrousParSalle; // Map qui stokera les trous trouvés
-		
-		Map<Salle, List<Patient>> renvoi = new HashMap<Salle, List<Patient>>(); // Le Map qui sera stocker dans le planning
-		
+
+		List<Salle> sallesTresEquipees = new ArrayList<Salle>(); // Servira à chercher les trous possibles entre les
+																	// patientsUrgents pour placer les patientsRDV
+		Map<Salle, List<TrouPlanning>> mapTrousParSalle = new HashMap<>(); // Map qui stokera les trous trouvés
+
+		Map<Salle, List<Patient>> renvoi = new HashMap<Salle, List<Patient>>(); // Le Map qui sera stocker dans le
+																				// planning
+
 		Constantes constantes = simulation.getConstantes();
-		
+		LocalTime tempsMoyen = constantes.getTempsMoyen();
+		LocalTime heureActuelle = simulation.getDeroulement().getHeureSimulation();
+
 		// Tri des salles
 		Salle.typeSalles type;
 		for (Salle.listeEtats etat : Salle.listeEtats.values()) {
@@ -81,31 +86,45 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 					}
 				}
 			}
-			
+
 			type = Salle.typeSalles.PEUEQUIPE;
 			if (sallesMap.containsKey(type)) {
 				for (Salle salle : sallesMap.get(type)) {
 					if (salle.getEtat() == etat) {
 						pileSalleRDV.add(salle);
 						renvoi.put(salle, new ArrayList<Patient>());
-						
+
+						LocalTime tempsMoyenEnFonctionEtat = constantes.getTempsMoyen(etat);
+
 						List<TrouPlanning> listeTrous = new ArrayList<>();
-						listeTrous.add(new TrouPlanning(constantes.get));
+						listeTrous.add(TrouPlanning.CreerPlaningDepuisHeureFinPatient1(
+								heureActuelle.plusMinutes(tempsMoyenEnFonctionEtat.getMinute())
+										.plusHours(tempsMoyenEnFonctionEtat.getHour()),
+								LocalTime.of(18, 0, 0), 0, salle, tempsMoyen));
 						mapTrousParSalle.put(salle, listeTrous);
 					}
 				}
 			}
-			
-			type = Salle.typeSalles.RESERVE;
+
+			type = Salle.typeSalles.SEMIEQUIPE;
 			if (sallesMap.containsKey(type)) {
 				for (Salle salle : sallesMap.get(type)) {
 					if (salle.getEtat() == etat) {
-						pileSalleUrgent.add(salle);
+						pileSalleRDV.add(salle);
 						renvoi.put(salle, new ArrayList<Patient>());
+
+						LocalTime tempsMoyenEnFonctionEtat = constantes.getTempsMoyen(etat);
+
+						List<TrouPlanning> listeTrous = new ArrayList<>();
+						listeTrous.add(TrouPlanning.CreerPlaningDepuisHeureFinPatient1(
+								heureActuelle.plusMinutes(tempsMoyenEnFonctionEtat.getMinute())
+										.plusHours(tempsMoyenEnFonctionEtat.getHour()),
+								LocalTime.of(18, 0, 0), 0, salle, tempsMoyen));
+						mapTrousParSalle.put(salle, listeTrous);
 					}
 				}
 			}
-			
+
 			type = Salle.typeSalles.TRESEQUIPE;
 			if (sallesMap.containsKey(type)) {
 				for (Salle salle : sallesMap.get(type)) {
@@ -113,12 +132,12 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 						pileSalleUrgent.add(salle);
 						pileSalleRDV.add(salle);
 						sallesTresEquipees.add(salle);
-						
+
 						renvoi.put(salle, new ArrayList<Patient>());
 					}
 				}
 			}
-			
+
 		}
 
 		for (Patient patient : nouvListePatientRDV) {
@@ -130,7 +149,7 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 			boolean place = false;
 			Salle salle;
 			while (!place) {
-				salle = pileSalle.get(indice);
+				salle = pileSalleUrgent.get(indice);
 				// System.out.println("Salle " + salle.getId() + " - Gravite : " +
 				// salle.getType());
 
@@ -138,15 +157,15 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 					renvoi.get(salle).add(patient);
 					place = true;
 
-					pileSalle.remove(indice);
-					pileSalle.add(salle);
+					pileSalleUrgent.remove(indice);
+					pileSalleUrgent.add(salle);
 				}
 
 			}
 
 			indice++;
 		}
-	}
 
-	return new Planning(renvoi);
-}}
+		return new Planning(renvoi);
+	}
+}

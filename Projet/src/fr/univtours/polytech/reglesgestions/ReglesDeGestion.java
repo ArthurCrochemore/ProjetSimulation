@@ -44,7 +44,10 @@ public class ReglesDeGestion  {
 			regleGestionPlanning = new GPPrioriteRDV(simulation);
 			break;
 		case 3:
-			regleGestionPlanning = new GPPrioriteAbsoluUrgenceReserveStatique(simulation);
+			regleGestionPlanning = new GPPrioriteAbsoluUrgence(simulation);
+			break;
+		case 4:
+			regleGestionPlanning = new GPPrioritePremierArriveReserveDynamique(simulation);
 			break;
 		default:
 			throw new Exception("Entier regle de gestion de type Infirmier trop grand");

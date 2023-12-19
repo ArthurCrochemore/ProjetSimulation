@@ -81,15 +81,12 @@ public class Constantes {
 		case ATTENTEPREPARATION:
 		case PREPARATION:
 			return tempsMoyenDepuisAttentePreparation;
-		case ATTE:
-		case PREPARATION:
-			return 
-		case ATTENTEPREPARATION:
-		case PREPARATION:
-			return 
-		case ATTENTEPREPARATION:
-		case PREPARATION:
-			return 
+		case ATTENTEOPERATION:
+		case OPERATION:
+			return tempsMoyenDepuisAttenteOperation;
+		case ATTENTELIBERATION:
+		case LIBERATION:
+			return tempsMoyenDepuisAttenteLiberation;
 		default :
 			return tempsMoyen;
 		}
