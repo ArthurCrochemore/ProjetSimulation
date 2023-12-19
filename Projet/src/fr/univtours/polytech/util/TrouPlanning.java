@@ -1,103 +1,88 @@
 package fr.univtours.polytech.util;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import fr.univtours.polytech.Simulation;
 import fr.univtours.polytech.entite.Patient;
 import fr.univtours.polytech.ressource.Salle;
 
 public class TrouPlanning {
-	private LocalTime heureMinDebut;
-	private LocalTime heureMaxDebut;
+	private LocalTime heureFinPatient1;
+	private LocalTime heureLimiteDebutNouveauPatient;
 	private int indice;
 	private Salle salle;
 
+	public static TrouPlanning CreerPlaning(LocalTime heureArriveePatient1, LocalTime heureArriveePatient2, int indice,
+			Salle salle, LocalTime tempsMoyen) {
+		try {
+			LocalTime heureFinPatient1 = heureArriveePatient1.plusHours(tempsMoyen.getHour())
+					.plusMinutes(tempsMoyen.getMinute());
+			LocalTime heureLimiteDebutNouveauPatient = heureArriveePatient2.minusHours(tempsMoyen.getHour())
+					.minusMinutes(tempsMoyen.getMinute());
+			if (heureFinPatient1.isBefore(heureLimiteDebutNouveauPatient))
+				throw new Exception("Erreur : Le Trou crée est trop court");
+
+			return new TrouPlanning(heureFinPatient1, heureLimiteDebutNouveauPatient, indice, salle);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 	// Constructeur pour initialiser les champs
-	public TrouPlanning(LocalTime heureMinDebut, LocalTime heureMaxDebut, int indice, Salle salle) {
-		this.heureMinDebut = heureMinDebut;
-		this.heureMaxDebut = heureMaxDebut;
+	private TrouPlanning(LocalTime heureFinPatient1, LocalTime heureLimiteDebutNouveauPatient, int indice,
+			Salle salle) {
+		this.heureFinPatient1 = heureFinPatient1;
+		this.heureLimiteDebutNouveauPatient = heureLimiteDebutNouveauPatient;
 		this.indice = indice;
 		this.salle = salle;
 	}
 
-	public LocalTime getHeureMinDebut() {
-		return heureMinDebut;
+	public LocalTime getheureFinPatient1() {
+		return heureFinPatient1;
 	}
 
-	public void setHeureMinDebut(LocalTime heureMinDebut) {
-		this.heureMinDebut = heureMinDebut;
-	}
-
-	public LocalTime getHeureMaxDebut() {
-		return heureMaxDebut;
-	}
-
-	public void setHeureMaxDebut(LocalTime heureMaxDebut) {
-		this.heureMaxDebut = heureMaxDebut;
+	public LocalTime getheureLimiteDebutNouveauPatient() {
+		return heureLimiteDebutNouveauPatient;
 	}
 
 	public int getIndice() {
 		return indice;
 	}
 
-	public void setIndice(int indice) {
-		this.indice = indice;
-	}
-
 	public Salle getSalle() {
 		return salle;
 	}
 
-	public void setSalle(Salle salle) {
-		this.salle = salle;
+	// regarder ppour cahque salle tout les couple de patient d'affiler comme (1,2),
+	// (2,3)...
+	// Si délai entre 2 heure d'arrivée patient > 2(TMP ANSTH2SIE + temps libération
+	// + temps préparation + temps d'opération moyenne)
+	// Alors new TrouPlanning(heureDebutMin = patient1.heured'arivé + 4 tmp,
+	// heureMaxDebut = , indice = indice patient1 +1,salle = patient1.getSale
+	// sinon return null
+	public static Map<Salle, List<TrouPlanning>> RechercheTrouPlanning(List<Salle> listeSalleTresEquipe, Map<Salle, List<Patient>> planning, LocalTime tempsMoyen) {
+	    Map<Salle, List<TrouPlanning>> MapTrou = new HashMap<Salle, List<TrouPlanning>>();
+
+	    for (Salle salleTE : listeSalleTresEquipe) {
+	        List<Patient> listePatientTE = planning.get(salleTE);
+	        List<TrouPlanning> listTrouPlanning = new ArrayList<TrouPlanning>();
+
+	        for (int i = 0; i < listePatientTE.size() - 1; i++) {
+	            Patient patient1 = listePatientTE.get(i);
+	            Patient patient2 = listePatientTE.get(i + 1);
+
+	            TrouPlanning trou = CreerPlaning(patient1.getHeureArrive(), patient2.getHeureArrive(), 1, salleTE, tempsMoyen);
+	            if (trou != null) {
+	                listTrouPlanning.add(trou);
+	            }
+	        }
+	        MapTrou.put(salleTE, listTrouPlanning);
+	    }
+	    return MapTrou;
 	}
-
-	public List<TrouPlanning> RechercheTrouPlanning(Simulation simulation) {
-		// regarder ppour cahque salle tout les couple de patient d'affiler comme (1,2),
-		// (2,3)...
-		// Si délai entre 2 heure d'arrivée patient > 2(TMP ANSTH2SIE + temps libération
-		// + temps préparation + temps d'opération moyenne)
-		// Alors new TrouPlanning(heureDebutMin = patient1.heured'arivé + 4 tmp,
-		// heureMaxDebut = , indice = indice patient1 +1,salle = patient1.getSale
-		// sinon return null
-		List<TrouPlanning> listTrouPlanning = new ArrayList<TrouPlanning>();
-		Collection<List<Salle>> salles = simulation.getSalles().values();
-
-		for (List<Salle> salleList : salles) {
-			for (Salle salle : salleList) {
-				List<Patient> patients = simulation.getPlanning().extraiteDonnee();
-
-				for (int i = 0; i < patients.size() - 1;) {
-					Patient patient1 = patients.get(i);
-					Patient patient2 = patients.get(i + 1);
-
-					LocalTime tempsMoyen = simulation.getConstantes().getTempsMoyen();
-					LocalTime heureArrivePatient1 = patient1.getHeureArrive();
-					LocalTime heureArrivePatient2 = patient2.getHeureArrive();
-
-					// Calcul du délai entre les deux heures d'arrivée des patients
-					LocalTime delaiPatients = heureArrivePatient2.minusHours(heureArrivePatient1.getHour())
-							.minusMinutes(heureArrivePatient1.getMinute());
-
-					// Vérification si le délai entre les patients est supérieur au temps total
-					// d'attente requis
-					if (delaiPatients.isAfter(tempsMoyen.plusMinutes(tempsMoyen.getMinute()))) {
-						listTrouPlanning.add(new TrouPlanning(
-								heureArrivePatient1.plusHours(tempsMoyen.getHour()).plusMinutes(tempsMoyen.getMinute()),
-								heureArrivePatient2.minusHours(tempsMoyen.getHour())
-										.plusMinutes(tempsMoyen.getMinute()),
-								i + 1, salle));
-					}
-
-				}
-			}
-		}
-		return listTrouPlanning;
-	}
-
+		
 }
