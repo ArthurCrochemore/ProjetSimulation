@@ -182,17 +182,7 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 			}
 			
 			List<LocalTime> heureATriee = new ArrayList<>(mapPourTrie.values());
-			Collections.sort(heureATriee);
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			Collections.sort(heureATriee); // GERER ICI LE TRI POUR LA PILE
 			
 			int indice = 0;
 
