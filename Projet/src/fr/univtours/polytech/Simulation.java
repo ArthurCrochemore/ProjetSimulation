@@ -29,6 +29,9 @@ public class Simulation {
 	private Planning planning;
 	private ReglesDeGestion regles;
 	private Constantes constantes;
+	
+	private LocalTime heureDebutSimulation;
+	private LocalTime heureFinSimulation;
 
 	public void miseAJourPlanning() {
 
@@ -80,6 +83,14 @@ public class Simulation {
 
 	public Constantes getConstantes() {
 		return constantes;
+	}
+	
+	public LocalTime getHeureDebutSimulation() {
+		return heureDebutSimulation;
+	}
+
+	public LocalTime getHeureFinSimulation() {
+		return heureFinSimulation;
 	}
 
 	public Simulation(DonneeInitialisation data) throws Exception {

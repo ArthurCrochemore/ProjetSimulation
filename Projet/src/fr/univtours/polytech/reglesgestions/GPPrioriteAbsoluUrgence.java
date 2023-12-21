@@ -153,7 +153,7 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 				salle = pileSalleUrgent.get(indice);
 				// System.out.println("Salle " + salle.getId() + " - Gravite : " +
 				// salle.getType());
-				
+
 				renvoi.get(salle).add(patient);
 				place = true;
 
@@ -164,30 +164,32 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 
 			indice++;
 		}
-		
-		mapTrousParSalle = TrouPlanning.RechercheTrouPlanning(sallesTresEquipees, mapTrousParSalle, tempsMoyen);
+
+		mapTrousParSalle = TrouPlanning.RechercheTrouPlanning(sallesTresEquipees, mapTrousParSalle, renvoi, constantes,
+				simulation.getHeureDebutSimulation(), simulation.getHeureFinSimulation());
 
 		for (Patient patient : nouvListePatientUrgent) {
 //			System.out.println("On place le patient " + patient.getId() + "   - Gravite / urgent : "
 //					+ patient.getGravite() + " / " + patient.estUrgent());
 			LocalTime heureArrivePatient = patient.getHeureArrive();
 			Map<Salle, LocalTime> mapPourTrie = new HashMap<>();
-			
-			for(Salle salle : mapTrousParSalle.keySet()) {
-				while(mapTrousParSalle.get(salle).get(0).getheureLimiteDebutNouveauPatient().isBefore(heureArrivePatient)) {
+
+			for (Salle salle : mapTrousParSalle.keySet()) {
+				while (mapTrousParSalle.get(salle).get(0).getheureLimiteDebutNouveauPatient()
+						.isBefore(heureArrivePatient)) {
 					mapTrousParSalle.get(salle).remove(0);
 				}
-				
+
 				mapPourTrie.put(salle, mapTrousParSalle.get(salle).get(0).getheureLimiteDebutNouveauPatient());
 			}
-			
+
 			List<LocalTime> heureATriee = new ArrayList<>(mapPourTrie.values());
 			Collections.sort(heureATriee); // GERER ICI LE TRI POUR LA PILE
-			
+
 			int indice = 0;
 
 			boolean place = false;
-			Salle salle;
+			Salle salle = pileSalleRDV.get(0);
 			while (!place) {
 				if (patient.getGravite() == PatientRDV.listeGravite.TRESEQUIPE) {
 					if (salle.getType() == Salle.typeSalles.TRESEQUIPE) {
@@ -225,7 +227,7 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 
 			indice++;
 		}
-		
+
 		return new Planning(renvoi);
 	}
 }
