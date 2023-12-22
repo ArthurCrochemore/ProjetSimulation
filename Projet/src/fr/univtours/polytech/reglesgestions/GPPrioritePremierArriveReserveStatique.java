@@ -73,6 +73,10 @@ public class GPPrioritePremierArriveReserveStatique implements GestionPlanning {
 						if (salle.getEtat() == etat) {
 							pileSalle.add(salle);
 							renvoi.put(salle, new ArrayList<Patient>());
+							
+							if(type == Salle.typeSalles.RESERVE) {
+								System.out.println("1");
+							}
 						}
 					}
 				}

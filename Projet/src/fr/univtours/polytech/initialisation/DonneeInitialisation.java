@@ -30,6 +30,7 @@ public class DonneeInitialisation {
 	private LocalTime tempsAnesthesie;
 	private LocalTime tempsLiberation;
 	private Integer moyTempsOperation;
+	private Integer marge;
 
 	// Data pour les Patients
 	private Integer nbPatientsRDV;
@@ -125,6 +126,14 @@ public class DonneeInitialisation {
 
 	public void setMoyTempsOperation(Integer moyTempsOperation) {
 		this.moyTempsOperation = moyTempsOperation;
+	}
+
+	public Integer getMarge() {
+		return marge;
+	}
+
+	public void setMarge(Integer marge) {
+		this.marge = marge;
 	}
 
 	public Integer getNbSallesPeuEquipee() {

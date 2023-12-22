@@ -16,14 +16,29 @@ public class ListesAttentes {
 
 	private Map<typeListes, List<Tuple<Salle, Patient>>> listesAttente;
 
+	/**
+	 * Accesseur en lecture des listes d'attente
+	 * 
+	 * @return listesAttente
+	 */
 	public Map<typeListes, List<Tuple<Salle, Patient>>> getListesAttente() {
 		return listesAttente;
 	}
 
+	/**
+	 * Méthode permettant l'ajout d'un patient à une liste d'attente
+	 * 
+	 * @param type
+	 * @param salle
+	 * @param patient
+	 */
 	public void ajouter(typeListes type, Salle salle, Patient patient) {
 		listesAttente.get(type).add(new Tuple<Salle, Patient>(salle, patient));
 	}
 
+	/**
+	 * Initialisation des listes d'attente
+	 */
 	public ListesAttentes() {
 		listesAttente = new HashMap<typeListes, List<Tuple<Salle, Patient>>>();
 

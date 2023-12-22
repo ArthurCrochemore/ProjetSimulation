@@ -44,6 +44,7 @@ public class LectureDeFichierSimulation extends LectureDeFichier {
 		donnees.setTempsAnesthesie(lireTemps());
 		donnees.setTempsLiberation(lireTemps());
 		donnees.setMoyTempsOperation(lireEntier());
+		donnees.setMarge(lireEntier());
 		donnees.setNbSallesPeuEquipee(lireEntier());
 		donnees.setNbSallesSemiEquipee(lireEntier());
 		donnees.setNbSallesTresEquipee(lireEntier());

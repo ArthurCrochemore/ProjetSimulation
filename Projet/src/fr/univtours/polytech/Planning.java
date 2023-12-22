@@ -44,6 +44,11 @@ public class Planning {
 		return null;
 	}
 
+	/**
+	 * Renvoie la liste des patients actuellement affecte le planning, methode utilise lorsqu'un nouveau planning doit etre cree
+	 * 
+	 * @return patients, liste des patients de ce planning
+	 */
 	public List<Patient> extraiteDonnee() {
 		List<Patient> patientParSalle;
 		List<Patient> patients = new ArrayList<Patient>();
@@ -58,9 +63,5 @@ public class Planning {
 
 	public Planning(Map<Salle, List<Patient>> planning) {
 		this.planning = planning;
-	}
-
-	public Planning() {
-
 	}
 }
