@@ -50,9 +50,9 @@ public class GPPrioritePremierArriveReserveDynamique implements GestionPlanning 
 				nouvListePatient.add(p);
 			}
 		}
-		//Tri de la liste de patient en fcontion du temps d'arrivée
+		// Tri de la liste de patient en fcontion du temps d'arrivée
 		Collections.sort(nouvListePatient, (p1, p2) -> p1.getHeureArrive().compareTo(p2.getHeureArrive()));
-		
+
 		// Récupération des salles de la simulation
 		Map<Salle.typeSalles, List<Salle>> sallesMap = simulation.getSalles();
 
@@ -61,11 +61,11 @@ public class GPPrioritePremierArriveReserveDynamique implements GestionPlanning 
 		return new Planning(placementDesPatients(renvoi));
 
 	}
-	
+
 	private Map<Salle, List<Patient>> triDesSalles(Map<Salle.typeSalles, List<Salle>> sallesMap) {
 		pileSalle = new ArrayList<Salle>();
 		Map<Salle, List<Patient>> renvoi = new HashMap<Salle, List<Patient>>();
-		//Tri des salles
+		// Tri des salles
 		for (Salle.listeEtats etat : Salle.listeEtats.values()) {
 			for (Salle.typeSalles type : Salle.typeSalles.values()) {
 				if (sallesMap.containsKey(type)) {
@@ -79,10 +79,10 @@ public class GPPrioritePremierArriveReserveDynamique implements GestionPlanning 
 
 			}
 		}
-	
+
 		return renvoi;
 	}
-	
+
 	private Map<Salle, List<Patient>> placementDesPatients(Map<Salle, List<Patient>> renvoi) {
 		for (Patient patient : nouvListePatient) {
 //			System.out.println("On place le patient " + patient.getId() + "   - Gravite / urgent : "
@@ -93,22 +93,22 @@ public class GPPrioritePremierArriveReserveDynamique implements GestionPlanning 
 			boolean place = false;
 			Salle salle;
 			int nbSalleAReserver = 0; // Permettra de gérer le changement de reservation pour les Urgence
-			
+
 			while (!place) {
 				salle = pileSalle.get(indice);
-				//System.out.println("Salle " + salle.getId() + "   - Gravite : " + salle.getType());
+				// System.out.println("Salle " + salle.getId() + " - Gravite : " +
+				// salle.getType());
 
 				if (patient.estUrgent()) {
-					if (salle.getType() == Salle.typeSalles.TRESEQUIPE 
-							|| salle.getType() == Salle.typeSalles.RESERVE) {
+					if (salle.getType() == Salle.typeSalles.TRESEQUIPE || salle.getType() == Salle.typeSalles.RESERVE) {
 						renvoi.get(salle).add(patient);
 						place = true;
 
 						pileSalle.remove(indice);
 						pileSalle.add(salle);
-						
+
 						if (salle.getType() == Salle.typeSalles.RESERVE) {
-							nbSalleAReserver ++;
+							nbSalleAReserver++;
 							salle.setType(Salle.typeSalles.TRESEQUIPE);
 						}
 					}
@@ -116,7 +116,7 @@ public class GPPrioritePremierArriveReserveDynamique implements GestionPlanning 
 					if (patient.getGravite() == PatientRDV.listeGravite.TRESEQUIPE) {
 						if (salle.getType() == Salle.typeSalles.TRESEQUIPE) {
 							if (nbSalleAReserver > 0) {
-								nbSalleAReserver --;
+								nbSalleAReserver--;
 								salle.setType(Salle.typeSalles.RESERVE);
 							} else {
 								renvoi.get(salle).add(patient);
@@ -155,7 +155,7 @@ public class GPPrioritePremierArriveReserveDynamique implements GestionPlanning 
 				indice++;
 			}
 		}
-		
+
 		return renvoi;
 	}
 }

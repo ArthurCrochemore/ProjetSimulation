@@ -11,8 +11,7 @@ import fr.univtours.polytech.util.Tuple;
 public class EvArrivePatient extends Evenement {
 
 	public void deroulement() {
-		System.out.println(deroulement.getHeureSimulation() + " : arrivee patient " +
-		patient.getId());
+		System.out.println(deroulement.getHeureSimulation() + " : arrivee patient " + patient.getId());
 
 		patient.setEtat(Patient.listeEtats.ATTENTESALLE, heureDebut);
 		patient.getTempsAttente().put(Patient.listeEtats.ATTENTESALLE, new Tuple<LocalTime, LocalTime>(heureDebut));

@@ -23,7 +23,8 @@ public class GCPrioritePremierEnAttente implements GestionChirurgiens {
 			return null;
 		} else {
 			// Renvoie la premiere salle en attente de chrirugien
-			Tuple<Salle, Patient> retour =  simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAC).get(0);
+			Tuple<Salle, Patient> retour = simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAC)
+					.get(0);
 			simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAC).remove(0);
 			return retour;
 		}
@@ -31,7 +32,8 @@ public class GCPrioritePremierEnAttente implements GestionChirurgiens {
 	}
 
 	public void ajoutSalle(Salle salle, Patient patient) {
-		simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAC).add(new Tuple<Salle, Patient>(salle, patient));
+		simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAC)
+				.add(new Tuple<Salle, Patient>(salle, patient));
 	}
 
 	public Simulation getSimulation() {

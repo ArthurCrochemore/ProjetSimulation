@@ -23,21 +23,21 @@ import fr.univtours.polytech.util.TrouPlanning;
  * urgent est déclaré il est affecté aux salles reserve
  */
 public class GPPrioriteRDV implements GestionPlanning {
-private Simulation simulation;
-	
+	private Simulation simulation;
+
 	private List<Patient> nouvListePatientRDV;
 	private List<Patient> nouvListePatientUrgent;
 	List<Salle> pileSalleRDV;
 	List<Salle> pileSalleUrgent;
-	
+
 	Constantes constantes;
 	LocalTime tempsMoyen;
 	LocalTime heureActuelle;
 
 	Map<Salle, List<TrouPlanning>> mapTrousParSalle;
 	List<Salle> sallesTresEquipees; // Servira à chercher les trous possibles entre les
-								    // patientsUrgents pour placer les patientsRDV
-	
+									// patientsUrgents pour placer les patientsRDV
+
 	public GPPrioriteRDV(Simulation simulation) {
 		this.simulation = simulation;
 	}
@@ -90,16 +90,19 @@ private Simulation simulation;
 
 		renvoi = placementDesPatientsUrgent(renvoi);
 
+		System.out.println("a" + mapTrousParSalle.size());
 		mapTrousParSalle = TrouPlanning.RechercheTrouPlanning(sallesTresEquipees, mapTrousParSalle, renvoi, constantes,
 				simulation.getHeureDebutSimulation(), simulation.getHeureFinSimulation());
 
+		System.out.println(mapTrousParSalle.size());
+
 		return new Planning(placementDesPatientsRDV(renvoi));
 	}
-	
+
 	private Map<Salle, List<Patient>> triDesSalles(Map<Salle.typeSalles, List<Salle>> sallesMap) {
 		Map<Salle, List<Patient>> renvoi = new HashMap<Salle, List<Patient>>();
 		mapTrousParSalle = new HashMap<>(); // Map qui stokera les trous trouvés
-		
+
 		Salle.typeSalles type;
 		for (Salle.listeEtats etat : Salle.listeEtats.values()) {
 			type = Salle.typeSalles.RESERVE;
@@ -108,7 +111,7 @@ private Simulation simulation;
 					if (salle.getEtat() == etat) {
 						pileSalleUrgent.add(salle);
 						renvoi.put(salle, new ArrayList<Patient>());
-						
+
 						LocalTime tempsMoyenEnFonctionEtat = constantes.getTempsMoyen(etat);
 
 						List<TrouPlanning> listeTrous = new ArrayList<>();
@@ -154,11 +157,12 @@ private Simulation simulation;
 				}
 			}
 
-		}		
-		
+		}
+
+		System.out.println("a" + mapTrousParSalle.size());
+
 		return renvoi;
 	}
-	
 
 	private Map<Salle, List<Patient>> placementDesPatientsUrgent(Map<Salle, List<Patient>> renvoi) {
 		for (Patient patient : nouvListePatientUrgent) {
@@ -168,40 +172,39 @@ private Simulation simulation;
 			Map<Salle, LocalTime> mapPourTrie = new HashMap<>();
 
 			for (Salle salle : mapTrousParSalle.keySet()) {
-				while (mapTrousParSalle.get(salle).get(0).getheureLimiteDebutNouveauPatient()
-						.isBefore(heureArrivePatient)) {
+				while (mapTrousParSalle.get(salle).size() > 1 && mapTrousParSalle.get(salle).get(0)
+						.getheureLimiteDebutNouveauPatient().isBefore(heureArrivePatient)) {
 					mapTrousParSalle.get(salle).remove(0);
 				}
 
 				mapPourTrie.put(salle, mapTrousParSalle.get(salle).get(0).getheureLimiteDebutNouveauPatient());
 			}
 
-			pileSalleUrgent = new ArrayList<>(
-					mapPourTrie.entrySet().stream()
-				    .sorted(Entry.comparingByValue())
-				    .collect(Collectors.toMap(Entry::getKey, Entry::getValue,
-				                              (e1, e2) -> e1, LinkedHashMap::new)).keySet());
+			System.out.println(pileSalleUrgent.size());
+
+			pileSalleUrgent = new ArrayList<>(mapPourTrie.entrySet().stream().sorted(Entry.comparingByValue())
+					.collect(Collectors.toMap(Entry::getKey, Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new))
+					.keySet());
 
 			int indice = 0;
 
-			boolean place = false;
-			Salle salle = pileSalleUrgent.get(0);
-			while (!place) {
-				renvoi.get(salle).add(patient);
-				place = true;
+			Salle salle = pileSalleRDV.get(indice);
 
-				pileSalleUrgent.remove(indice);
-				pileSalleUrgent.add(salle);
+			renvoi.get(salle).add(patient);
+
+			pileSalleUrgent.remove(0);
+			pileSalleUrgent.add(salle);
+
+			if (mapTrousParSalle.get(salle).get(0).miseAjourTrou(patient.getHeureArrive(), tempsMoyen,
+					simulation.getHeureFinSimulation()) == null) {
+				mapTrousParSalle.get(salle).remove(0);
+
 			}
-
-			indice++;
 		}
-		
+
 		return renvoi;
-		
-		
+
 	}
-	
 
 	private Map<Salle, List<Patient>> placementDesPatientsRDV(Map<Salle, List<Patient>> renvoi) {
 		for (Patient patient : nouvListePatientRDV) {
@@ -214,7 +217,7 @@ private Simulation simulation;
 			Salle salle;
 			while (!place) {
 				salle = pileSalleRDV.get(indice);
-				
+
 				if (patient.getGravite() == PatientRDV.listeGravite.TRESEQUIPE) {
 					if (salle.getType() == Salle.typeSalles.TRESEQUIPE) {
 						renvoi.get(salle).add(patient);
@@ -251,7 +254,7 @@ private Simulation simulation;
 
 			indice++;
 		}
-		
+
 		return renvoi;
 	}
 }

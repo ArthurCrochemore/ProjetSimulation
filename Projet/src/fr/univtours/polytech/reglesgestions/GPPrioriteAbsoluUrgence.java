@@ -25,20 +25,20 @@ import fr.univtours.polytech.util.TrouPlanning;
  */
 public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 	private Simulation simulation;
-	
+
 	private List<Patient> nouvListePatientRDV;
 	private List<Patient> nouvListePatientUrgent;
 	List<Salle> pileSalleRDV;
 	List<Salle> pileSalleUrgent;
-	
+
 	Constantes constantes;
 	LocalTime tempsMoyen;
 	LocalTime heureActuelle;
 
 	Map<Salle, List<TrouPlanning>> mapTrousParSalle;
 	List<Salle> sallesTresEquipees; // Servira à chercher les trous possibles entre les
-								    // patientsUrgents pour placer les patientsRDV
-	
+									// patientsUrgents pour placer les patientsRDV
+
 	public GPPrioriteAbsoluUrgence(Simulation simulation) {
 		this.simulation = simulation;
 	}
@@ -96,11 +96,11 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 
 		return new Planning(placementDesPatientsRDV(renvoi));
 	}
-	
+
 	private Map<Salle, List<Patient>> triDesSalles(Map<Salle.typeSalles, List<Salle>> sallesMap) {
 		Map<Salle, List<Patient>> renvoi = new HashMap<Salle, List<Patient>>();
 		mapTrousParSalle = new HashMap<>(); // Map qui stokera les trous trouvés
-		
+
 		Salle.typeSalles type;
 		for (Salle.listeEtats etat : Salle.listeEtats.values()) {
 			type = Salle.typeSalles.RESERVE;
@@ -164,10 +164,9 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 				}
 			}
 
-		}		
+		}
 		return renvoi;
 	}
-	
 
 	private Map<Salle, List<Patient>> placementDesPatientsUrgent(Map<Salle, List<Patient>> renvoi) {
 		for (Patient patient : nouvListePatientUrgent) {
@@ -193,10 +192,9 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 
 			indice++;
 		}
-		
+
 		return renvoi;
 	}
-	
 
 	private Map<Salle, List<Patient>> placementDesPatientsRDV(Map<Salle, List<Patient>> renvoi) {
 		for (Patient patient : nouvListePatientRDV) {
@@ -206,25 +204,25 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 			Map<Salle, LocalTime> mapPourTrie = new HashMap<>();
 
 			for (Salle salle : mapTrousParSalle.keySet()) {
-				while (mapTrousParSalle.get(salle).get(0).getheureLimiteDebutNouveauPatient()
-						.isBefore(heureArrivePatient)) {
+				while (mapTrousParSalle.get(salle).size() > 1 && mapTrousParSalle.get(salle).get(0)
+						.getheureLimiteDebutNouveauPatient().isBefore(heureArrivePatient)) {
 					mapTrousParSalle.get(salle).remove(0);
 				}
 
 				mapPourTrie.put(salle, mapTrousParSalle.get(salle).get(0).getheureLimiteDebutNouveauPatient());
 			}
 
-			pileSalleRDV = new ArrayList<>(
-					mapPourTrie.entrySet().stream()
-				    .sorted(Entry.comparingByValue())
-				    .collect(Collectors.toMap(Entry::getKey, Entry::getValue,
-				                              (e1, e2) -> e1, LinkedHashMap::new)).keySet());
+			pileSalleRDV = new ArrayList<>(mapPourTrie.entrySet().stream().sorted(Entry.comparingByValue())
+					.collect(Collectors.toMap(Entry::getKey, Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new))
+					.keySet());
 
 			int indice = 0;
 
 			boolean place = false;
-			Salle salle = pileSalleRDV.get(0);
+
 			while (!place) {
+				Salle salle = pileSalleRDV.get(indice);
+
 				if (patient.getGravite() == PatientRDV.listeGravite.TRESEQUIPE) {
 					if (salle.getType() == Salle.typeSalles.TRESEQUIPE) {
 						renvoi.get(salle).add(patient);
@@ -232,6 +230,11 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 
 						pileSalleRDV.remove(indice);
 						pileSalleRDV.add(salle);
+
+						if (mapTrousParSalle.get(salle).get(0).miseAjourTrou(patient.getHeureArrive(), tempsMoyen,
+								simulation.getHeureFinSimulation()) == null) {
+							mapTrousParSalle.get(salle).remove(0);
+						}
 					}
 				} else {
 					if (patient.getGravite() == PatientRDV.listeGravite.SEMIEQUIPE) {
@@ -242,6 +245,11 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 
 							pileSalleRDV.remove(indice);
 							pileSalleRDV.add(salle);
+
+							if (mapTrousParSalle.get(salle).get(0).miseAjourTrou(patient.getHeureArrive(), tempsMoyen,
+									simulation.getHeureFinSimulation()) == null) {
+								mapTrousParSalle.get(salle).remove(0);
+							}
 						}
 					} else {
 						if (salle.getType() == Salle.typeSalles.TRESEQUIPE
@@ -253,15 +261,20 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 
 							pileSalleRDV.remove(indice);
 							pileSalleRDV.add(salle);
+
+							if (mapTrousParSalle.get(salle).get(0).miseAjourTrou(patient.getHeureArrive(), tempsMoyen,
+									simulation.getHeureFinSimulation()) == null) {
+								mapTrousParSalle.get(salle).remove(0);
+							}
 						}
 					}
 				}
 
-			}
+				indice++;
 
-			indice++;
+			}
 		}
-		
+
 		return renvoi;
 	}
 }

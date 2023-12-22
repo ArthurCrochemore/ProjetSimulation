@@ -24,27 +24,29 @@ public class GCPrioriteUrgent implements GestionChirurgiens {
 		// urgent est vide
 		if (simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LACU).size() > 0) {
 			// Renvoie la premiere salle en attente de chrirugien
-			Tuple<Salle, Patient> retour =  simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LACU).get(0);
+			Tuple<Salle, Patient> retour = simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LACU)
+					.get(0);
 			simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LACU).remove(0);
 			return retour;
 		}
-		
-		if (simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAC).size()  > 0) {
+
+		if (simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAC).size() > 0) {
 			// Renvoie la premiere salle en attente de chrirugien
-			Tuple<Salle, Patient> retour =  simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAC).get(0);
+			Tuple<Salle, Patient> retour = simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAC)
+					.get(0);
 			simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAC).remove(0);
 			return retour;
 		}
-		
+
 		return null;
 	}
-	
 
 	public Simulation getSimulation() {
 		return simulation;
 	}
 
 	public void ajoutSalle(Salle salle, Patient patient) {
-		simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LACU).add(new Tuple<Salle, Patient>(salle, patient));
+		simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LACU)
+				.add(new Tuple<Salle, Patient>(salle, patient));
 	}
 }

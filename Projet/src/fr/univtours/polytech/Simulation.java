@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import fr.univtours.polytech.entite.Patient;
 import fr.univtours.polytech.entite.PatientRDV;
 import fr.univtours.polytech.entite.PatientUrgent;
 import fr.univtours.polytech.evenements.Deroulement;
@@ -29,13 +28,9 @@ public class Simulation {
 	private Planning planning;
 	private ReglesDeGestion regles;
 	private Constantes constantes;
-	
+
 	private LocalTime heureDebutSimulation;
 	private LocalTime heureFinSimulation;
-
-	public void miseAJourPlanning() {
-
-	}
 
 	public Deroulement getDeroulement() {
 		return deroulement;
@@ -84,7 +79,7 @@ public class Simulation {
 	public Constantes getConstantes() {
 		return constantes;
 	}
-	
+
 	public LocalTime getHeureDebutSimulation() {
 		return heureDebutSimulation;
 	}
@@ -96,7 +91,7 @@ public class Simulation {
 	public Simulation(DonneeInitialisation data) throws Exception {
 		heureDebutSimulation = data.getHeureDebutJournee();
 		heureFinSimulation = data.getHeureFinJournee();
-		
+
 		listes = new ListesAttentes();
 
 		// Creation des regles de gestion appliquees
@@ -165,18 +160,18 @@ public class Simulation {
 
 		for (int i = 0; i < nbPatientsUrgent; i++) {
 			LocalTime heureDeclaration = mapDeclaration.get(i + nbPatientsRDV);
-			PatientUrgent nvPatient = new PatientUrgent(i + nbPatientsRDV, mapArrivees.get(i + nbPatientsRDV), mapTempsOperation.get(i + nbPatientsRDV),
-					heureDeclaration);
+			PatientUrgent nvPatient = new PatientUrgent(i + nbPatientsRDV, mapArrivees.get(i + nbPatientsRDV),
+					mapTempsOperation.get(i + nbPatientsRDV), heureDeclaration);
 			patientsUrgent.add(nvPatient);
 			deroulement.ajouterEvenement(heureDeclaration,
 					new EvDeclarationPatientUrgent(heureDeclaration, nvPatient, null, null, null, deroulement));
-			
+
 		}
-		
-		//Creation du Planning
+
+		// Creation du Planning
 		this.planning = regles.getRegleGestionPlanning().solution(null);
-		
-		deroulement.setASuppr(nbPatientsRDV+nbPatientsUrgent);
+
+		deroulement.setASuppr(nbPatientsRDV + nbPatientsUrgent);
 		deroulement.setASuppr2(0);
 	}
 }

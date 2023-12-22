@@ -10,7 +10,6 @@ import java.util.Map;
 import fr.univtours.polytech.entite.Patient;
 import fr.univtours.polytech.ressource.Chirurgien;
 import fr.univtours.polytech.ressource.Infirmier;
-import fr.univtours.polytech.ressource.Ressource;
 import fr.univtours.polytech.ressource.Salle;
 import fr.univtours.polytech.util.Tuple;
 
@@ -90,7 +89,7 @@ public class ExtractionJSON {
 				Salle salle = salles.get(Salle.typeSalles.PEUEQUIPE).get(i);
 				ecrireSalle(salle.getTempsAttente(), writer, i);
 				if (i < nbSallePE - 1)
-					writer.println( "\t\t],");
+					writer.println("\t\t],");
 				else
 					writer.println("\t\t]\n\t\t}");
 			}
@@ -100,7 +99,7 @@ public class ExtractionJSON {
 				Salle salle = salles.get(Salle.typeSalles.SEMIEQUIPE).get(i);
 				ecrireSalle(salle.getTempsAttente(), writer, i);
 				if (i < nbSalleSE - 1)
-					writer.println( "\t\t],");
+					writer.println("\t\t],");
 				else
 					writer.println("\t\t]\n\t\t}");
 			}
@@ -110,7 +109,7 @@ public class ExtractionJSON {
 				Salle salle = salles.get(Salle.typeSalles.TRESEQUIPE).get(i);
 				ecrireSalle(salle.getTempsAttente(), writer, i);
 				if (i < nbSalleTE - 1)
-					writer.println( "\t\t],");
+					writer.println("\t\t],");
 				else
 					writer.println("\t\t]\n\t\t}");
 			}
@@ -225,8 +224,8 @@ public class ExtractionJSON {
 	private void ecrireSalle(List<Tuple<LocalTime, LocalTime>> temps, PrintWriter writer, int i) {
 		writer.println("\t\t" + i + " : [");
 		for (int j = 0; j < temps.size() - 1; j++) {
-			writer.println("\t\t\t\t[" + temps.get(j).getPremierElement() + ", " + temps.get(j).getSecondElement()
-					+ "],\n");
+			writer.println(
+					"\t\t\t\t[" + temps.get(j).getPremierElement() + ", " + temps.get(j).getSecondElement() + "],\n");
 		}
 		writer.println("\t\t\t\t[" + temps.get(temps.size() - 1).getPremierElement() + ", "
 				+ temps.get(temps.size() - 1).getSecondElement() + "]");

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk-20.0.2_windows-x64_bin">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk-20">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="D:/Polytech/DI4/S7/Projet de programmation et genie logiciel/FenetreInitialisation/swing-time-picker.jar"/>
-	<classpathentry kind="lib" path="D:/Polytech/DI4/S7/Projet de programmation et genie logiciel/FenetreInitialisation/TimingFramework-0.55.jar"/>
+	<classpathentry kind="lib" path="/home/arthur/Documents/Polytech-Tours/S7/Projet de programmation et genie logiciel/ProjetSimulation/Projet/swing-time-picker.jar"/>
+	<classpathentry kind="lib" path="/home/arthur/Documents/Polytech-Tours/S7/Projet de programmation et genie logiciel/ProjetSimulation/Projet/TimingFramework-0.55.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

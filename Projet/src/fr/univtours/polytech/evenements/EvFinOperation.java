@@ -12,7 +12,7 @@ import fr.univtours.polytech.util.Tuple;
 public class EvFinOperation extends Evenement {
 
 	public void deroulement() {
-		System.out.println(deroulement.getHeureSimulation() + " : fin ope "+ patient.getId());
+		System.out.println(deroulement.getHeureSimulation() + " : fin ope " + patient.getId());
 
 		patient.setEtat(Patient.listeEtats.ATTENTELIBERATION, heureDebut);
 

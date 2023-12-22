@@ -65,19 +65,21 @@ public class Constantes {
 		tempsMoyenDepuisAttentePreparation = tempsMoyen.minusHours(tempsMoyenDepuisAttentePreparation.getHour())
 				.minusMinutes(tempsMoyenDepuisAttentePreparation.getMinute());
 		tempsMoyenDepuisAttenteOperation = getHeureMarge(0, tempsMoyenOperation);
-		tempsMoyenDepuisAttenteOperation = tempsMoyenDepuisAttentePreparation.minusHours(tempsMoyenDepuisAttenteOperation.getHour())
+		tempsMoyenDepuisAttenteOperation = tempsMoyenDepuisAttentePreparation
+				.minusHours(tempsMoyenDepuisAttenteOperation.getHour())
 				.minusMinutes(tempsMoyenDepuisAttenteOperation.getMinute());
 		tempsMoyenDepuisAttenteLiberation = getHeureMarge(tempsLiberation);
-		tempsMoyenDepuisAttenteLiberation = tempsMoyenDepuisAttenteOperation.minusHours(tempsMoyenDepuisAttenteLiberation.getHour())
+		tempsMoyenDepuisAttenteLiberation = tempsMoyenDepuisAttenteOperation
+				.minusHours(tempsMoyenDepuisAttenteLiberation.getHour())
 				.minusMinutes(tempsMoyenDepuisAttenteLiberation.getMinute());
 	}
 
 	public LocalTime getTempsMoyen() {
 		return tempsMoyen;
 	}
-	
+
 	public LocalTime getTempsMoyen(Salle.listeEtats etat) {
-		switch(etat) {
+		switch (etat) {
 		case ATTENTEPREPARATION:
 		case PREPARATION:
 			return tempsMoyenDepuisAttentePreparation;
@@ -87,7 +89,7 @@ public class Constantes {
 		case ATTENTELIBERATION:
 		case LIBERATION:
 			return tempsMoyenDepuisAttenteLiberation;
-		default :
+		default:
 			return tempsMoyen;
 		}
 	}
@@ -109,7 +111,7 @@ public class Constantes {
 			nombreHeure = heure.getHour();
 			nombreMinute = heure.getMinute();
 		}
-		
+
 		double nombreHeureMarge = nombreHeure * marge;
 		int nombreHeureMargeEntier = (int) nombreHeureMarge;
 		nombreHeure += nombreHeureMargeEntier;
@@ -122,7 +124,7 @@ public class Constantes {
 		int nbHeureDsMinute = nombreMinute / 60;
 
 		nombreHeure += nbHeureDsMinute;
-		nombreMinute = nombreMinute -  nbHeureDsMinute * 60;
+		nombreMinute = nombreMinute - nbHeureDsMinute * 60;
 
 		return LocalTime.of(nombreHeure, nombreMinute);
 	}

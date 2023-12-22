@@ -11,7 +11,7 @@ import fr.univtours.polytech.ressource.Salle;
 public class EvDebutLiberationSalle extends Evenement {
 
 	public void deroulement() {
-		System.out.println(deroulement.getHeureSimulation() + " : debut libe "+ patient.getId());
+		System.out.println(deroulement.getHeureSimulation() + " : debut libe " + patient.getId());
 		System.out.println(deroulement.getHeureSimulation() + " : Patient " + patient.getId() + " sort du modele");
 
 		patient.setEtat(Patient.listeEtats.TERMINE, heureDebut);

@@ -19,24 +19,28 @@ public class GIPrioriteLiberation implements GestionInfirmiers {
 
 	public Tuple<Salle, Patient> solution() {
 		if (simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAIL).size() > 0) {
-			Tuple<Salle, Patient> retour =  simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAIL).get(0);
+			Tuple<Salle, Patient> retour = simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAIL)
+					.get(0);
 			simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAIL).remove(0);
 			return retour;
 		}
 		if (simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAIP).size() > 0) {
-			Tuple<Salle, Patient> retour =  simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAIP).get(0);
+			Tuple<Salle, Patient> retour = simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAIP)
+					.get(0);
 			simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAIP).remove(0);
 			return retour;
 		}
-		
+
 		return null;
 	}
-	
+
 	public void ajoutSalle(Salle salle, Patient patient) {
 		if (salle.getEtat() == Salle.listeEtats.ATTENTEPREPARATION) {
-			simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAIP).add(new Tuple<Salle, Patient>(salle, patient));	
+			simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAIP)
+					.add(new Tuple<Salle, Patient>(salle, patient));
 		} else {
-			simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAIL).add(new Tuple<Salle, Patient>(salle, patient));	
+			simulation.getListes().getListesAttente().get(ListesAttentes.typeListes.LAIL)
+					.add(new Tuple<Salle, Patient>(salle, patient));
 		}
 	}
 }

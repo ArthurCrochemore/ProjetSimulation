@@ -23,10 +23,10 @@ public class ListesAttentes {
 	public void ajouter(typeListes type, Salle salle, Patient patient) {
 		listesAttente.get(type).add(new Tuple<Salle, Patient>(salle, patient));
 	}
-	
+
 	public ListesAttentes() {
 		listesAttente = new HashMap<typeListes, List<Tuple<Salle, Patient>>>();
-		
+
 		listesAttente.put(typeListes.LAI, new ArrayList<Tuple<Salle, Patient>>());
 		listesAttente.put(typeListes.LAIP, new ArrayList<Tuple<Salle, Patient>>());
 		listesAttente.put(typeListes.LAIL, new ArrayList<Tuple<Salle, Patient>>());

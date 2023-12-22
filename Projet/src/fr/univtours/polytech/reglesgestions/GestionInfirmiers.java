@@ -9,5 +9,6 @@ import fr.univtours.polytech.util.Tuple;
  */
 public interface GestionInfirmiers {
 	public Tuple<Salle, Patient> solution();
+
 	public void ajoutSalle(Salle salle, Patient patient);
 }

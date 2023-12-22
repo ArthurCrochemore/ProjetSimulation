@@ -1,6 +1,5 @@
 package fr.univtours.polytech.reglesgestions;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -8,14 +7,14 @@ import java.util.List;
 import fr.univtours.polytech.Simulation;
 import fr.univtours.polytech.entite.Patient;
 
-public class ReglesDeGestion  {
+public class ReglesDeGestion {
 	private Simulation simulation;
 	private GestionInfirmiers regleGestionInfirmiers;
 	private GestionPlanning regleGestionPlanning;
 	private GestionChirurgiens regleGestionChirurgiens;
 	private Integer nbRegles;
 
-	public ReglesDeGestion(Simulation simulation, int regle1, int regle2, int regle3)  throws Exception {
+	public ReglesDeGestion(Simulation simulation, int regle1, int regle2, int regle3) throws Exception {
 		this.simulation = simulation;
 		nbRegles = 2;
 
@@ -52,7 +51,7 @@ public class ReglesDeGestion  {
 		default:
 			throw new Exception("Entier regle de gestion de type Infirmier trop grand");
 		}
-		
+
 		switch (regle3) {
 		case 1:
 			regleGestionChirurgiens = new GCPrioritePremierEnAttente(simulation);
@@ -62,10 +61,10 @@ public class ReglesDeGestion  {
 			break;
 		default:
 			throw new Exception("Entier regle de gestion des chirurgiens trop grand");
-		
+
 		}
 	}
-	
+
 	public GestionInfirmiers getRegleGestionInfirmiers() {
 		return regleGestionInfirmiers;
 	}
@@ -81,13 +80,13 @@ public class ReglesDeGestion  {
 	public Simulation getSimulation() {
 		return simulation;
 	}
-	
-	 public static void trierParHeureArrivee(List<Patient> listePatients) {
-	        Collections.sort(listePatients, new Comparator<Patient>() {
-	            @Override
-	            public int compare(Patient patient1, Patient patient2) {
-	                return patient1.getHeureArrive().compareTo(patient2.getHeureArrive());
-	            }
-	        });
-	    }
+
+	public static void trierParHeureArrivee(List<Patient> listePatients) {
+		Collections.sort(listePatients, new Comparator<Patient>() {
+			@Override
+			public int compare(Patient patient1, Patient patient2) {
+				return patient1.getHeureArrive().compareTo(patient2.getHeureArrive());
+			}
+		});
+	}
 }

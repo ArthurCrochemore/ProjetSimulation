@@ -12,14 +12,16 @@ public class EvInfirmiereDisponible extends Evenement {
 
 	public void deroulement() {
 		System.out.println(deroulement.getHeureSimulation() + " : affectation infirmiere prepa ");
-		
+
 		Tuple<Salle, Patient> tuple = deroulement.getSimulation().getRegles().getRegleGestionInfirmiers().solution();
-		
+
 		if (tuple != null) {
 			if (tuple.getPremierElement().getEtat() == Salle.listeEtats.ATTENTEPREPARATION) {
-				deroulement.ajouterEvenement(heureDebut, new EvDebutPreparation(heureDebut, tuple.getSecondElement(), infirmier, tuple.getPremierElement(), chirurgien, deroulement));
+				deroulement.ajouterEvenement(heureDebut, new EvDebutPreparation(heureDebut, tuple.getSecondElement(),
+						infirmier, tuple.getPremierElement(), chirurgien, deroulement));
 			} else {
-				deroulement.ajouterEvenement(heureDebut, new EvDebutLiberationSalle(heureDebut, tuple.getSecondElement(), infirmier, tuple.getPremierElement(), chirurgien, deroulement));
+				deroulement.ajouterEvenement(heureDebut, new EvDebutLiberationSalle(heureDebut,
+						tuple.getSecondElement(), infirmier, tuple.getPremierElement(), chirurgien, deroulement));
 			}
 		}
 	}

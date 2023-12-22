@@ -6,6 +6,7 @@ public class Tuple<A, B> {
 
 	/**
 	 * Accesseur en lecture du premier element
+	 * 
 	 * @return premierElement
 	 */
 	public A getPremierElement() {
@@ -14,6 +15,7 @@ public class Tuple<A, B> {
 
 	/**
 	 * Accesseur en ecriture du premier element
+	 * 
 	 * @param premierElement
 	 */
 	public void setPremierElement(A premierElement) {
@@ -22,6 +24,7 @@ public class Tuple<A, B> {
 
 	/**
 	 * Accesseur en lecture du second element
+	 * 
 	 * @return premierElement
 	 */
 	public B getSecondElement() {
@@ -30,6 +33,7 @@ public class Tuple<A, B> {
 
 	/**
 	 * Accesseur en ecriture du second element
+	 * 
 	 * @param premierElement
 	 */
 	public void setSecondElement(B secondElement) {
@@ -37,7 +41,8 @@ public class Tuple<A, B> {
 	}
 
 	/**
-	 * Constructeur de confort à partir de deux elements 
+	 * Constructeur de confort à partir de deux elements
+	 * 
 	 * @param premierElement
 	 * @param secondElement
 	 */
@@ -48,6 +53,7 @@ public class Tuple<A, B> {
 
 	/**
 	 * Constructeur de confort à partir d'un elements
+	 * 
 	 * @param premierElement
 	 */
 	public Tuple(A premierElement) {

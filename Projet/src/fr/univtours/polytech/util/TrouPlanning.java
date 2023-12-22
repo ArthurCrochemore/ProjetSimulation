@@ -83,7 +83,7 @@ public class TrouPlanning {
 		LocalTime tempsMoyen = constantes.getTempsMoyen();
 		Integer nbHeuresTempsMoyen = heureFin.getHour();
 		Integer nbMinutesTempsMoyen = heureFin.getMinute();
-		
+
 		for (Salle salleTE : listeSalleTresEquipe) {
 			LocalTime debutTrouFinal = heureDebut;
 
@@ -109,8 +109,29 @@ public class TrouPlanning {
 
 			trousMap.put(salleTE, listeTrouPlanning);
 		}
-		
+
 		return trousMap;
 	}
 
+	public TrouPlanning miseAjourTrou(LocalTime heureArrivee, LocalTime tempsMoyen, LocalTime heureFin) {
+		int heures = heureArrivee.getHour() + tempsMoyen.getHour();
+		int minutes = heureArrivee.getMinute() + tempsMoyen.getMinute();
+
+		int nbHeuresDansMinutes = minutes / 60;
+
+		heures += nbHeuresDansMinutes;
+		minutes = minutes - nbHeuresDansMinutes * 60;
+
+		heureFinPatient1 = LocalTime.of(heures, minutes);
+
+		if (heureFinPatient1.isAfter(heureLimiteDebutNouveauPatient)) {
+			if (!heureFin.isBefore(heureFinPatient1)) {
+				return null;
+			}
+
+			heureLimiteDebutNouveauPatient = heureFinPatient1;
+		}
+
+		return this;
+	}
 }
