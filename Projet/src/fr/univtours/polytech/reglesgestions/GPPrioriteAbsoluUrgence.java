@@ -123,7 +123,7 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 						listeTrous.add(TrouPlanning.CreerPlaningDepuisHeureFinPatient1(
 								heureActuelle.plusMinutes(tempsMoyenEnFonctionEtat.getMinute())
 										.plusHours(tempsMoyenEnFonctionEtat.getHour()),
-								LocalTime.of(18, 0, 0), 0, salle, tempsMoyen));
+								simulation.getHeureFinSimulation(), 0, salle, tempsMoyen));
 						mapTrousParSalle.put(salle, listeTrous);
 					}
 				}

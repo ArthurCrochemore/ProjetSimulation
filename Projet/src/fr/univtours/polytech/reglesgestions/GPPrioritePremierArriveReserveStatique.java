@@ -17,6 +17,9 @@ import fr.univtours.polytech.ressource.Salle;
 public class GPPrioritePremierArriveReserveStatique implements GestionPlanning {
 	private Simulation simulation;
 
+	private List<Patient> nouvListePatient;
+	List<Salle> pileSalle;
+
 	// Constructeur prenant une simulation en paramètre
 	public GPPrioritePremierArriveReserveStatique(Simulation simulation) {
 		this.simulation = simulation;
@@ -25,7 +28,7 @@ public class GPPrioritePremierArriveReserveStatique implements GestionPlanning {
 	// Méthode de résolution de la planification
 	public Planning solution(Patient patientUrgent) {
 		// Initialisation de la nouvelle liste de patients
-		List<Patient> nouvListePatient = new ArrayList<>();
+		nouvListePatient = new ArrayList<>();
 
 		if (patientUrgent != null) {
 			// Si un patient urgent est donné, récupérer le planning existant et l'ajouter à
@@ -47,15 +50,22 @@ public class GPPrioritePremierArriveReserveStatique implements GestionPlanning {
 				nouvListePatient.add(p);
 			}
 		}
-		//Tri de la liste de patient en fcontion du temps d'arrivée
+		// Tri de la liste de patient en fcontion du temps d'arrivée
 		Collections.sort(nouvListePatient, (p1, p2) -> p1.getHeureArrive().compareTo(p2.getHeureArrive()));
-		
+
 		// Récupération des salles de la simulation
 		Map<Salle.typeSalles, List<Salle>> sallesMap = simulation.getSalles();
-		List<Salle> pileSalle = new ArrayList<Salle>();
+		pileSalle = new ArrayList<Salle>();
 
+		Map<Salle, List<Patient>> renvoi = triDesSalles(sallesMap);
+
+		return new Planning(placementDesPatients(renvoi));
+	}
+
+	private Map<Salle, List<Patient>> triDesSalles(Map<Salle.typeSalles, List<Salle>> sallesMap) {
+		pileSalle = new ArrayList<Salle>();
 		Map<Salle, List<Patient>> renvoi = new HashMap<Salle, List<Patient>>();
-		//Tri des salles
+		// Tri des salles
 		for (Salle.listeEtats etat : Salle.listeEtats.values()) {
 			for (Salle.typeSalles type : Salle.typeSalles.values()) {
 				if (sallesMap.containsKey(type)) {
@@ -70,21 +80,20 @@ public class GPPrioritePremierArriveReserveStatique implements GestionPlanning {
 			}
 		}
 
-		for (Patient patient : nouvListePatient) {
-//			System.out.println("On place le patient " + patient.getId() + "   - Gravite / urgent : "
-//					+ patient.getGravite() + " / " + patient.estUrgent());
+		return renvoi;
+	}
 
+	private Map<Salle, List<Patient>> placementDesPatients(Map<Salle, List<Patient>> renvoi) {
+		for (Patient patient : nouvListePatient) {
 			int indice = 0;
 
 			boolean place = false;
 			Salle salle;
 			while (!place) {
 				salle = pileSalle.get(indice);
-				//System.out.println("Salle " + salle.getId() + "   - Gravite : " + salle.getType());
 
 				if (patient.estUrgent()) {
-					if (salle.getType() == Salle.typeSalles.TRESEQUIPE 
-							|| salle.getType() == Salle.typeSalles.RESERVE) {
+					if (salle.getType() == Salle.typeSalles.TRESEQUIPE || salle.getType() == Salle.typeSalles.RESERVE) {
 						renvoi.get(salle).add(patient);
 						place = true;
 
@@ -130,6 +139,6 @@ public class GPPrioritePremierArriveReserveStatique implements GestionPlanning {
 			}
 		}
 
-		return new Planning(renvoi);
+		return renvoi;
 	}
 }

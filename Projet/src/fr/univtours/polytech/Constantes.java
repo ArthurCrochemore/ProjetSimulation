@@ -109,6 +109,7 @@ public class Constantes {
 			nombreHeure = heure.getHour();
 			nombreMinute = heure.getMinute();
 		}
+		
 		double nombreHeureMarge = nombreHeure * marge;
 		int nombreHeureMargeEntier = (int) nombreHeureMarge;
 		nombreHeure += nombreHeureMargeEntier;
@@ -118,10 +119,10 @@ public class Constantes {
 		int nombreMinuteMargeEntier = nombreMinuteMargeDepuisHeure + ((int) nombreMinuteMarge);
 		nombreMinute += nombreMinuteMargeEntier;
 
-		int nbHeureDsMinute = nombreMinuteMargeEntier / 60;
+		int nbHeureDsMinute = nombreMinute / 60;
 
 		nombreHeure += nbHeureDsMinute;
-		nombreMinute -= nbHeureDsMinute * 60;
+		nombreMinute = nombreMinute -  nbHeureDsMinute * 60;
 
 		return LocalTime.of(nombreHeure, nombreMinute);
 	}
