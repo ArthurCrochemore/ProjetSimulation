@@ -42,6 +42,11 @@ public class GPPrioriteRDV implements GestionPlanning {
 		this.simulation = simulation;
 	}
 
+	/**
+	 * Méthode de résolution de la planification
+	 * 
+	 * @param patientUrgent, le patient urgent qui vient d'etre declare
+	 */
 	public Planning solution(Patient patientUrgent) {
 		// Initialisation de la nouvelle liste de patients
 		nouvListePatientRDV = new ArrayList<>();
@@ -99,6 +104,13 @@ public class GPPrioriteRDV implements GestionPlanning {
 		return new Planning(placementDesPatientsRDV(renvoi));
 	}
 
+	/**
+	 * Crée la pile des salles qui sera utilisé pour placer les patients
+	 * 
+	 * @param sallesMap
+	 * @return renvoi, le map qui sera utiliser pout initialiser le planning avec
+	 *         toutes ses listes initialiser
+	 */
 	private Map<Salle, List<Patient>> triDesSalles(Map<Salle.typeSalles, List<Salle>> sallesMap) {
 		Map<Salle, List<Patient>> renvoi = new HashMap<Salle, List<Patient>>();
 		mapTrousParSalle = new HashMap<>(); // Map qui stokera les trous trouvés
@@ -164,6 +176,12 @@ public class GPPrioriteRDV implements GestionPlanning {
 		return renvoi;
 	}
 
+	/**
+	 * Méthode qui gère l'affectation des patients Urgents dans les salles
+	 * 
+	 * @param renvoi
+	 * @return renvoi, la map qui permettra de faire le planning
+	 */
 	private Map<Salle, List<Patient>> placementDesPatientsUrgent(Map<Salle, List<Patient>> renvoi) {
 		for (Patient patient : nouvListePatientUrgent) {
 //			System.out.println("On place le patient " + patient.getId() + "   - Gravite / urgent : "
@@ -206,6 +224,12 @@ public class GPPrioriteRDV implements GestionPlanning {
 
 	}
 
+	/**
+	 * Méthode qui gère l'affectation des patients RDV dans les salles
+	 * 
+	 * @param renvoi
+	 * @return renvoi, la map qui permettra de faire le planning
+	 */
 	private Map<Salle, List<Patient>> placementDesPatientsRDV(Map<Salle, List<Patient>> renvoi) {
 		for (Patient patient : nouvListePatientRDV) {
 //			System.out.println("On place le patient " + patient.getId() + "   - Gravite / urgent : "
@@ -215,7 +239,7 @@ public class GPPrioriteRDV implements GestionPlanning {
 
 			boolean place = false;
 			Salle salle;
-			while (!place) {
+			while (!place && indice < pileSalleRDV.size()) {
 				salle = pileSalleRDV.get(indice);
 
 				if (patient.getGravite() == PatientRDV.listeGravite.TRESEQUIPE) {

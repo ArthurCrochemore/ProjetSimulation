@@ -26,6 +26,11 @@ public class GPPrioritePremierArriveReserveDynamique implements GestionPlanning 
 		this.simulation = simulation;
 	}
 
+	/**
+	 * Méthode de résolution de la planification
+	 * 
+	 * @param patientUrgent, le patient urgent qui vient d'etre declare
+	 */
 	public Planning solution(Patient patientUrgent) {
 		// Initialisation de la nouvelle liste de patients
 		nouvListePatient = new ArrayList<>();
@@ -40,15 +45,8 @@ public class GPPrioritePremierArriveReserveDynamique implements GestionPlanning 
 
 			System.out.println("changememnt planning");
 		} else {
-			// Sinon,cela signifie que c'est la création du premier et planning et donc il
-			// faut récupérer les patients prévus pour un rendez-vous et les ajouter à la
-			// nouvelle liste
-			System.out.println("premier planning");
-			List<PatientRDV> patientsRDV = simulation.getPatientsRDV();
-
-			for (Patient p : patientsRDV) {
-				nouvListePatient.add(p);
-			}
+			return new GPPrioritePremierArriveReserveStatique(simulation).solution(null); // On applique la règle de
+			// Gestion la plus simple
 		}
 		// Tri de la liste de patient en fcontion du temps d'arrivée
 		Collections.sort(nouvListePatient, (p1, p2) -> p1.getHeureArrive().compareTo(p2.getHeureArrive()));
@@ -62,6 +60,13 @@ public class GPPrioritePremierArriveReserveDynamique implements GestionPlanning 
 
 	}
 
+	/**
+	 * Crée la pile des salles qui sera utilisé pour placer les patients
+	 * 
+	 * @param sallesMap
+	 * @return renvoi, le map qui sera utiliser pout initialiser le planning avec
+	 *         toutes ses listes initialiser
+	 */
 	private Map<Salle, List<Patient>> triDesSalles(Map<Salle.typeSalles, List<Salle>> sallesMap) {
 		pileSalle = new ArrayList<Salle>();
 		Map<Salle, List<Patient>> renvoi = new HashMap<Salle, List<Patient>>();
@@ -83,6 +88,12 @@ public class GPPrioritePremierArriveReserveDynamique implements GestionPlanning 
 		return renvoi;
 	}
 
+	/**
+	 * Méthode qui gère l'affectation des patients dans les salles
+	 * 
+	 * @param renvoi
+	 * @return renvoi, la map qui permettra de faire le planning
+	 */
 	private Map<Salle, List<Patient>> placementDesPatients(Map<Salle, List<Patient>> renvoi) {
 		for (Patient patient : nouvListePatient) {
 //			System.out.println("On place le patient " + patient.getId() + "   - Gravite / urgent : "
@@ -94,7 +105,7 @@ public class GPPrioritePremierArriveReserveDynamique implements GestionPlanning 
 			Salle salle;
 			int nbSalleAReserver = 0; // Permettra de gérer le changement de reservation pour les Urgence
 
-			while (!place) {
+			while (!place && indice < pileSalle.size()) {
 				salle = pileSalle.get(indice);
 				// System.out.println("Salle " + salle.getId() + " - Gravite : " +
 				// salle.getType());

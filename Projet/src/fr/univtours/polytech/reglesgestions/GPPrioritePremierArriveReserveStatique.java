@@ -25,7 +25,12 @@ public class GPPrioritePremierArriveReserveStatique implements GestionPlanning {
 		this.simulation = simulation;
 	}
 
-	// Méthode de résolution de la planification
+
+	/**
+	 * Méthode de résolution de la planification
+	 * 
+	 * @param patientUrgent, le patient urgent qui vient d'etre declare
+	 */
 	public Planning solution(Patient patientUrgent) {
 		// Initialisation de la nouvelle liste de patients
 		nouvListePatient = new ArrayList<>();
@@ -62,6 +67,13 @@ public class GPPrioritePremierArriveReserveStatique implements GestionPlanning {
 		return new Planning(placementDesPatients(renvoi));
 	}
 
+	/**
+	 * Crée la pile des salles qui sera utilisé pour placer les patients
+	 * 
+	 * @param sallesMap
+	 * @return renvoi, le map qui sera utiliser pout initialiser le planning avec
+	 *         toutes ses listes initialiser
+	 */
 	private Map<Salle, List<Patient>> triDesSalles(Map<Salle.typeSalles, List<Salle>> sallesMap) {
 		pileSalle = new ArrayList<Salle>();
 		Map<Salle, List<Patient>> renvoi = new HashMap<Salle, List<Patient>>();
@@ -73,10 +85,6 @@ public class GPPrioritePremierArriveReserveStatique implements GestionPlanning {
 						if (salle.getEtat() == etat) {
 							pileSalle.add(salle);
 							renvoi.put(salle, new ArrayList<Patient>());
-							
-							if(type == Salle.typeSalles.RESERVE) {
-								System.out.println("1");
-							}
 						}
 					}
 				}
@@ -87,13 +95,21 @@ public class GPPrioritePremierArriveReserveStatique implements GestionPlanning {
 		return renvoi;
 	}
 
+	/**
+	 * Méthode qui gère l'affectation des patients dans les salles
+	 * 
+	 * @param renvoi
+	 * @return renvoi, la map qui permettra de faire le planning
+	 */
 	private Map<Salle, List<Patient>> placementDesPatients(Map<Salle, List<Patient>> renvoi) {
 		for (Patient patient : nouvListePatient) {
 			int indice = 0;
 
 			boolean place = false;
 			Salle salle;
-			while (!place) {
+
+			/* On répète l'opération jusqu'à ce que le patient soit affecté à une salle */
+			while (!place && indice < pileSalle.size()) {
 				salle = pileSalle.get(indice);
 
 				if (patient.estUrgent()) {

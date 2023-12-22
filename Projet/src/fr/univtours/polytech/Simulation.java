@@ -218,10 +218,6 @@ public class Simulation {
 		salles.put(Salle.typeSalles.TRESEQUIPE, liste); // Une salle reservee est une salle tres equipee et son statut
 														// de reserve peut changer au fil de la simulation
 
-		for (Salle s : liste) {
-			System.out.println(s.getId() + " - " + s.getType());
-		}
-
 		/* Definition des constantes */
 		this.constantes = new Constantes(data.getTempsPreparation(), data.getTempsAnesthesie(),
 				data.getTempsLiberation(), nbReserve, data.getMoyTempsOperation(), data.getMarge());
