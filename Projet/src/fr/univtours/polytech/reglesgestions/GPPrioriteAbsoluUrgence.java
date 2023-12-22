@@ -25,15 +25,28 @@ import fr.univtours.polytech.util.TrouPlanning;
  */
 public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 	private Simulation simulation;
+	
+	private List<Patient> nouvListePatientRDV;
+	private List<Patient> nouvListePatientUrgent;
+	List<Salle> pileSalleRDV;
+	List<Salle> pileSalleUrgent;
+	
+	Constantes constantes;
+	LocalTime tempsMoyen;
+	LocalTime heureActuelle;
 
+	Map<Salle, List<TrouPlanning>> mapTrousParSalle;
+	List<Salle> sallesTresEquipees; // Servira à chercher les trous possibles entre les
+								    // patientsUrgents pour placer les patientsRDV
+	
 	public GPPrioriteAbsoluUrgence(Simulation simulation) {
 		this.simulation = simulation;
 	}
 
 	public Planning solution(Patient patientUrgent) {
 		// Initialisation de la nouvelle liste de patients
-		List<Patient> nouvListePatientRDV = new ArrayList<>();
-		List<Patient> nouvListePatientUrgent = new ArrayList<>();
+		nouvListePatientRDV = new ArrayList<>();
+		nouvListePatientUrgent = new ArrayList<>();
 		List<Patient> listePatient;
 
 		if (patientUrgent != null) {
@@ -64,21 +77,30 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 
 		// Récupération des salles de la simulation
 		Map<Salle.typeSalles, List<Salle>> sallesMap = simulation.getSalles();
-		List<Salle> pileSalleUrgent = new ArrayList<Salle>(); // Pile utilisée pour placer les patients Urgents
-		List<Salle> pileSalleRDV = new ArrayList<Salle>(); // Pile utilisée pour placer les patients RDV
+		pileSalleUrgent = new ArrayList<Salle>(); // Pile utilisée pour placer les patients Urgents
+		pileSalleRDV = new ArrayList<Salle>(); // Pile utilisée pour placer les patients RDV
 
-		List<Salle> sallesTresEquipees = new ArrayList<Salle>(); // Servira à chercher les trous possibles entre les
-																	// patientsUrgents pour placer les patientsRDV
-		Map<Salle, List<TrouPlanning>> mapTrousParSalle = new HashMap<>(); // Map qui stokera les trous trouvés
+		sallesTresEquipees = new ArrayList<Salle>();
 
-		Map<Salle, List<Patient>> renvoi = new HashMap<Salle, List<Patient>>(); // Le Map qui sera stocker dans le
-																				// planning
-
-		Constantes constantes = simulation.getConstantes();
-		LocalTime tempsMoyen = constantes.getTempsMoyen();
-		LocalTime heureActuelle = simulation.getDeroulement().getHeureSimulation();
+		constantes = simulation.getConstantes();
+		tempsMoyen = constantes.getTempsMoyen();
+		heureActuelle = simulation.getDeroulement().getHeureSimulation();
 
 		// Tri des salles
+		Map<Salle, List<Patient>> renvoi = triDesSalles(sallesMap);
+
+		renvoi = placementDesPatientsUrgent(renvoi);
+
+		mapTrousParSalle = TrouPlanning.RechercheTrouPlanning(sallesTresEquipees, mapTrousParSalle, renvoi, constantes,
+				simulation.getHeureDebutSimulation(), simulation.getHeureFinSimulation());
+
+		return new Planning(placementDesPatientsRDV(renvoi));
+	}
+	
+	private Map<Salle, List<Patient>> triDesSalles(Map<Salle.typeSalles, List<Salle>> sallesMap) {
+		Map<Salle, List<Patient>> renvoi = new HashMap<Salle, List<Patient>>();
+		mapTrousParSalle = new HashMap<>(); // Map qui stokera les trous trouvés
+		
 		Salle.typeSalles type;
 		for (Salle.listeEtats etat : Salle.listeEtats.values()) {
 			type = Salle.typeSalles.RESERVE;
@@ -101,7 +123,7 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 						LocalTime tempsMoyenEnFonctionEtat = constantes.getTempsMoyen(etat);
 
 						List<TrouPlanning> listeTrous = new ArrayList<>();
-						listeTrous.add(TrouPlanning.CreerPlaningDepuisHeureFinPatient1(
+						listeTrous.add(TrouPlanning.CreerPlaningDepuisHeureDepuisFinPatient1EtHeureDebutPatient2(
 								heureActuelle.plusMinutes(tempsMoyenEnFonctionEtat.getMinute())
 										.plusHours(tempsMoyenEnFonctionEtat.getHour()),
 								LocalTime.of(18, 0, 0), 0, salle, tempsMoyen));
@@ -120,7 +142,7 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 						LocalTime tempsMoyenEnFonctionEtat = constantes.getTempsMoyen(etat);
 
 						List<TrouPlanning> listeTrous = new ArrayList<>();
-						listeTrous.add(TrouPlanning.CreerPlaningDepuisHeureFinPatient1(
+						listeTrous.add(TrouPlanning.CreerPlaningDepuisHeureDepuisFinPatient1EtHeureDebutPatient2(
 								heureActuelle.plusMinutes(tempsMoyenEnFonctionEtat.getMinute())
 										.plusHours(tempsMoyenEnFonctionEtat.getHour()),
 								simulation.getHeureFinSimulation(), 0, salle, tempsMoyen));
@@ -142,8 +164,12 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 				}
 			}
 
-		}
+		}		
+		return renvoi;
+	}
+	
 
+	private Map<Salle, List<Patient>> placementDesPatientsUrgent(Map<Salle, List<Patient>> renvoi) {
 		for (Patient patient : nouvListePatientUrgent) {
 //			System.out.println("On place le patient " + patient.getId() + "   - Gravite / urgent : "
 //					+ patient.getGravite() + " / " + patient.estUrgent());
@@ -167,11 +193,13 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 
 			indice++;
 		}
+		
+		return renvoi;
+	}
+	
 
-		mapTrousParSalle = TrouPlanning.RechercheTrouPlanning(sallesTresEquipees, mapTrousParSalle, renvoi, constantes,
-				simulation.getHeureDebutSimulation(), simulation.getHeureFinSimulation());
-
-		for (Patient patient : nouvListePatientUrgent) {
+	private Map<Salle, List<Patient>> placementDesPatientsRDV(Map<Salle, List<Patient>> renvoi) {
+		for (Patient patient : nouvListePatientRDV) {
 //			System.out.println("On place le patient " + patient.getId() + "   - Gravite / urgent : "
 //					+ patient.getGravite() + " / " + patient.estUrgent());
 			LocalTime heureArrivePatient = patient.getHeureArrive();
@@ -233,7 +261,7 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 
 			indice++;
 		}
-
-		return new Planning(renvoi);
+		
+		return renvoi;
 	}
 }

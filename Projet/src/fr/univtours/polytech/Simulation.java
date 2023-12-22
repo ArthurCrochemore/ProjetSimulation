@@ -96,6 +96,7 @@ public class Simulation {
 	public Simulation(DonneeInitialisation data) throws Exception {
 		heureDebutSimulation = data.getHeureDebutJournee();
 		heureFinSimulation = data.getHeureFinJournee();
+		
 		listes = new ListesAttentes();
 
 		// Creation des regles de gestion appliquees
