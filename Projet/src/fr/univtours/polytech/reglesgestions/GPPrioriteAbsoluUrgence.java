@@ -4,8 +4,11 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import fr.univtours.polytech.Constantes;
 import fr.univtours.polytech.Planning;
@@ -183,8 +186,11 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 				mapPourTrie.put(salle, mapTrousParSalle.get(salle).get(0).getheureLimiteDebutNouveauPatient());
 			}
 
-			List<LocalTime> heureATriee = new ArrayList<>(mapPourTrie.values());
-			Collections.sort(heureATriee); // GERER ICI LE TRI POUR LA PILE
+			pileSalleRDV = new ArrayList<>(
+					mapPourTrie.entrySet().stream()
+				    .sorted(Entry.comparingByValue())
+				    .collect(Collectors.toMap(Entry::getKey, Entry::getValue,
+				                              (e1, e2) -> e1, LinkedHashMap::new)).keySet());
 
 			int indice = 0;
 
