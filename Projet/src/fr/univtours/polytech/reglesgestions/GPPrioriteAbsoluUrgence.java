@@ -62,7 +62,7 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 			listePatient = ancienPlanning.extraiteDonnee();
 
 			nouvListePatientUrgent.add(patientUrgent);
-			System.out.println("changememnt planning");
+			System.out.println("changement de planning");
 		} else {
 			return new GPPrioritePremierArriveReserveStatique(simulation).solution(null); // On applique la règle de
 																							// Gestion la plus simple
@@ -194,8 +194,8 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 			Salle salle;
 			
 			salle = pileSalleUrgent.get(0);
-			// System.out.println("Salle " + salle.getId() + " - Gravite : " +
-			// salle.getType());
+//			System.out.println("Salle " + salle.getId() + " - Gravite : " +
+//			salle.getType());
 
 			renvoi.get(salle).add(patient);
 

@@ -14,7 +14,9 @@ public class FenetreInitialisation {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Saisie saisie = new Saisie();
+        
+        saisie.main(args);
     }
     
 }

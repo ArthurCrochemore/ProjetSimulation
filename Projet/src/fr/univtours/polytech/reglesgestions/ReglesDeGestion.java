@@ -19,7 +19,7 @@ public class ReglesDeGestion {
 		nbRegles = 2;
 
 		switch (regle1) {
-		case 1:
+		case 1: 
 			regleGestionInfirmiers = new GIPrioritePreparation(simulation);
 			break;
 		case 2:

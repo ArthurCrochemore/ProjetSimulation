@@ -61,7 +61,7 @@ public class GPPrioriteRDV implements GestionPlanning {
 			listePatient = ancienPlanning.extraiteDonnee();
 
 			nouvListePatientUrgent.add(patientUrgent);
-			System.out.println("changememnt planning");
+			System.out.println("changement de planning");
 		} else {
 			return new GPPrioritePremierArriveReserveStatique(simulation).solution(null); // On applique la règle de
 																							// Gestion la plus simple
@@ -93,15 +93,12 @@ public class GPPrioriteRDV implements GestionPlanning {
 		// Tri des salles
 		Map<Salle, List<Patient>> renvoi = triDesSalles(sallesMap);
 
-		renvoi = placementDesPatientsUrgent(renvoi);
+		renvoi = placementDesPatientsRDV(renvoi);
 
-		System.out.println("a" + mapTrousParSalle.size());
 		mapTrousParSalle = TrouPlanning.RechercheTrouPlanning(sallesTresEquipees, mapTrousParSalle, renvoi, constantes,
 				simulation.getHeureDebutSimulation(), simulation.getHeureFinSimulation());
 
-		System.out.println(mapTrousParSalle.size());
-
-		return new Planning(placementDesPatientsRDV(renvoi));
+		return new Planning(placementDesPatientsUrgent(renvoi));
 	}
 
 	/**
@@ -171,8 +168,6 @@ public class GPPrioriteRDV implements GestionPlanning {
 
 		}
 
-		System.out.println("a" + mapTrousParSalle.size());
-
 		return renvoi;
 	}
 
@@ -197,16 +192,11 @@ public class GPPrioriteRDV implements GestionPlanning {
 
 				mapPourTrie.put(salle, mapTrousParSalle.get(salle).get(0).getheureLimiteDebutNouveauPatient());
 			}
-
-			System.out.println(pileSalleUrgent.size());
-
 			pileSalleUrgent = new ArrayList<>(mapPourTrie.entrySet().stream().sorted(Entry.comparingByValue())
 					.collect(Collectors.toMap(Entry::getKey, Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new))
 					.keySet());
 
-			int indice = 0;
-
-			Salle salle = pileSalleRDV.get(indice);
+			Salle salle = pileSalleUrgent.get(0);
 
 			renvoi.get(salle).add(patient);
 
@@ -274,9 +264,9 @@ public class GPPrioriteRDV implements GestionPlanning {
 					}
 				}
 
-			}
+				indice++;
 
-			indice++;
+			}
 		}
 
 		return renvoi;

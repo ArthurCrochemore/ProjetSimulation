@@ -42,8 +42,7 @@ public class GPPrioritePremierArriveReserveStatique implements GestionPlanning {
 
 			nouvListePatient = ancienPlanning.extraiteDonnee();
 			nouvListePatient.add(patientUrgent);
-
-			System.out.println("changememnt planning");
+			System.out.println("changement de planning");
 		} else {
 			// Sinon,cela signifie que c'est la création du premier et planning et donc il
 			// faut récupérer les patients prévus pour un rendez-vous et les ajouter à la

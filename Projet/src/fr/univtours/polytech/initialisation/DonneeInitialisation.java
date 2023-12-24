@@ -1,5 +1,6 @@
 package fr.univtours.polytech.initialisation;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -232,8 +233,14 @@ public class DonneeInitialisation {
 		this.mapDeclaration.put(id, heureDeclaration);
 	}
 
-	public Simulation creerSimultation() throws Exception {
-		return new Simulation(this);
+	public Simulation creerSimultation() {
+		try {
+			return new Simulation(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			return null;
+		}
 	}
 
 	public DonneeInitialisation() {

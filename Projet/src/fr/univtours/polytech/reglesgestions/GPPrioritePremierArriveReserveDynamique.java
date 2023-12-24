@@ -42,8 +42,7 @@ public class GPPrioritePremierArriveReserveDynamique implements GestionPlanning 
 
 			nouvListePatient = ancienPlanning.extraiteDonnee();
 			nouvListePatient.add(patientUrgent);
-
-			System.out.println("changememnt planning");
+			System.out.println("changement de planning");
 		} else {
 			return new GPPrioritePremierArriveReserveStatique(simulation).solution(null); // On applique la règle de
 			// Gestion la plus simple
