@@ -42,11 +42,13 @@ public class ExtractionJSON {
 			for (int i = 0; i < nbPatientsRDV - 1; i++) {
 				Patient p = simulation.getPatientsRDV().get(i);
 				ecrirePatient(p, writer);
-				writer.println("\t\t,\n");
 			}
+			writer.println("\t\t,\n");
 
-			ecrirePatient(simulation.getPatientsRDV().get(nbPatientsRDV - 1), writer);
-			writer.println("\t},\n");
+			if(nbPatientsRDV > 0) {
+				ecrirePatient(simulation.getPatientsRDV().get(nbPatientsRDV - 1), writer);		
+			}
+			writer.println("\t},\n");		
 
 			/* Ecriture des donnees de PatientUrgent */
 			writer.println("\t\"patientUrgent\": {\n");
@@ -56,8 +58,10 @@ public class ExtractionJSON {
 				writer.println("\t\t,\n");
 			}
 
-			ecrirePatient(simulation.getPatientsUrgent().get(nbPatientsUrgent - 1), writer);
-			writer.println("\t},\n");
+			if(nbPatientsUrgent > 0) {
+				ecrirePatient(simulation.getPatientsUrgent().get(nbPatientsUrgent - 1), writer);
+				writer.println("\t},\n");			
+			}
 
 			/* Ecriture des donnees de Infirmier */
 			writer.println("\t\"infirmier\": {");

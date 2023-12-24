@@ -81,6 +81,8 @@ public class Saisie extends javax.swing.JFrame {
 		tempsPreparation = 0;
 		tempsAnesthesie = 0;
 		tempsLiberation = 0;
+		moyTempsOperation = 0;
+		marge = 0;
 
 		nbPatientsRDVPE = 0;
 		nbPatientsRDVSE = 0;
