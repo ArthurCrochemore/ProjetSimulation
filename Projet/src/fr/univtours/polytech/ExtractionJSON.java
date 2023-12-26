@@ -42,8 +42,8 @@ public class ExtractionJSON {
 			for (int i = 0; i < nbPatientsRDV - 1; i++) {
 				Patient p = simulation.getPatientsRDV().get(i);
 				ecrirePatient(p, writer);
+				writer.println("\t\t,\n");
 			}
-			writer.println("\t\t,\n");
 
 			if(nbPatientsRDV > 0) {
 				ecrirePatient(simulation.getPatientsRDV().get(nbPatientsRDV - 1), writer);		
@@ -59,9 +59,9 @@ public class ExtractionJSON {
 			}
 
 			if(nbPatientsUrgent > 0) {
-				ecrirePatient(simulation.getPatientsUrgent().get(nbPatientsUrgent - 1), writer);
-				writer.println("\t},\n");			
+				ecrirePatient(simulation.getPatientsUrgent().get(nbPatientsUrgent - 1), writer);	
 			}
+			writer.println("\t},\n");		
 
 			/* Ecriture des donnees de Infirmier */
 			writer.println("\t\"infirmier\": {");
@@ -71,9 +71,10 @@ public class ExtractionJSON {
 				if (i < nbInfirmier - 1)
 					writer.println("\t\t],");
 				else
-					writer.println("\t\t]\n\t},");
+					writer.println("\t\t]");
 			}
-
+			writer.println("\t},");
+			
 			/* Ecriture des donnees de Chirurgien */
 			writer.println("\n\t\"chirugien\": {");
 			for (int i = 0; i < nbChirurgien; i++) {
@@ -82,8 +83,9 @@ public class ExtractionJSON {
 				if (i < nbChirurgien - 1)
 					writer.println("\t\t],");
 				else
-					writer.println("\t\t]\n\t},");
+					writer.println("\t\t]");
 			}
+			writer.println("\t},");
 
 			/* Ecriture des donnees de Salle */
 			writer.println("\n\t\"salle\": {");
@@ -95,8 +97,9 @@ public class ExtractionJSON {
 				if (i < nbSallePE - 1)
 					writer.println("\t\t],");
 				else
-					writer.println("\t\t]\n\t\t}");
+					writer.println("\t\t]");
 			}
+			writer.println("\t\t}");
 			writer.println("\t,");
 			writer.println("\t\t\"semiEquipe\" : {");
 			for (int i = 0; i < nbSalleSE; i++) {
@@ -105,8 +108,9 @@ public class ExtractionJSON {
 				if (i < nbSalleSE - 1)
 					writer.println("\t\t],");
 				else
-					writer.println("\t\t]\n\t\t}");
+					writer.println("\t\t]");
 			}
+			writer.println("\t\t}");
 			writer.println("\t,");
 			writer.println("\t\t\"tresEquipe\" : {");
 			for (int i = 0; i < nbSalleTE; i++) {
@@ -115,8 +119,9 @@ public class ExtractionJSON {
 				if (i < nbSalleTE - 1)
 					writer.println("\t\t],");
 				else
-					writer.println("\t\t]\n\t\t}");
+					writer.println("\t\t]");
 			}
+			writer.println("\t\t}");
 			writer.println("\t}");
 
 			writer.println("}");

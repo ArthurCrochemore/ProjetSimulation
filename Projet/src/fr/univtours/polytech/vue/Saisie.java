@@ -7,6 +7,10 @@ package fr.univtours.polytech.vue;
 import com.orsoncharts.util.json.JSONObject;
 import com.orsoncharts.util.json.parser.JSONParser;
 import com.raven.event.EventTimePicker;
+
+import fr.univtours.polytech.MainSimulation;
+import sun.security.tools.keytool.Main;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintWriter;
@@ -872,10 +876,9 @@ public class Saisie extends javax.swing.JFrame {
             System.err.println(e);
         }
         
+        MainSimulation.main(null);
         
-        /////// A SUPPRIMER
-        
-        initialiserGraph();
+        //initialiserGraph();
     }//GEN-LAST:event_btnSimulationActionPerformed
 
     private void valueNbSalleReserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valueNbSalleReserveActionPerformed
@@ -1082,8 +1085,7 @@ public class Saisie extends javax.swing.JFrame {
             salleTE = (JSONObject) salles.get("tresEquipe");
             
         }catch(Exception e) {
-            ///// PENSER A RETIRER
-            System.err.println("ta gueule");
+            System.err.println("Initialisation des graphes échouee");
         }
     }
 }

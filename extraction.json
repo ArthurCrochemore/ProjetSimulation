@@ -1,91 +1,91 @@
 {
 	"patientRDV": {
 
-			0 : {
+		0 : {
 			"ATTENTESALLE" : [ 08:00 , 08:00 ],
 			"ATTENTEPREPARATION" : [ 08:00 , 08:00 ],
 			"ATTENTECHIRURGIEN" : [ 08:15 , 08:15 ],
-			"ATTENTELIBERATION" : [ 08:30 , 08:30 ]
+			"ATTENTELIBERATION" : [ 08:50 , 08:50 ]
 		}
 		,
 
-			1 : {
+		1 : {
 			"ATTENTESALLE" : [ 08:00 , 08:00 ],
 			"ATTENTEPREPARATION" : [ 08:00 , 08:00 ],
 			"ATTENTECHIRURGIEN" : [ 08:15 , 08:15 ],
-			"ATTENTELIBERATION" : [ 08:35 , 08:35 ]
+			"ATTENTELIBERATION" : [ 08:55 , 08:55 ]
 		}
 		,
 
-			2 : {
+		2 : {
 			"ATTENTESALLE" : [ 09:00 , 09:00 ],
 			"ATTENTEPREPARATION" : [ 09:00 , 09:00 ],
 			"ATTENTECHIRURGIEN" : [ 09:15 , 09:15 ],
-			"ATTENTELIBERATION" : [ 09:45 , 09:45 ]
+			"ATTENTELIBERATION" : [ 10:05 , 10:05 ]
 		}
 		,
 
-			3 : {
+		3 : {
 			"ATTENTESALLE" : [ 09:30 , 09:30 ],
 			"ATTENTEPREPARATION" : [ 09:30 , 09:30 ],
-			"ATTENTECHIRURGIEN" : [ 09:45 , 09:45 ],
-			"ATTENTELIBERATION" : [ 09:55 , 09:55 ]
+			"ATTENTECHIRURGIEN" : [ 09:45 , 10:05 ],
+			"ATTENTELIBERATION" : [ 10:35 , 10:35 ]
 		}
 		,
 
-			4 : {
+		4 : {
 			"ATTENTESALLE" : [ 12:00 , 12:00 ],
 			"ATTENTEPREPARATION" : [ 12:00 , 12:00 ],
 			"ATTENTECHIRURGIEN" : [ 12:15 , 12:15 ],
-			"ATTENTELIBERATION" : [ 12:30 , 12:30 ]
+			"ATTENTELIBERATION" : [ 12:50 , 12:50 ]
 		}
 		,
 
-			5 ; {
-			"ATTENTESALLE" : [ 16:00 , 16:00 ],
-			"ATTENTEPREPARATION" : [ 16:00 , 16:00 ],
-			"ATTENTECHIRURGIEN" : [ 16:15 , 16:15 ],
-			"ATTENTELIBERATION" : [ 16:35 , 16:35 ]
+		5 : {
+			"ATTENTESALLE" : [ 16:00 , 18:00 ],
+			"ATTENTEPREPARATION": [ ],
+			"ATTENTECHIRURGIEN": [ ],
+			"ATTENTELIBERATION" : [ ]
 		}
 		,
 
-			6 : {
+		6 : {
 			"ATTENTESALLE" : [ 09:00 , 09:00 ],
 			"ATTENTEPREPARATION" : [ 09:00 , 09:00 ],
 			"ATTENTECHIRURGIEN" : [ 09:15 , 09:15 ],
-			"ATTENTELIBERATION" : [ 09:45 , 09:45 ]
+			"ATTENTELIBERATION" : [ 10:05 , 10:05 ]
 		}
 		,
 
-			7 : {
+		7 : {
 			"ATTENTESALLE" : [ 11:30 , 11:30 ],
 			"ATTENTEPREPARATION" : [ 11:30 , 11:30 ],
 			"ATTENTECHIRURGIEN" : [ 11:45 , 11:45 ],
-			"ATTENTELIBERATION" : [ 11:55 , 11:55 ]
+			"ATTENTELIBERATION" : [ 12:15 , 12:15 ]
 		}
 		,
 
-			8 : {
-			"ATTENTESALLE" : [ 14:00 , 14:00 ],
-			"ATTENTEPREPARATION" : [ 14:00 , 14:00 ],
-			"ATTENTECHIRURGIEN" : [ 14:15 , 14:15 ],
-			"ATTENTELIBERATION" : [ 14:30 , 14:30 ]
+		8 : {
+			"ATTENTESALLE" : [ 14:00 , 18:00 ],
+			"ATTENTEPREPARATION": [ ],
+			"ATTENTECHIRURGIEN": [ ],
+			"ATTENTELIBERATION" : [ ]
 		}
 		,
 
-			9 : {
-			"ATTENTESALLE" : [ 17:00 , 17:00 ],
-			"ATTENTEPREPARATION" : [ 17:00 , 17:00 ],
-			"ATTENTECHIRURGIEN" : [ 17:15 , 17:15 ],
-			"ATTENTELIBERATION" : [ 17:35 , 17:35 ]
+		9 : {
+			"ATTENTESALLE" : [ 17:00 , 18:00 ],
+			"ATTENTEPREPARATION": [ ],
+			"ATTENTECHIRURGIEN": [ ],
+			"ATTENTELIBERATION" : [ ]
 		}
 		,
 
-			10 : {
-			"ATTENTESALLE" : [ 16:30 , 16:30 ],
-			"ATTENTEPREPARATION" : [ 16:30 , 16:30 ],
-			"ATTENTECHIRURGIEN" : [ 16:45 , 16:45 ],
-			"ATTENTELIBERATION" : [ 16:55 , 16:55 ]
+		10 : {
+			"ATTENTESALLE" : [ 16:30 , 18:00 ],
+			"ATTENTEPREPARATION": [ ],
+			"ATTENTECHIRURGIEN": [ ],
+			"ATTENTELIBERATION" : [ ]
 		}
 		,
 
@@ -93,125 +93,161 @@
 			"ATTENTESALLE" : [ 08:00 , 08:00 ],
 			"ATTENTEPREPARATION" : [ 08:00 , 08:00 ],
 			"ATTENTECHIRURGIEN" : [ 08:15 , 08:15 ],
-			"ATTENTELIBERATION" : [ 08:30 , 08:30 ]
+			"ATTENTELIBERATION" : [ 08:50 , 08:50 ]
 		}
 		,
 
-			12 : {
+		12 : {
 			"ATTENTESALLE" : [ 09:15 , 09:15 ],
 			"ATTENTEPREPARATION" : [ 09:15 , 09:15 ],
 			"ATTENTECHIRURGIEN" : [ 09:30 , 09:30 ],
-			"ATTENTELIBERATION" : [ 10:15 , 10:15 ]
+			"ATTENTELIBERATION" : [ 10:35 , 10:35 ]
 		}
 	},
 
 	"patientUrgent": {
 
-			"id" : 0,
+		13 : {
 			"ATTENTESALLE" : [ 12:00 , 12:00 ],
 			"ATTENTEPREPARATION" : [ 12:00 , 12:00 ],
 			"ATTENTECHIRURGIEN" : [ 12:15 , 12:15 ],
-			"ATTENTELIBERATION" : [ 12:45 , 12:45 ]
+			"ATTENTELIBERATION" : [ 13:05 , 13:05 ]
+		}
 		,
 
-			"id" : 1,
-			"ATTENTESALLE" : [ 13:00 , 13:00 ],
-			"ATTENTEPREPARATION" : [ 13:00 , 13:00 ],
-			"ATTENTECHIRURGIEN" : [ 13:15 , 13:15 ],
-			"ATTENTELIBERATION" : [ 13:35 , 13:35 ]
+		14 : {
+			"ATTENTESALLE" : [ 13:00 , 18:00 ],
+			"ATTENTEPREPARATION": [ ],
+			"ATTENTECHIRURGIEN": [ ],
+			"ATTENTELIBERATION" : [ ]
+		}
 		,
 
-			"id" : 2,
-			"ATTENTESALLE" : [ 15:15 , 15:15 ],
-			"ATTENTEPREPARATION" : [ 15:15 , 15:15 ],
-			"ATTENTECHIRURGIEN" : [ 15:30 , 15:30 ],
-			"ATTENTELIBERATION" : [ 16:15 , 16:15 ]
+		15 : {
+			"ATTENTESALLE" : [ 15:15 , 18:00 ],
+			"ATTENTEPREPARATION": [ ],
+			"ATTENTECHIRURGIEN": [ ],
+			"ATTENTELIBERATION" : [ ]
+		}
 	},
 
 	"infirmier": {
-		"id" : 0 ,
-		"attente" : [
-			[08:00, 18:00]
-		]
-	,
-		"id" : 1 ,
-		"attente" : [
-			[08:00, 18:00]
-		]
-	,
-		"id" : 2 ,
-		"attente" : [
-			[08:00, 18:00]
+		0 : [
+			[08:00, 08:00],
+
+			[08:15, 08:50],
+
+			[09:05, 09:15],
+
+			[09:30, 09:30],
+
+			[09:45, 10:05],
+
+			[10:20, 10:35],
+
+			[10:50, 11:30],
+
+			[11:45, 12:00],
+
+			[12:15, 12:50],
+
+			[13:05, 18:00]
+		],
+		1 : [
+			[08:00, 08:55],
+
+			[09:10, 12:15],
+
+			[12:30, 13:05],
+
+			[13:20, 18:00]
+		],
+		2 : [
+			[08:00, 09:00],
+
+			[09:15, 18:00]
 		]
 	},
 
 	"chirugien": {
-		"id" : 0 ,
-		"attente" : [
-			[08:00, 18:00]
-		]
-	,
-		"id" : 1 ,
-		"attente" : [
-			[08:00, 18:00]
+		0 : [
+			[08:00, 08:15],
+
+			[08:50, 09:15],
+
+			[10:05, 10:05],
+
+			[10:35, 11:45],
+
+			[12:15, 12:15],
+
+			[12:50, 18:00]
+		],
+		1 : [
+			[08:00, 09:30],
+
+			[10:35, 18:00]
 		]
 	},
 
 	"salle": {
 		"peuEquipe" : {
-			"id" : 0 ,
-			"libre" : [
-				[08:00, 18:00]
-			]
-		,
-			"id" : 1 ,
-			"libre" : [
-				[08:00, 18:00]
-			]
-		,
-			"id" : 2 ,
-			"libre" : [
-				[08:00, 18:00]
-			]
-		,
-			"id" : 3 ,
-			"libre" : [
-				[08:00, 18:00]
-			]
+		0 : [
+				[08:00, 08:00],
+
+				[09:05, 18:00]
+		],
+		1 : [
+				[08:00, 08:00],
+
+				[09:10, 18:00]
+		],
+		2 : [
+				[08:00, 09:00],
+
+				[10:20, 18:00]
+		],
+		3 : [
+				[08:00, 09:30],
+
+				[10:50, 18:00]
+		]
 		}
 	,
 		"semiEquipe" : {
-			"id" : 0 ,
-			"libre" : [
-				[08:00, 18:00]
-			]
-		,
-			"id" : 1 ,
-			"libre" : [
-				[08:00, 18:00]
-			]
-		,
-			"id" : 2 ,
-			"libre" : [
-				[08:00, 18:00]
-			]
+		0 : [
+				[08:00, 09:00],
+
+				[10:20, 18:00]
+		],
+		1 : [
+				[08:00, 11:30],
+
+				[12:30, 18:00]
+		],
+		2 : [
+				[08:00, 12:00],
+
+				[13:05, 18:00]
+		]
 		}
 	,
 		"tresEquipe" : {
-			"id" : 0 ,
-			"libre" : [
-				[08:00, 18:00]
-			]
-		,
-			"id" : 1 ,
-			"libre" : [
-				[08:00, 18:00]
-			]
-		,
-			"id" : 2 ,
-			"libre" : [
-				[08:00, 18:00]
-			]
+		0 : [
+				[08:00, 08:00],
+
+				[09:05, 18:00]
+		],
+		1 : [
+				[08:00, 09:15],
+
+				[10:50, 18:00]
+		],
+		2 : [
+				[08:00, 12:00],
+
+				[13:20, 18:00]
+		]
 		}
 	}
 }
