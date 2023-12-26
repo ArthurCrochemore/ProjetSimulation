@@ -69,4 +69,7 @@ public class Tuple<A, B> {
 		this.secondElement = null;
 	}
 
+	public String toString() {
+		return "{" + premierElement.toString() + ", " + secondElement.toString() + "}";
+	}
 }

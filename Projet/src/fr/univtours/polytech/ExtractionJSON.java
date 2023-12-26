@@ -149,65 +149,66 @@ public class ExtractionJSON {
 	 * @param i,     indice du patient
 	 */
 	private void ecrirePatient(Patient p, PrintWriter writer) {
-		int i = p.getId();
-		Map<Patient.listeEtats, Tuple<LocalTime, LocalTime>> temps = p.getTempsAttente();
+	    int i = p.getId();
+	    Map<Patient.listeEtats, Tuple<LocalTime, LocalTime>> temps = p.getTempsAttente();
 
-		writer.println("\t\t" + i + " : {");
-		if (p.getEtat() == Patient.listeEtats.TERMINE) {
-			writer.println(
-					"\t\t\t\"ATTENTESALLE\" : [ " + temps.get(Patient.listeEtats.ATTENTESALLE).getPremierElement()
-							+ " , " + temps.get(Patient.listeEtats.ATTENTESALLE).getSecondElement() + " ],");
-			writer.println("\t\t\t\"ATTENTEPREPARATION\" : [ "
-					+ temps.get(Patient.listeEtats.ATTENTEPREPARATION).getPremierElement() + " , "
-					+ temps.get(Patient.listeEtats.ATTENTEPREPARATION).getSecondElement() + " ],");
-			writer.println("\t\t\t\"ATTENTECHIRURGIEN\" : [ "
-					+ temps.get(Patient.listeEtats.ATTENTECHIRURGIEN).getPremierElement() + " , "
-					+ temps.get(Patient.listeEtats.ATTENTECHIRURGIEN).getSecondElement() + " ],");
-			writer.println("\t\t\t\"ATTENTELIBERATION\" : [ "
-					+ temps.get(Patient.listeEtats.ATTENTELIBERATION).getPremierElement() + " , "
-					+ temps.get(Patient.listeEtats.ATTENTELIBERATION).getSecondElement() + " ]");
-		} else {
+	    writer.println("\t\t\"" + i + "\" : {");
+	    if (p.getEtat() == Patient.listeEtats.TERMINE) {
+	        writer.println(
+	                "\t\t\t\"ATTENTESALLE\" : [ \"" + temps.get(Patient.listeEtats.ATTENTESALLE).getPremierElement()
+	                        + "\" , \"" + temps.get(Patient.listeEtats.ATTENTESALLE).getSecondElement() + "\" ],");
+	        writer.println("\t\t\t\"ATTENTEPREPARATION\" : [ \""
+	                + temps.get(Patient.listeEtats.ATTENTEPREPARATION).getPremierElement() + "\" , \""
+	                + temps.get(Patient.listeEtats.ATTENTEPREPARATION).getSecondElement() + "\" ],");
+	        writer.println("\t\t\t\"ATTENTECHIRURGIEN\" : [ \""
+	                + temps.get(Patient.listeEtats.ATTENTECHIRURGIEN).getPremierElement() + "\" , \""
+	                + temps.get(Patient.listeEtats.ATTENTECHIRURGIEN).getSecondElement() + "\" ],");
+	        writer.println("\t\t\t\"ATTENTELIBERATION\" : [ \""
+	                + temps.get(Patient.listeEtats.ATTENTELIBERATION).getPremierElement() + "\" , \""
+	                + temps.get(Patient.listeEtats.ATTENTELIBERATION).getSecondElement() + "\" ]");
+	    } else {
 
-			if (p.getEtat() == Patient.listeEtats.ENOPERATION) {
-				writer.println(
-						"\t\t\t\"ATTENTESALLE\" : [ " + temps.get(Patient.listeEtats.ATTENTESALLE).getPremierElement()
-								+ " , " + temps.get(Patient.listeEtats.ATTENTESALLE).getSecondElement() + " ],");
-				writer.println("\t\t\t\"ATTENTEPREPARATION\" : [ "
-						+ temps.get(Patient.listeEtats.ATTENTEPREPARATION).getPremierElement() + " , "
-						+ temps.get(Patient.listeEtats.ATTENTEPREPARATION).getSecondElement() + " ],");
-				writer.println("\t\t\t\"ATTENTECHIRURGIEN\" : [ "
-						+ temps.get(Patient.listeEtats.ATTENTECHIRURGIEN).getPremierElement() + " , "
-						+ temps.get(Patient.listeEtats.ATTENTECHIRURGIEN).getSecondElement() + " ],");
-			} else {
-				if (p.getEtat() == Patient.listeEtats.ENPREPARATION) {
-					writer.println("\t\t\t\"ATTENTESALLE\" : [ "
-							+ temps.get(Patient.listeEtats.ATTENTESALLE).getPremierElement() + " , "
-							+ temps.get(Patient.listeEtats.ATTENTESALLE).getSecondElement() + " ],");
-					writer.println("\t\t\t\"ATTENTEPREPARATION\" : [ "
-							+ temps.get(Patient.listeEtats.ATTENTEPREPARATION).getPremierElement() + " , "
-							+ temps.get(Patient.listeEtats.ATTENTEPREPARATION).getSecondElement() + " ],");
+	        if (p.getEtat() == Patient.listeEtats.ENOPERATION) {
+	            writer.println(
+	                    "\t\t\t\"ATTENTESALLE\" : [ \"" + temps.get(Patient.listeEtats.ATTENTESALLE).getPremierElement()
+	                            + "\" , \"" + temps.get(Patient.listeEtats.ATTENTESALLE).getSecondElement() + "\" ],");
+	            writer.println("\t\t\t\"ATTENTEPREPARATION\" : [ \""
+	                    + temps.get(Patient.listeEtats.ATTENTEPREPARATION).getPremierElement() + "\" , \""
+	                    + temps.get(Patient.listeEtats.ATTENTEPREPARATION).getSecondElement() + "\" ],");
+	            writer.println("\t\t\t\"ATTENTECHIRURGIEN\" : [ \""
+	                    + temps.get(Patient.listeEtats.ATTENTECHIRURGIEN).getPremierElement() + "\" , \""
+	                    + temps.get(Patient.listeEtats.ATTENTECHIRURGIEN).getSecondElement() + "\" ],");
+	        } else {
+	            if (p.getEtat() == Patient.listeEtats.ENPREPARATION) {
+	                writer.println("\t\t\t\"ATTENTESALLE\" : [ \""
+	                        + temps.get(Patient.listeEtats.ATTENTESALLE).getPremierElement() + "\" , \""
+	                        + temps.get(Patient.listeEtats.ATTENTESALLE).getSecondElement() + "\" ],");
+	                writer.println("\t\t\t\"ATTENTEPREPARATION\" : [ \""
+	                        + temps.get(Patient.listeEtats.ATTENTEPREPARATION).getPremierElement() + "\" , \""
+	                        + temps.get(Patient.listeEtats.ATTENTEPREPARATION).getSecondElement() + "\" ],");
 
-				} else {
-					if (p.getEtat() == Patient.listeEtats.AATTENDUUNESALLE) {
-						writer.println("\t\t\t\"ATTENTESALLE\" : [ "
-								+ temps.get(Patient.listeEtats.ATTENTESALLE).getPremierElement() + " , "
-								+ temps.get(Patient.listeEtats.ATTENTESALLE).getSecondElement() + " ],");
+	            } else {
+	                if (p.getEtat() == Patient.listeEtats.AATTENDUUNESALLE) {
+	                    writer.println("\t\t\t\"ATTENTESALLE\" : [ \""
+	                            + temps.get(Patient.listeEtats.ATTENTESALLE).getPremierElement() + "\" , \""
+	                            + temps.get(Patient.listeEtats.ATTENTESALLE).getSecondElement() + "\" ],");
 
-					} else {
-						writer.println("\t\t\t\"ATTENTESALLE\": [" + " ],");
-					}
-					writer.println("\t\t\t\"ATTENTEPREPARATION\": [" + " ],");
+	                } else {
+	                    writer.println("\t\t\t\"ATTENTESALLE\": [" + " ],");
+	                }
+	                writer.println("\t\t\t\"ATTENTEPREPARATION\": [" + " ],");
 
-				}
-				writer.println("\t\t\t\"ATTENTECHIRURGIEN\": [" + " ],");
+	            }
+	            writer.println("\t\t\t\"ATTENTECHIRURGIEN\": [" + " ],");
 
-			}
+	        }
 
-			writer.println("\t\t\t\"ATTENTELIBERATION\" : [ " + "]");
+	        writer.println("\t\t\t\"ATTENTELIBERATION\" : [ " + " ]");
 
-		}
-		writer.println("\t\t}");
+	    }
+	    writer.println("\t\t}");
 	}
+
 
 	/**
 	 * @param temps, List<Tuple<LocalTime, LocalTime>> stocke dans la ressource
@@ -216,14 +217,14 @@ public class ExtractionJSON {
 	 * @param i,     indice de la ressource
 	 */
 	private void ecrireRessource(List<Tuple<LocalTime, LocalTime>> temps, PrintWriter writer, int i) {
-		writer.println("\t\t" + i + " : [");
-		for (int j = 0; j < temps.size() - 1; j++) {
-			writer.println(
-					"\t\t\t[" + temps.get(j).getPremierElement() + ", " + temps.get(j).getSecondElement() + "],\n");
-		}
-		writer.println("\t\t\t[" + temps.get(temps.size() - 1).getPremierElement() + ", "
-				+ temps.get(temps.size() - 1).getSecondElement() + "]");
+	    writer.println("\t\t\"" + i + "\" : [");
+	    for (int j = 0; j < temps.size() - 1; j++) {
+	        writer.println("\t\t\t[\"" + temps.get(j).getPremierElement() + "\", \"" + temps.get(j).getSecondElement() + "\"],");
+	    }
+	    writer.println("\t\t\t[\"" + temps.get(temps.size() - 1).getPremierElement() + "\", \""
+	            + temps.get(temps.size() - 1).getSecondElement() + "\"]");
 	}
+
 
 	/**
 	 * @param temps, List<Tuple<LocalTime, LocalTime>> stocke dans la salle associee
@@ -231,14 +232,14 @@ public class ExtractionJSON {
 	 * @param i,     indice de la salle
 	 */
 	private void ecrireSalle(List<Tuple<LocalTime, LocalTime>> temps, PrintWriter writer, int i) {
-		writer.println("\t\t" + i + " : [");
-		for (int j = 0; j < temps.size() - 1; j++) {
-			writer.println(
-					"\t\t\t\t[" + temps.get(j).getPremierElement() + ", " + temps.get(j).getSecondElement() + "],\n");
-		}
-		writer.println("\t\t\t\t[" + temps.get(temps.size() - 1).getPremierElement() + ", "
-				+ temps.get(temps.size() - 1).getSecondElement() + "]");
+	    writer.println("\t\t\"" + i + "\" : [");
+	    for (int j = 0; j < temps.size() - 1; j++) {
+	        writer.println("\t\t\t\t[\"" + temps.get(j).getPremierElement() + "\", \"" + temps.get(j).getSecondElement() + "\"],");
+	    }
+	    writer.println("\t\t\t\t[\"" + temps.get(temps.size() - 1).getPremierElement() + "\", \""
+	            + temps.get(temps.size() - 1).getSecondElement() + "\"]");
 	}
+
 
 	public ExtractionJSON(Simulation simulation) {
 		this.simulation = simulation;
