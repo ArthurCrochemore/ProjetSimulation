@@ -1104,67 +1104,10 @@ public class Saisie extends javax.swing.JFrame {
 	}
 	
 	private void btnChartInfirmierActionPerformed(java.awt.event.ActionEvent evt) {
-		int groupage = 15;
-		Map<LocalTime, Integer> chartMap = new HashMap<>();
-		
-		
-		for(List<Tuple<LocalTime, LocalTime>> infirmier : tmpLibreInfirmier) {
-			for(Tuple<LocalTime, LocalTime> tuple : infirmier) {
-				LocalTime debut = tuple.getPremierElement();
-				LocalTime fin = tuple.getSecondElement();
-				
-				while(!debut.isAfter(fin)) {
-					int i = 0;
-					
-					if(chartMap.containsKey(debut)) {
-						i = chartMap.get(debut);
-					}
-					
-					chartMap.put(debut, i + 1);
-					debut = debut.plusMinutes(1);
-				}
-			}
-		}
-		
-		Set<LocalTime> absices = chartMap.entrySet()
-		        .stream()
-		        .sorted(Map.Entry.comparingByValue())
-		        .map(Map.Entry::getKey)
-		        .sorted(Comparator.comparing(LocalTime::getHour)
-		                .thenComparing(LocalTime::getMinute)
-		                .thenComparing(LocalTime::getSecond))
-		        .collect(Collectors.toCollection(LinkedHashSet::new));
-
-
-
-		Map<LocalTime, Integer> chartMapQte = new HashMap<>();
-		for(LocalTime temps : absices) {
-			LocalTime heureRef = temps.minusMinutes((temps.getHour() * 60 + temps.getMinute()) % groupage);
-			
-			if(heureRef != temps) {
-				chartMap.put(heureRef, chartMap.get(heureRef) + chartMap.get(temps));
-			}
-			
-			int i = 1;
-			if(chartMapQte.containsKey(heureRef)) {
-				i = chartMapQte.get(heureRef);
-			}
-			
-			chartMapQte.put(heureRef, i + 1);
-		}
-		
-		absices = chartMapQte.entrySet()
-		        .stream()
-		        .sorted(Map.Entry.comparingByValue())
-		        .map(Map.Entry::getKey)
-		        .sorted(Comparator.comparing(LocalTime::getHour)
-		                .thenComparing(LocalTime::getMinute)
-		                .thenComparing(LocalTime::getSecond))
-		        .collect(Collectors.toCollection(LinkedHashSet::new));
-		for(LocalTime temps : absices) {	
-			dataset.addValue(chartMap.get(temps) * 1.0 / chartMapQte.get(temps), "infirmiers", temps);
-		}
-		
+		dataset.clear();
+    	
+		ajouterAuDataset(tmpLibreInfirmier, "infirmiers");
+    	
 		if(chart == null)
 			initChart();
 		
@@ -1174,12 +1117,55 @@ public class Saisie extends javax.swing.JFrame {
 	
 
     private void btnChartChirugienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChartChirugienActionPerformed
+		dataset.clear();
+    	
+		ajouterAuDataset(tmpLibreChirurgien, "chirurgiens");
+    	
+		if(chart == null)
+			initChart();
+		
+		chart = ChartFactory.createLineChart("Temps libre des chirurgiens", "Instant", "Nb de chirurgiens libres", dataset);
+	    chart.fireChartChanged(); 
+    }//GEN-LAST:event_btnChartChirugienActionPerformed
+
+    private void btnChartSalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChartSalleActionPerformed
+    	dataset.clear();
+    	
+    	boolean bool = !chkBoxPE.isSelected() && !chkBoxSE.isSelected() && !chkBoxTE.isSelected();
+    	
+    	if(bool || chkBoxPE.isSelected())
+    		ajouterAuDataset(tmpOccSallesPE, "salle PE");
+
+    	if(bool || chkBoxSE.isSelected())
+    		ajouterAuDataset(tmpOccSallesSE, "salle SE");
+
+    	if(bool || chkBoxTE.isSelected())
+    		ajouterAuDataset(tmpOccSallesTE, "salle TE");
+    	
+		if(chart == null)
+			initChart();
+		
+		chart = ChartFactory.createLineChart("Temps libre des chirurgiens", "Instant", "Nb de chirurgiens libres", dataset);
+	    chart.fireChartChanged(); 
+    }//GEN-LAST:event_btnChartSalleActionPerformed
+
+    private void btnChartPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChartPatientActionPerformed
+    	dataset.setValue(5000, heureFinJournee, heureDebutJournee);
+		
+		if(chart == null)
+			initChart();
+		
+		chart = ChartFactory.createLineChart("Titre du graphique", "Axe X", "Axe Y", dataset);
+	    chart.fireChartChanged(); 
+    }//GEN-LAST:event_btnChartPatientActionPerformed
+
+    private void ajouterAuDataset(List<List<Tuple<LocalTime, LocalTime>>> map, String intitule) {
     	int groupage = 15;
 		Map<LocalTime, Integer> chartMap = new HashMap<>();
 		
 		
-		for(List<Tuple<LocalTime, LocalTime>> chirurgien : tmpLibreChirurgien) {
-			for(Tuple<LocalTime, LocalTime> tuple : chirurgien) {
+		for(List<Tuple<LocalTime, LocalTime>> ressource : map) {
+			for(Tuple<LocalTime, LocalTime> tuple : ressource) {
 				LocalTime debut = tuple.getPremierElement();
 				LocalTime fin = tuple.getSecondElement();
 				
@@ -1236,37 +1222,10 @@ public class Saisie extends javax.swing.JFrame {
 		                .thenComparing(LocalTime::getSecond))
 		        .collect(Collectors.toCollection(LinkedHashSet::new));
 		for(LocalTime temps : absices) {	
-			dataset.addValue(chartMap.get(temps) * 1.0 / chartMapQte.get(temps), "chirurgiens", temps);
+			dataset.addValue(chartMap.get(temps) * 1.0 / chartMapQte.get(temps), intitule, temps);
 		}
-		
-		if(chart == null)
-			initChart();
-		
-		chart = ChartFactory.createLineChart("Temps libre des chirurgiens", "Instant", "Nb de chirurgiens libres", dataset);
-	    chart.fireChartChanged(); 
-    }//GEN-LAST:event_btnChartChirugienActionPerformed
-
-    private void btnChartSalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChartSalleActionPerformed
-    	dataset.setValue(500, heureFinJournee, heureDebutJournee);
-		
-		if(chart == null)
-			initChart();
-		
-		chart = ChartFactory.createLineChart("Titre du graphique", "Axe X", "Axe Y", dataset);
-	    chart.fireChartChanged(); 
-    }//GEN-LAST:event_btnChartSalleActionPerformed
-
-    private void btnChartPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChartPatientActionPerformed
-    	dataset.setValue(5000, heureFinJournee, heureDebutJournee);
-		
-		if(chart == null)
-			initChart();
-		
-		chart = ChartFactory.createLineChart("Titre du graphique", "Axe X", "Axe Y", dataset);
-	    chart.fireChartChanged(); 
-    }//GEN-LAST:event_btnChartPatientActionPerformed
-
-
+    }    
+    
 	private void lireDonnees() {
 		JSONParser parser = new JSONParser();
 		try {
