@@ -30,6 +30,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import com.orsoncharts.util.json.JSONArray;
@@ -1099,14 +1100,12 @@ public class Saisie extends javax.swing.JFrame {
 
 		lireDonnees();
 		panelChartTools.setVisible(true);
-		
-		//initChart();
 	}
 	
 	private void btnChartInfirmierActionPerformed(java.awt.event.ActionEvent evt) {
 		dataset.clear();
     	
-		ajouterAuDataset(tmpLibreInfirmier, "infirmiers");
+		ajouterAuDatasetRessource(tmpLibreInfirmier, "infirmiers");
     	
 		if(chart == null)
 			initChart();
@@ -1119,7 +1118,7 @@ public class Saisie extends javax.swing.JFrame {
     private void btnChartChirugienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChartChirugienActionPerformed
 		dataset.clear();
     	
-		ajouterAuDataset(tmpLibreChirurgien, "chirurgiens");
+		ajouterAuDatasetRessource(tmpLibreChirurgien, "chirurgiens");
     	
 		if(chart == null)
 			initChart();
@@ -1134,35 +1133,55 @@ public class Saisie extends javax.swing.JFrame {
     	boolean bool = !chkBoxPE.isSelected() && !chkBoxSE.isSelected() && !chkBoxTE.isSelected();
     	
     	if(bool || chkBoxPE.isSelected())
-    		ajouterAuDataset(tmpOccSallesPE, "salle PE");
+    		ajouterAuDatasetRessource(tmpOccSallesPE, "salle PE");
 
     	if(bool || chkBoxSE.isSelected())
-    		ajouterAuDataset(tmpOccSallesSE, "salle SE");
+    		ajouterAuDatasetRessource(tmpOccSallesSE, "salle SE");
 
     	if(bool || chkBoxTE.isSelected())
-    		ajouterAuDataset(tmpOccSallesTE, "salle TE");
+    		ajouterAuDatasetRessource(tmpOccSallesTE, "salle TE");
     	
 		if(chart == null)
 			initChart();
 		
 		chart = ChartFactory.createLineChart("Temps libre des chirurgiens", "Instant", "Nb de chirurgiens libres", dataset);
+    	chart.setTitle("test");
+    	
 	    chart.fireChartChanged(); 
     }//GEN-LAST:event_btnChartSalleActionPerformed
 
     private void btnChartPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChartPatientActionPerformed
+    	dataset.clear();
     	dataset.setValue(5000, heureFinJournee, heureDebutJournee);
 		
+    	boolean bool = !chkBoxRDV.isSelected() && !chkBoxUrgent.isSelected();
+    	
+    	if(bool || chkBoxRDV.isSelected()) {
+    		ajouterAuDatasetPatient(attPatientRDV, "RDV en attente de salle", 0);
+    		ajouterAuDatasetPatient(attPatientRDV, "RDV en attente de preparation de la salle", 1);
+    		ajouterAuDatasetPatient(attPatientRDV, "RDV en attente d'un chirugien", 2);
+    		ajouterAuDatasetPatient(attPatientRDV, "RDV en attente de liberation de la salle", 3);
+    	}
+
+    	if(bool || chkBoxUrgent.isSelected()) {
+    		ajouterAuDatasetPatient(attPatientUrgent, "Urgent en attente de salle", 0);
+    		ajouterAuDatasetPatient(attPatientUrgent, "Urgent en attente de preparation de la salle", 1);
+    		ajouterAuDatasetPatient(attPatientUrgent, "Urgent en attente d'un chirugien", 2);
+    		ajouterAuDatasetPatient(attPatientUrgent, "Urgent en attente de liberation de la salle", 3);
+    	}
+    	
+    	dataset.removeRow(LocalTime.of(18, 0));
+    	
 		if(chart == null)
 			initChart();
-		
-		chart = ChartFactory.createLineChart("Titre du graphique", "Axe X", "Axe Y", dataset);
+
+		chart = ChartFactory.createLineChart("Temps d'attentes des patients", "Instant", "Nb de patients en attente", dataset);
 	    chart.fireChartChanged(); 
     }//GEN-LAST:event_btnChartPatientActionPerformed
 
-    private void ajouterAuDataset(List<List<Tuple<LocalTime, LocalTime>>> map, String intitule) {
+    private void ajouterAuDatasetRessource(List<List<Tuple<LocalTime, LocalTime>>> map, String intitule) {
     	int groupage = 15;
 		Map<LocalTime, Integer> chartMap = new HashMap<>();
-		
 		
 		for(List<Tuple<LocalTime, LocalTime>> ressource : map) {
 			for(Tuple<LocalTime, LocalTime> tuple : ressource) {
@@ -1221,6 +1240,72 @@ public class Saisie extends javax.swing.JFrame {
 		                .thenComparing(LocalTime::getMinute)
 		                .thenComparing(LocalTime::getSecond))
 		        .collect(Collectors.toCollection(LinkedHashSet::new));
+		for(LocalTime temps : absices) {	
+			dataset.addValue(chartMap.get(temps) * 1.0 / chartMapQte.get(temps), intitule, temps);
+		}
+    }    
+    
+    private void ajouterAuDatasetPatient(List<List<Tuple<LocalTime, LocalTime>>> map, String intitule, int indice) {
+    	int groupage = 15;
+		Map<LocalTime, Integer> chartMap = new HashMap<>();
+		
+		for(List<Tuple<LocalTime, LocalTime>> ressource : map) {
+			if (ressource.size() > indice) {
+				Tuple<LocalTime, LocalTime> tuple = ressource.get(indice);
+				LocalTime debut = tuple.getPremierElement();
+				LocalTime fin = tuple.getSecondElement();
+				
+				while(!debut.isAfter(fin)) {
+					int i = 0;
+					
+					if(chartMap.containsKey(debut)) {
+						i = chartMap.get(debut);
+					}
+					
+					chartMap.put(debut, i + 1);
+					debut = debut.plusMinutes(1);
+				}
+			}
+		}
+		
+		Set<LocalTime> absices = chartMap.entrySet()
+		        .stream()
+		        .sorted(Map.Entry.comparingByValue())
+		        .map(Map.Entry::getKey)
+		        .sorted(Comparator.comparing(LocalTime::getHour)
+		                .thenComparing(LocalTime::getMinute)
+		                .thenComparing(LocalTime::getSecond))
+		        .collect(Collectors.toCollection(LinkedHashSet::new));
+
+		Map<LocalTime, Integer> chartMapQte = new HashMap<>();
+		for(LocalTime temps : absices) {
+			LocalTime heureRef = temps.minusMinutes((temps.getHour() * 60 + temps.getMinute()) % groupage);
+			
+			if(heureRef != temps) {
+				int i = 0;
+				if (chartMap.containsKey(heureRef)) {
+					i = chartMap.get(heureRef);
+				}
+				chartMap.put(heureRef, i + chartMap.get(temps));
+			}
+			
+			int i = 1;
+			if(chartMapQte.containsKey(heureRef)) {
+				i = chartMapQte.get(heureRef);
+			}
+			
+			chartMapQte.put(heureRef, i + 1);
+		}
+		
+		absices = chartMapQte.entrySet()
+		        .stream()
+		        .sorted(Map.Entry.comparingByValue())
+		        .map(Map.Entry::getKey)
+		        .sorted(Comparator.comparing(LocalTime::getHour)
+		                .thenComparing(LocalTime::getMinute)
+		                .thenComparing(LocalTime::getSecond))
+		        .collect(Collectors.toCollection(LinkedHashSet::new));
+		
 		for(LocalTime temps : absices) {	
 			dataset.addValue(chartMap.get(temps) * 1.0 / chartMapQte.get(temps), intitule, temps);
 		}
