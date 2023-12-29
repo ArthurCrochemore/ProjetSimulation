@@ -5,8 +5,8 @@ import fr.univtours.polytech.initialisation.DonneeInitialisation;
 import fr.univtours.polytech.initialisation.LectureDeFichierSimulation;
 
 public class MainSimulation {
-	public static void main(String[] args) {
-		LectureDeFichierSimulation lecture = new LectureDeFichierSimulation("../fichier_type.txt");
+	public static void main(String[] args) {		
+		LectureDeFichierSimulation lecture = new LectureDeFichierSimulation("../fichier.txt");
 
 		DonneeInitialisation data = lecture.initialiserSimulation();
 		
@@ -20,7 +20,9 @@ public class MainSimulation {
 
 			d.execution();
 			ExtractionJSON e = new ExtractionJSON(s);
-			e.extraiteDonnees();	
+			e.extraiteDonnees();
+			
+			
 		} catch (Exception e){
 			
 		}

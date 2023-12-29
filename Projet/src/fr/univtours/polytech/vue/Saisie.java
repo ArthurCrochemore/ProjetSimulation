@@ -4,6 +4,7 @@
  */
 package fr.univtours.polytech.vue;
 
+import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintWriter;
@@ -30,7 +31,6 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import com.orsoncharts.util.json.JSONArray;
@@ -38,6 +38,7 @@ import com.orsoncharts.util.json.JSONObject;
 import com.orsoncharts.util.json.parser.JSONParser;
 import com.raven.event.EventTimePicker;
 
+import fr.univtours.polytech.MainSimulation;
 import fr.univtours.polytech.util.Tuple;
 
 // ============ INITIALISATION ========================================================================
@@ -185,6 +186,7 @@ public class Saisie extends javax.swing.JFrame {
 	// <editor-fold defaultstate="collapsed" desc="Generated
 	// <editor-fold defaultstate="collapsed" desc="Generated
 	// <editor-fold defaultstate="collapsed" desc="Generated
+	// <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -243,6 +245,7 @@ public class Saisie extends javax.swing.JFrame {
         btnChartPatient = new javax.swing.JButton();
         chkBoxRDV = new javax.swing.JCheckBox();
         chkBoxUrgent = new javax.swing.JCheckBox();
+        txtTitreGraph = new javax.swing.JLabel();
 
         pickerHeureDebut.setForeground(new java.awt.Color(236, 213, 129));
 
@@ -657,6 +660,7 @@ public class Saisie extends javax.swing.JFrame {
 
         labelImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fr/univtours/polytech/vue/image.jpg"))); // NOI18N
+        labelImage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         panelChartTools.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -753,24 +757,38 @@ public class Saisie extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        txtTitreGraph.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        txtTitreGraph.setForeground(new java.awt.Color(255, 255, 255));
+        txtTitreGraph.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtTitreGraph.setText("_");
+        txtTitreGraph.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
         panelChart.setLayout(panelChartLayout);
         panelChartLayout.setHorizontalGroup(
             panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelChartLayout.createSequentialGroup()
-                .addContainerGap(212, Short.MAX_VALUE)
+                .addContainerGap(166, Short.MAX_VALUE)
                 .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelLancez, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelImage, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(81, 81, 81)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelChartLayout.createSequentialGroup()
+                        .addComponent(labelLancez, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(81, 81, 81))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelChartLayout.createSequentialGroup()
+                        .addComponent(txtTitreGraph, javax.swing.GroupLayout.PREFERRED_SIZE, 824, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(157, 157, 157))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelChartLayout.createSequentialGroup()
+                        .addComponent(labelImage)
+                        .addGap(127, 127, 127)))
                 .addComponent(panelChartTools, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelChartLayout.setVerticalGroup(
             panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelChartLayout.createSequentialGroup()
-                .addGap(0, 27, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(txtTitreGraph)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(labelImage)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelLancez, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
             .addGroup(panelChartLayout.createSequentialGroup()
@@ -863,7 +881,7 @@ public class Saisie extends javax.swing.JFrame {
 		// TODO add your handling code here:
 		extraireDonnee();
 
-		// MainSimulation.main(null);
+		MainSimulation.main(null);
 
 		initialiserGraph();
 	}// GEN-LAST:event_btnSimulationActionPerformed
@@ -1062,6 +1080,7 @@ public class Saisie extends javax.swing.JFrame {
     private javax.swing.JLabel txtRegleSalle;
     private javax.swing.JLabel txtSE;
     private javax.swing.JLabel txtTE;
+    private javax.swing.JLabel txtTitreGraph;
     private javax.swing.JTextField valueMarge;
     private javax.swing.JTextField valueMoyTempsOpe;
     private javax.swing.JTextField valueNbChirurgien;
@@ -1090,7 +1109,7 @@ public class Saisie extends javax.swing.JFrame {
 	private ChartPanel chartPanel;
 	private JFreeChart chart;
 	private DefaultCategoryDataset dataset;
-	
+
 	public void initialiserGraph() {
 		labelImage.setVisible(false);
 		labelLancez.setVisible(false);
@@ -1101,216 +1120,212 @@ public class Saisie extends javax.swing.JFrame {
 		lireDonnees();
 		panelChartTools.setVisible(true);
 	}
-	
+
 	private void btnChartInfirmierActionPerformed(java.awt.event.ActionEvent evt) {
 		dataset.clear();
-    	
+
 		ajouterAuDatasetRessource(tmpLibreInfirmier, "infirmiers");
-    	
-		if(chart == null)
+
+		if (chart == null)
 			initChart();
-		
-		chart = ChartFactory.createLineChart("Temps libre des infirmieres", "Instant", "Nb d'infirmiers libres", dataset);
-	    chart.fireChartChanged(); 
+
+		chart = ChartFactory.createLineChart("Temps libre des infirmieres", "Instant", "Nb d'infirmiers libres",
+				dataset);
+		chart.fireChartChanged();
+
+		txtTitreGraph.setForeground(new Color(0,0,0));
+		txtTitreGraph.setText("Nb d'infirmiers libres à chaque instant");
 	}
-	
 
-    private void btnChartChirugienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChartChirugienActionPerformed
+	private void btnChartChirugienActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnChartChirugienActionPerformed
 		dataset.clear();
-    	
+
 		ajouterAuDatasetRessource(tmpLibreChirurgien, "chirurgiens");
-    	
-		if(chart == null)
-			initChart();
-		
-		chart = ChartFactory.createLineChart("Temps libre des chirurgiens", "Instant", "Nb de chirurgiens libres", dataset);
-	    chart.fireChartChanged(); 
-    }//GEN-LAST:event_btnChartChirugienActionPerformed
 
-    private void btnChartSalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChartSalleActionPerformed
-    	dataset.clear();
-    	
-    	boolean bool = !chkBoxPE.isSelected() && !chkBoxSE.isSelected() && !chkBoxTE.isSelected();
-    	
-    	if(bool || chkBoxPE.isSelected())
-    		ajouterAuDatasetRessource(tmpOccSallesPE, "salle PE");
-
-    	if(bool || chkBoxSE.isSelected())
-    		ajouterAuDatasetRessource(tmpOccSallesSE, "salle SE");
-
-    	if(bool || chkBoxTE.isSelected())
-    		ajouterAuDatasetRessource(tmpOccSallesTE, "salle TE");
-    	
-		if(chart == null)
-			initChart();
-		
-		chart = ChartFactory.createLineChart("Temps libre des chirurgiens", "Instant", "Nb de chirurgiens libres", dataset);
-    	chart.setTitle("test");
-    	
-	    chart.fireChartChanged(); 
-    }//GEN-LAST:event_btnChartSalleActionPerformed
-
-    private void btnChartPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChartPatientActionPerformed
-    	dataset.clear();
-    	dataset.setValue(5000, heureFinJournee, heureDebutJournee);
-		
-    	boolean bool = !chkBoxRDV.isSelected() && !chkBoxUrgent.isSelected();
-    	
-    	if(bool || chkBoxRDV.isSelected()) {
-    		ajouterAuDatasetPatient(attPatientRDV, "RDV en attente de salle", 0);
-    		ajouterAuDatasetPatient(attPatientRDV, "RDV en attente de preparation de la salle", 1);
-    		ajouterAuDatasetPatient(attPatientRDV, "RDV en attente d'un chirugien", 2);
-    		ajouterAuDatasetPatient(attPatientRDV, "RDV en attente de liberation de la salle", 3);
-    	}
-
-    	if(bool || chkBoxUrgent.isSelected()) {
-    		ajouterAuDatasetPatient(attPatientUrgent, "Urgent en attente de salle", 0);
-    		ajouterAuDatasetPatient(attPatientUrgent, "Urgent en attente de preparation de la salle", 1);
-    		ajouterAuDatasetPatient(attPatientUrgent, "Urgent en attente d'un chirugien", 2);
-    		ajouterAuDatasetPatient(attPatientUrgent, "Urgent en attente de liberation de la salle", 3);
-    	}
-    	
-    	dataset.removeRow(LocalTime.of(18, 0));
-    	
-		if(chart == null)
+		if (chart == null)
 			initChart();
 
-		chart = ChartFactory.createLineChart("Temps d'attentes des patients", "Instant", "Nb de patients en attente", dataset);
-	    chart.fireChartChanged(); 
-    }//GEN-LAST:event_btnChartPatientActionPerformed
+		chart = ChartFactory.createLineChart("Temps libre des chirurgiens", "Instant", "Nb de chirurgiens libres",
+				dataset);
+		chart.fireChartChanged();
 
-    private void ajouterAuDatasetRessource(List<List<Tuple<LocalTime, LocalTime>>> map, String intitule) {
-    	int groupage = 15;
+		txtTitreGraph.setForeground(new Color(0,0,0));
+		txtTitreGraph.setText("Nb de chirurgiens libres à chaque instant");
+	}// GEN-LAST:event_btnChartChirugienActionPerformed
+
+	private void btnChartSalleActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnChartSalleActionPerformed
+		dataset.clear();
+
+		boolean bool = !chkBoxPE.isSelected() && !chkBoxSE.isSelected() && !chkBoxTE.isSelected();
+
+		if (bool || chkBoxPE.isSelected())
+			ajouterAuDatasetRessource(tmpOccSallesPE, "salle PE");
+
+		if (bool || chkBoxSE.isSelected())
+			ajouterAuDatasetRessource(tmpOccSallesSE, "salle SE");
+
+		if (bool || chkBoxTE.isSelected())
+			ajouterAuDatasetRessource(tmpOccSallesTE, "salle TE");
+
+		if (chart == null)
+			initChart();
+
+		chart = ChartFactory.createLineChart("Temps libre des chirurgiens", "Instant", "Nb de chirurgiens libres",
+				dataset);
+
+		chart.fireChartChanged();
+		
+		txtTitreGraph.setForeground(new Color(0,0,0));
+		txtTitreGraph.setText("Nb de salles libres à chaque instant");
+	}// GEN-LAST:event_btnChartSalleActionPerformed
+
+	private void btnChartPatientActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnChartPatientActionPerformed
+		dataset.clear();
+		dataset.setValue(5000, heureFinJournee, heureDebutJournee);
+
+		boolean bool = !chkBoxRDV.isSelected() && !chkBoxUrgent.isSelected();
+		
+		if (bool || chkBoxRDV.isSelected()) {
+			ajouterAuDatasetPatient(attPatientRDV, "RDV en attente de salle", 0);
+			ajouterAuDatasetPatient(attPatientRDV, "RDV en attente de preparation de la salle", 1);
+			ajouterAuDatasetPatient(attPatientRDV, "RDV en attente d'un chirugien", 2);
+			ajouterAuDatasetPatient(attPatientRDV, "RDV en attente de liberation de la salle", 3);
+		}
+
+		if (bool || chkBoxUrgent.isSelected()) {
+			ajouterAuDatasetPatient(attPatientUrgent, "Urgent en attente de salle", 0);
+			ajouterAuDatasetPatient(attPatientUrgent, "Urgent en attente de preparation de la salle", 1);
+			ajouterAuDatasetPatient(attPatientUrgent, "Urgent en attente d'un chirugien", 2);
+			ajouterAuDatasetPatient(attPatientUrgent, "Urgent en attente de liberation de la salle", 3);
+		}
+
+		dataset.removeRow(LocalTime.of(18, 0));
+
+		if (chart == null)
+			initChart();
+
+		chart = ChartFactory.createLineChart("Nb de patients en attente à chaque instant", "Instant", "Nb de patients en attente",
+				dataset);
+		chart.fireChartChanged();
+		
+		txtTitreGraph.setForeground(new Color(0,0,0));
+		txtTitreGraph.setText("Nb de patients en attente à chaque instant");
+	}// GEN-LAST:event_btnChartPatientActionPerformed
+
+	private void ajouterAuDatasetRessource(List<List<Tuple<LocalTime, LocalTime>>> map, String intitule) {
+		int groupage = 15;
 		Map<LocalTime, Integer> chartMap = new HashMap<>();
-		
-		for(List<Tuple<LocalTime, LocalTime>> ressource : map) {
-			for(Tuple<LocalTime, LocalTime> tuple : ressource) {
+
+		for (List<Tuple<LocalTime, LocalTime>> ressource : map) {
+			for (Tuple<LocalTime, LocalTime> tuple : ressource) {
 				LocalTime debut = tuple.getPremierElement();
 				LocalTime fin = tuple.getSecondElement();
-				
-				while(!debut.isAfter(fin)) {
+
+				while (!debut.isAfter(fin)) {
 					int i = 0;
-					
-					if(chartMap.containsKey(debut)) {
+
+					if (chartMap.containsKey(debut)) {
 						i = chartMap.get(debut);
 					}
-					
+
 					chartMap.put(debut, i + 1);
 					debut = debut.plusMinutes(1);
 				}
 			}
 		}
-		
-		Set<LocalTime> absices = chartMap.entrySet()
-		        .stream()
-		        .sorted(Map.Entry.comparingByValue())
-		        .map(Map.Entry::getKey)
-		        .sorted(Comparator.comparing(LocalTime::getHour)
-		                .thenComparing(LocalTime::getMinute)
-		                .thenComparing(LocalTime::getSecond))
-		        .collect(Collectors.toCollection(LinkedHashSet::new));
 
-
+		Set<LocalTime> absices = chartMap.entrySet().stream().sorted(Map.Entry.comparingByValue())
+				.map(Map.Entry::getKey).sorted(Comparator.comparing(LocalTime::getHour)
+						.thenComparing(LocalTime::getMinute).thenComparing(LocalTime::getSecond))
+				.collect(Collectors.toCollection(LinkedHashSet::new));
 
 		Map<LocalTime, Integer> chartMapQte = new HashMap<>();
-		for(LocalTime temps : absices) {
+		for (LocalTime temps : absices) {
 			LocalTime heureRef = temps.minusMinutes((temps.getHour() * 60 + temps.getMinute()) % groupage);
-			
-			if(heureRef != temps) {
+
+			if (heureRef != temps) {
 				int i = 0;
 				if (chartMap.containsKey(heureRef)) {
 					i = chartMap.get(heureRef);
 				}
 				chartMap.put(heureRef, i + chartMap.get(temps));
 			}
-			
+
 			int i = 1;
-			if(chartMapQte.containsKey(heureRef)) {
+			if (chartMapQte.containsKey(heureRef)) {
 				i = chartMapQte.get(heureRef);
 			}
-			
+
 			chartMapQte.put(heureRef, i + 1);
 		}
-		
-		absices = chartMapQte.entrySet()
-		        .stream()
-		        .sorted(Map.Entry.comparingByValue())
-		        .map(Map.Entry::getKey)
-		        .sorted(Comparator.comparing(LocalTime::getHour)
-		                .thenComparing(LocalTime::getMinute)
-		                .thenComparing(LocalTime::getSecond))
-		        .collect(Collectors.toCollection(LinkedHashSet::new));
-		for(LocalTime temps : absices) {	
+
+		absices = chartMapQte.entrySet().stream().sorted(Map.Entry.comparingByValue()).map(Map.Entry::getKey)
+				.sorted(Comparator.comparing(LocalTime::getHour).thenComparing(LocalTime::getMinute)
+						.thenComparing(LocalTime::getSecond))
+				.collect(Collectors.toCollection(LinkedHashSet::new));
+		for (LocalTime temps : absices) {
 			dataset.addValue(chartMap.get(temps) * 1.0 / chartMapQte.get(temps), intitule, temps);
 		}
-    }    
-    
-    private void ajouterAuDatasetPatient(List<List<Tuple<LocalTime, LocalTime>>> map, String intitule, int indice) {
-    	int groupage = 15;
+	}
+
+	private void ajouterAuDatasetPatient(List<List<Tuple<LocalTime, LocalTime>>> map, String intitule, int indice) {
+		int groupage = 15;
 		Map<LocalTime, Integer> chartMap = new HashMap<>();
-		
-		for(List<Tuple<LocalTime, LocalTime>> ressource : map) {
+
+		for (List<Tuple<LocalTime, LocalTime>> ressource : map) {
 			if (ressource.size() > indice) {
 				Tuple<LocalTime, LocalTime> tuple = ressource.get(indice);
 				LocalTime debut = tuple.getPremierElement();
 				LocalTime fin = tuple.getSecondElement();
-				
-				while(!debut.isAfter(fin)) {
+
+				while (!debut.isAfter(fin)) {
 					int i = 0;
-					
-					if(chartMap.containsKey(debut)) {
+
+					if (chartMap.containsKey(debut)) {
 						i = chartMap.get(debut);
 					}
-					
+
 					chartMap.put(debut, i + 1);
 					debut = debut.plusMinutes(1);
 				}
 			}
 		}
-		
-		Set<LocalTime> absices = chartMap.entrySet()
-		        .stream()
-		        .sorted(Map.Entry.comparingByValue())
-		        .map(Map.Entry::getKey)
-		        .sorted(Comparator.comparing(LocalTime::getHour)
-		                .thenComparing(LocalTime::getMinute)
-		                .thenComparing(LocalTime::getSecond))
-		        .collect(Collectors.toCollection(LinkedHashSet::new));
+
+		Set<LocalTime> absices = chartMap.entrySet().stream().sorted(Map.Entry.comparingByValue())
+				.map(Map.Entry::getKey).sorted(Comparator.comparing(LocalTime::getHour)
+						.thenComparing(LocalTime::getMinute).thenComparing(LocalTime::getSecond))
+				.collect(Collectors.toCollection(LinkedHashSet::new));
 
 		Map<LocalTime, Integer> chartMapQte = new HashMap<>();
-		for(LocalTime temps : absices) {
+		for (LocalTime temps : absices) {
 			LocalTime heureRef = temps.minusMinutes((temps.getHour() * 60 + temps.getMinute()) % groupage);
-			
-			if(heureRef != temps) {
+
+			if (heureRef != temps) {
 				int i = 0;
 				if (chartMap.containsKey(heureRef)) {
 					i = chartMap.get(heureRef);
 				}
 				chartMap.put(heureRef, i + chartMap.get(temps));
 			}
-			
+
 			int i = 1;
-			if(chartMapQte.containsKey(heureRef)) {
+			if (chartMapQte.containsKey(heureRef)) {
 				i = chartMapQte.get(heureRef);
 			}
-			
+
 			chartMapQte.put(heureRef, i + 1);
 		}
-		
-		absices = chartMapQte.entrySet()
-		        .stream()
-		        .sorted(Map.Entry.comparingByValue())
-		        .map(Map.Entry::getKey)
-		        .sorted(Comparator.comparing(LocalTime::getHour)
-		                .thenComparing(LocalTime::getMinute)
-		                .thenComparing(LocalTime::getSecond))
-		        .collect(Collectors.toCollection(LinkedHashSet::new));
-		
-		for(LocalTime temps : absices) {	
+
+		absices = chartMapQte.entrySet().stream().sorted(Map.Entry.comparingByValue()).map(Map.Entry::getKey)
+				.sorted(Comparator.comparing(LocalTime::getHour).thenComparing(LocalTime::getMinute)
+						.thenComparing(LocalTime::getSecond))
+				.collect(Collectors.toCollection(LinkedHashSet::new));
+
+		for (LocalTime temps : absices) {
 			dataset.addValue(chartMap.get(temps) * 1.0 / chartMapQte.get(temps), intitule, temps);
 		}
-    }    
-    
+	}
+
 	private void lireDonnees() {
 		JSONParser parser = new JSONParser();
 		try {
@@ -1524,43 +1539,44 @@ public class Saisie extends javax.swing.JFrame {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void initChart() {
-	    chart = ChartFactory.createLineChart("", "Heures de la journée", "Temps attentes / libre", dataset);
+		chart = ChartFactory.createLineChart("", "Heures de la journée", "Temps attentes / libre", dataset);
 
-	    CategoryPlot plot = (CategoryPlot) chart.getPlot();
-	    CategoryAxis xAxis = plot.getDomainAxis();
-	    
-	    xAxis.setCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 6.0));
+		CategoryPlot plot = (CategoryPlot) chart.getPlot();
+		CategoryAxis xAxis = plot.getDomainAxis();
 
-	    chartPanel = new ChartPanel(chart);
-	    chartPanel.setPreferredSize(new java.awt.Dimension(1100, 900));
-	    
-	    javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
-	    panelChart.setLayout(panelChartLayout);
-	    panelChartLayout.setHorizontalGroup(panelChartLayout
-	            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	            .addGroup(panelChartLayout.createSequentialGroup().addContainerGap(212, Short.MAX_VALUE)
-	                    .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	                            .addComponent(labelLancez, javax.swing.GroupLayout.Alignment.TRAILING,
-	                                    javax.swing.GroupLayout.PREFERRED_SIZE, 900,
-	                                    javax.swing.GroupLayout.PREFERRED_SIZE)
-	                            .addComponent(labelImage, javax.swing.GroupLayout.Alignment.TRAILING)
-	                            .addComponent(chartPanel, javax.swing.GroupLayout.Alignment.TRAILING,
-	                                    javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-	                                    javax.swing.GroupLayout.PREFERRED_SIZE))
-	                    .addGap(250)));
-	    panelChartLayout.setVerticalGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelChartLayout.createSequentialGroup()
-	                    .addGap(0, 27, Short.MAX_VALUE).addComponent(labelImage).addGap(18, 18, 18)
-	                    .addComponent(labelLancez, javax.swing.GroupLayout.PREFERRED_SIZE,
-	                            javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-	                    .addGap(30, 30, 30)
-	                    .addComponent(chartPanel, javax.swing.GroupLayout.PREFERRED_SIZE,
-	                            javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-	                    .addContainerGap()));
-	    
-	    panelChart.revalidate();
-	    panelChart.repaint();
+		xAxis.setCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 6.0));
+
+		chartPanel = new ChartPanel(chart);
+		chartPanel.setPreferredSize(new java.awt.Dimension(1100, 900));
+
+		javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
+		panelChart.setLayout(panelChartLayout);
+		panelChartLayout.setHorizontalGroup(panelChartLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(panelChartLayout.createSequentialGroup().addContainerGap(212, Short.MAX_VALUE)
+						.addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								.addComponent(labelLancez, javax.swing.GroupLayout.Alignment.TRAILING,
+										javax.swing.GroupLayout.PREFERRED_SIZE, 900,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addComponent(labelImage, javax.swing.GroupLayout.Alignment.TRAILING)
+								.addComponent(chartPanel, javax.swing.GroupLayout.Alignment.TRAILING,
+										javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+										javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addGap(250)));
+		panelChartLayout
+				.setVerticalGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelChartLayout.createSequentialGroup()
+								.addGap(0, 27, Short.MAX_VALUE).addComponent(labelImage).addGap(18, 18, 18)
+								.addComponent(labelLancez, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addGap(30, 30, 30)
+								.addComponent(chartPanel, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addContainerGap()));
+
+		panelChart.revalidate();
+		panelChart.repaint();
 	}
 }
