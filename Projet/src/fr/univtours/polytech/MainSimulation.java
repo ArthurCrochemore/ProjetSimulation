@@ -6,7 +6,7 @@ import fr.univtours.polytech.initialisation.LectureDeFichierSimulation;
 
 public class MainSimulation {
 	public static void main(String[] args) {		
-		LectureDeFichierSimulation lecture = new LectureDeFichierSimulation("../fichier3.txt");
+		LectureDeFichierSimulation lecture = new LectureDeFichierSimulation("../fichier2.txt");
 
 		DonneeInitialisation data = lecture.initialiserSimulation();
 		
@@ -24,7 +24,7 @@ public class MainSimulation {
 			
 			
 		} catch (Exception e){
-			
+			e.printStackTrace();
 		}
 	}
 }
