@@ -55,16 +55,12 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 		nouvListePatientUrgent = new ArrayList<>();
 		List<Patient> listePatient;
 
-		constantes = simulation.getConstantes();
-		tempsMoyen = constantes.getTempsMoyen();
-		heureActuelle = simulation.getDeroulement().getHeureSimulation();
-
 		if (patientUrgent != null) {
 			// Si un patient urgent est donné, récupérer le planning existant et l'ajouter à
 			// la nouvelle liste
 			Planning ancienPlanning = simulation.getPlanning();
 
-			listePatient = ancienPlanning.extraiteDonnee(heureActuelle, new ExtractionJSON(simulation));
+			listePatient = ancienPlanning.extraiteDonnee();
 
 			nouvListePatientUrgent.add(patientUrgent);
 			System.out.println("changement de planning");
@@ -81,6 +77,10 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 			}
 		}
 
+		constantes = simulation.getConstantes();
+		tempsMoyen = constantes.getTempsMoyen();
+		heureActuelle = simulation.getDeroulement().getHeureSimulation();
+		
 		// Tri de la liste de patient en fcontion du temps d'arrivée
 		Collections.sort(nouvListePatientRDV, (p1, p2) -> p1.getHeureArrive().compareTo(p2.getHeureArrive()));
 		Collections.sort(nouvListePatientUrgent, (p1, p2) -> p1.getHeureArrive().compareTo(p2.getHeureArrive()));
@@ -100,7 +100,7 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 		mapTrousParSalle = TrouPlanning.RechercheTrouPlanning(sallesTresEquipees, mapTrousParSalle, renvoi, constantes,
 				simulation.getHeureDebutSimulation(), simulation.getHeureFinSimulation());
 
-		return new Planning(placementDesPatientsRDV(renvoi));
+		return new Planning(placementDesPatientsRDV(renvoi), heureActuelle, new ExtractionJSON(simulation));
 	}
 
 	/**
@@ -134,12 +134,12 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 						renvoi.put(salle, new ArrayList<Patient>());
 
 						LocalTime tempsMoyenEnFonctionEtat = constantes.getTempsMoyen(etat);
-
+						
 						List<TrouPlanning> listeTrous = new ArrayList<>();
 						listeTrous.add(TrouPlanning.CreerPlaningDepuisHeureDepuisFinPatient1EtHeureDebutPatient2(
 								heureActuelle.plusMinutes(tempsMoyenEnFonctionEtat.getMinute())
 										.plusHours(tempsMoyenEnFonctionEtat.getHour()),
-								LocalTime.of(18, 0, 0), 0, salle, tempsMoyen));
+								LocalTime.of(23, 59, 0), 0, salle, tempsMoyen));
 						mapTrousParSalle.put(salle, listeTrous);
 					}
 				}
@@ -158,7 +158,7 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 						listeTrous.add(TrouPlanning.CreerPlaningDepuisHeureDepuisFinPatient1EtHeureDebutPatient2(
 								heureActuelle.plusMinutes(tempsMoyenEnFonctionEtat.getMinute())
 										.plusHours(tempsMoyenEnFonctionEtat.getHour()),
-								simulation.getHeureFinSimulation(), 0, salle, tempsMoyen));
+										LocalTime.of(23, 59, 0), 0, salle, tempsMoyen));
 						mapTrousParSalle.put(salle, listeTrous);
 					}
 				}
@@ -221,6 +221,8 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 			LocalTime heureArrivePatient = patient.getHeureArrive();
 			Map<Salle, LocalTime> mapPourTrie = new HashMap<>();
 
+			Salle salleu = simulation.getSalles().get(Salle.typeSalles.TRESEQUIPE).get(0);////////////////////////////////
+
 			for (Salle salle : mapTrousParSalle.keySet()) {
 				while (mapTrousParSalle.get(salle).size() > 1 && mapTrousParSalle.get(salle).get(0)
 						.getheureLimiteDebutNouveauPatient().isBefore(heureArrivePatient)) {
@@ -243,7 +245,9 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 
 				if (patient.getGravite() == PatientRDV.listeGravite.TRESEQUIPE) {
 					if (salle.getType() == Salle.typeSalles.TRESEQUIPE) {
-						renvoi.get(salle).add(patient);
+						
+						TrouPlanning trou = mapTrousParSalle.get(salle).get(0);
+						renvoi.get(salle).add(trou.getIndice(), patient);
 						place = true;
 
 						pileSalleRDV.remove(indice);
@@ -258,7 +262,9 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 					if (patient.getGravite() == PatientRDV.listeGravite.SEMIEQUIPE) {
 						if (salle.getType() == Salle.typeSalles.TRESEQUIPE
 								|| salle.getType() == Salle.typeSalles.SEMIEQUIPE) {
-							renvoi.get(salle).add(patient);
+							
+							TrouPlanning trou = mapTrousParSalle.get(salle).get(0);
+							renvoi.get(salle).add(trou.getIndice(), patient);
 							place = true;
 
 							pileSalleRDV.remove(indice);
@@ -274,7 +280,8 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 								|| salle.getType() == Salle.typeSalles.SEMIEQUIPE
 								|| salle.getType() == Salle.typeSalles.PEUEQUIPE) {
 
-							renvoi.get(salle).add(patient);
+							TrouPlanning trou = mapTrousParSalle.get(salle).get(0);
+							renvoi.get(salle).add(trou.getIndice(), patient);
 							place = true;
 
 							pileSalleRDV.remove(indice);

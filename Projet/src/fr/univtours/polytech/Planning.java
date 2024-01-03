@@ -39,7 +39,9 @@ public class Planning {
 	 * @return
 	 */
 	public Patient lireProchainPatient(Salle salle) {
+		System.out.println(salle.getId());
 		if (planning.get(salle).size() > 0) {
+			System.out.println("1 patient au moins");
 			return planning.get(salle).get(0);
 		}
 		return null;
@@ -62,8 +64,7 @@ public class Planning {
 	 * @param extracteur, objet ExtractionJSON qui effectue la sauvegarde du planning
 	 * @return patients, liste des patients de ce planning
 	 */
-	public List<Patient> extraiteDonnee(LocalTime heure, ExtractionJSON extracteur) {
-		extracteur.extrairePlanning(planning, heure);
+	public List<Patient> extraiteDonnee() {
 
 		List<Patient> patientParSalle;
 		List<Patient> patients = new ArrayList<Patient>();
@@ -76,7 +77,8 @@ public class Planning {
 		return patients;
 	}
 
-	public Planning(Map<Salle, List<Patient>> planning) {
+	public Planning(Map<Salle, List<Patient>> planning, LocalTime heure, ExtractionJSON extracteur) {
+		extracteur.extrairePlanning(planning, heure);
 		this.planning = planning;
 	}
 }

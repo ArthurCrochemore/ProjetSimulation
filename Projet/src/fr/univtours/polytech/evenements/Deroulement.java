@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import fr.univtours.polytech.ExtractionJSON;
 import fr.univtours.polytech.Simulation;
 import fr.univtours.polytech.entite.Patient;
 import fr.univtours.polytech.entite.PatientRDV;
@@ -214,6 +215,8 @@ public class Deroulement {
 				}
 			}
 		}
+		new ExtractionJSON(getSimulation()).extrairePlanning(getSimulation().getPlanning().planning, heureSimulation);
+		
 		System.out.println("\n===================================================\n" + aSuppr2 + " patients traites / "
 				+ aSuppr + " patients\n Y a t-il un probleme : " + (!(aSuppr == aSuppr2)));
 	}

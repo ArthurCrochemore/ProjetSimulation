@@ -54,16 +54,12 @@ public class GPPrioriteRDV implements GestionPlanning {
 		nouvListePatientUrgent = new ArrayList<>();
 		List<Patient> listePatient;
 
-		constantes = simulation.getConstantes();
-		tempsMoyen = constantes.getTempsMoyen();
-		heureActuelle = simulation.getDeroulement().getHeureSimulation();
-
 		if (patientUrgent != null) {
 			// Si un patient urgent est donné, récupérer le planning existant et l'ajouter à
 			// la nouvelle liste
 			Planning ancienPlanning = simulation.getPlanning();
 			
-			listePatient = ancienPlanning.extraiteDonnee(heureActuelle, new ExtractionJSON(simulation));
+			listePatient = ancienPlanning.extraiteDonnee();
 
 			nouvListePatientUrgent.add(patientUrgent);
 			System.out.println("changement de planning");
@@ -80,6 +76,10 @@ public class GPPrioriteRDV implements GestionPlanning {
 			}
 		}
 
+		constantes = simulation.getConstantes();
+		tempsMoyen = constantes.getTempsMoyen();
+		heureActuelle = simulation.getDeroulement().getHeureSimulation();
+
 		// Tri de la liste de patient en fcontion du temps d'arrivée
 		Collections.sort(nouvListePatientRDV, (p1, p2) -> p1.getHeureArrive().compareTo(p2.getHeureArrive()));
 		Collections.sort(nouvListePatientUrgent, (p1, p2) -> p1.getHeureArrive().compareTo(p2.getHeureArrive()));
@@ -94,12 +94,12 @@ public class GPPrioriteRDV implements GestionPlanning {
 		// Tri des salles
 		Map<Salle, List<Patient>> renvoi = triDesSalles(sallesMap);
 
-		renvoi = placementDesPatientsRDV(renvoi);
-
 		mapTrousParSalle = TrouPlanning.RechercheTrouPlanning(sallesTresEquipees, mapTrousParSalle, renvoi, constantes,
 				simulation.getHeureDebutSimulation(), simulation.getHeureFinSimulation());
-
-		return new Planning(placementDesPatientsUrgent(renvoi));
+		
+		renvoi = placementDesPatientsRDV(renvoi);
+		
+		return new Planning(placementDesPatientsUrgent(renvoi), heureActuelle, new ExtractionJSON(simulation));
 	}
 
 	/**
@@ -128,7 +128,7 @@ public class GPPrioriteRDV implements GestionPlanning {
 						listeTrous.add(TrouPlanning.CreerPlaningDepuisHeureDepuisFinPatient1EtHeureDebutPatient2(
 								heureActuelle.plusMinutes(tempsMoyenEnFonctionEtat.getMinute())
 										.plusHours(tempsMoyenEnFonctionEtat.getHour()),
-								LocalTime.of(18, 0, 0), 0, salle, tempsMoyen));
+								LocalTime.of(23, 59, 0), 0, salle, tempsMoyen));
 						mapTrousParSalle.put(salle, listeTrous);
 					}
 				}
@@ -180,8 +180,8 @@ public class GPPrioriteRDV implements GestionPlanning {
 	 */
 	private Map<Salle, List<Patient>> placementDesPatientsUrgent(Map<Salle, List<Patient>> renvoi) {
 		for (Patient patient : nouvListePatientUrgent) {
-//			System.out.println("On place le patient " + patient.getId() + "   - Gravite / urgent : "
-//					+ patient.getGravite() + " / " + patient.estUrgent());
+			System.out.println("On place le patient " + patient.getId() + "   - Gravite / urgent : "
+					+ patient.getGravite() + " / " + patient.estUrgent());
 			LocalTime heureArrivePatient = patient.getHeureArrive();
 			Map<Salle, LocalTime> mapPourTrie = new HashMap<>();
 
@@ -223,9 +223,6 @@ public class GPPrioriteRDV implements GestionPlanning {
 	 */
 	private Map<Salle, List<Patient>> placementDesPatientsRDV(Map<Salle, List<Patient>> renvoi) {
 		for (Patient patient : nouvListePatientRDV) {
-//			System.out.println("On place le patient " + patient.getId() + "   - Gravite / urgent : "
-//					+ patient.getGravite() + " / " + patient.estUrgent());
-
 			int indice = 0;
 
 			boolean place = false;
@@ -235,7 +232,8 @@ public class GPPrioriteRDV implements GestionPlanning {
 
 				if (patient.getGravite() == PatientRDV.listeGravite.TRESEQUIPE) {
 					if (salle.getType() == Salle.typeSalles.TRESEQUIPE) {
-						renvoi.get(salle).add(patient);
+						TrouPlanning trou = mapTrousParSalle.get(salle).get(0);
+						renvoi.get(salle).add(trou.getIndice(), patient);
 						place = true;
 
 						pileSalleRDV.remove(indice);
@@ -256,7 +254,8 @@ public class GPPrioriteRDV implements GestionPlanning {
 								|| salle.getType() == Salle.typeSalles.SEMIEQUIPE
 								|| salle.getType() == Salle.typeSalles.PEUEQUIPE) {
 
-							renvoi.get(salle).add(patient);
+							TrouPlanning trou = mapTrousParSalle.get(salle).get(0);
+							renvoi.get(salle).add(trou.getIndice(), patient);
 							place = true;
 
 							pileSalleRDV.remove(indice);

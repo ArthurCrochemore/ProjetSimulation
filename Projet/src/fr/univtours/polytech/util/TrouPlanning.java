@@ -18,19 +18,25 @@ public class TrouPlanning {
 	public static TrouPlanning CreerPlaningDepuisHeureDepuisFinPatient1EtHeureDebutPatient2(LocalTime heureFinPatient1,
 			LocalTime heureLimiteDebutNouveauPatient, int indice, Salle salle, LocalTime tempsMoyen) {
 		try {
+			System.err.println(heureFinPatient1 + " a " + heureLimiteDebutNouveauPatient);
+			
 			if (heureFinPatient1.isAfter(heureLimiteDebutNouveauPatient))
-				throw new Exception("Erreur : Le Trou crée est trop court");
+				throw new IllegalArgumentException("Erreur : Le Trou cree est trop court");
 
 			return new TrouPlanning(heureFinPatient1, heureLimiteDebutNouveauPatient, indice, salle);
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
+			System.err.println(" => PAS POSSIBLE");
 			return null;
-		}
+		} 
 	}
 
 	public static TrouPlanning CreerPlaningDepuisHeureFinPatient1(LocalTime heureFinPatient1,
 			LocalTime heureArriveePatient2, int indice, Salle salle, LocalTime tempsMoyen) {
 		LocalTime heureLimiteDebutNouveauPatient = heureArriveePatient2.minusHours(tempsMoyen.getHour())
 				.minusMinutes(tempsMoyen.getMinute());
+		
+
+		System.err.println(heureArriveePatient2 + " -> " + heureLimiteDebutNouveauPatient);
 
 		return CreerPlaningDepuisHeureDepuisFinPatient1EtHeureDebutPatient2(heureFinPatient1,
 				heureLimiteDebutNouveauPatient, indice, salle, tempsMoyen);
@@ -42,6 +48,8 @@ public class TrouPlanning {
 		LocalTime heureFinPatient1 = heureArriveePatient1.plusHours(tempsMoyen.getHour())
 				.plusMinutes(tempsMoyen.getMinute());
 
+		System.err.println(heureArriveePatient1 + " -> " + heureFinPatient1);
+		
 		return CreerPlaningDepuisHeureFinPatient1(heureFinPatient1, heureArriveePatient2, indice, salle, tempsMoyen);
 	}
 
@@ -81,8 +89,8 @@ public class TrouPlanning {
 			Map<Salle, List<TrouPlanning>> trousMap, Map<Salle, List<Patient>> planning, Constantes constantes,
 			LocalTime heureDebut, LocalTime heureFin) {
 		LocalTime tempsMoyen = constantes.getTempsMoyen();
-		Integer nbHeuresTempsMoyen = heureFin.getHour();
-		Integer nbMinutesTempsMoyen = heureFin.getMinute();
+		Integer nbHeuresTempsMoyen = tempsMoyen.getHour();
+		Integer nbMinutesTempsMoyen = tempsMoyen.getMinute();
 
 		for (Salle salleTE : listeSalleTresEquipe) {
 			LocalTime debutTrouFinal = heureDebut;
@@ -94,18 +102,19 @@ public class TrouPlanning {
 				Patient patient1 = listePatientTE.get(i);
 				Patient patient2 = listePatientTE.get(i + 1);
 
-				TrouPlanning trou = CreerPlaning(patient1.getHeureArrive(), patient2.getHeureArrive(), i, salleTE,
+				TrouPlanning trou = CreerPlaning(patient1.getHeureArrive(), patient2.getHeureArrive(), i + 1, salleTE,
 						tempsMoyen);
 				if (trou != null) {
 					listeTrouPlanning.add(trou);
 				}
-
-				debutTrouFinal = patient2.getHeureArrive().plusHours(nbHeuresTempsMoyen)
-						.plusMinutes(nbMinutesTempsMoyen);
 			}
 
-			listeTrouPlanning.add(CreerPlaningDepuisHeureDepuisFinPatient1EtHeureDebutPatient2(debutTrouFinal, heureFin,
-					listePatientTE.size() - 1, salleTE, tempsMoyen));
+			if(listePatientTE.size() > 0) {
+				debutTrouFinal = listePatientTE.get(listePatientTE.size() - 1).getHeureArrive().plusHours(nbHeuresTempsMoyen).plusMinutes(nbMinutesTempsMoyen);
+			}
+			
+			listeTrouPlanning.add(CreerPlaningDepuisHeureDepuisFinPatient1EtHeureDebutPatient2(debutTrouFinal, LocalTime.of(23, 59),
+					listePatientTE.size() , salleTE, tempsMoyen));
 
 			trousMap.put(salleTE, listeTrouPlanning);
 		}

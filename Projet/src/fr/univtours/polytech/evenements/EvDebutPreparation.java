@@ -22,6 +22,7 @@ public class EvDebutPreparation extends Evenement {
 		salle.setEtat(Salle.listeEtats.PREPARATION, heureDebut);
 
 		LocalTime tempsPreparation = deroulement.getSimulation().getConstantes().getTempsPreparation();
+		
 		LocalTime heureDebutEvSuivant = heureDebut.plusHours(tempsPreparation.getHour())
 				.plusMinutes(tempsPreparation.getMinute());
 		deroulement.ajouterEvenement(heureDebutEvSuivant,

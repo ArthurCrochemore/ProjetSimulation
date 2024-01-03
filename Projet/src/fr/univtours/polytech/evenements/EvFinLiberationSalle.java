@@ -22,6 +22,8 @@ public class EvFinLiberationSalle extends Evenement {
 				new EvInfirmiereDisponible(heureDebut, null, infirmier, null, chirurgien, deroulement));
 
 		patient = deroulement.getSimulation().getPlanning().lireProchainPatient(salle);
+		
+		//System.out.println(patient.getId());
 		if (patient != null && patient.getEtat() == Patient.listeEtats.ATTENTESALLE) {
 			deroulement.ajouterEvenement(heureDebut,
 					new EvArriveDansLaSalle(heureDebut, patient, infirmier, salle, chirurgien, deroulement));

@@ -40,8 +40,7 @@ public class GPPrioritePremierArriveReserveStatique implements GestionPlanning {
 			// la nouvelle liste
 			Planning ancienPlanning = simulation.getPlanning();
 
-			nouvListePatient = ancienPlanning.extraiteDonnee(simulation.getDeroulement().getHeureSimulation(),
-					new ExtractionJSON(simulation));
+			nouvListePatient = ancienPlanning.extraiteDonnee();
 			nouvListePatient.add(patientUrgent);
 			System.out.println("changement de planning");
 		} else {
@@ -64,7 +63,8 @@ public class GPPrioritePremierArriveReserveStatique implements GestionPlanning {
 
 		Map<Salle, List<Patient>> renvoi = triDesSalles(sallesMap);
 
-		return new Planning(placementDesPatients(renvoi));
+		return new Planning(placementDesPatients(renvoi), simulation.getDeroulement().getHeureSimulation(),
+				new ExtractionJSON(simulation));
 	}
 
 	/**
