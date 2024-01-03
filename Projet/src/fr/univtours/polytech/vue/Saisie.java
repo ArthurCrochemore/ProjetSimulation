@@ -90,18 +90,18 @@ public class Saisie extends javax.swing.JFrame {
 		heureDebutJournee = LocalTime.of(8, 0, 0, 0);
 		heureFinJournee = LocalTime.of(18, 0, 0, 0);
 
-		nbInfirmiere = 0;
-		nbChirurgien = 0;
-		nbSallesPeuEquipee = 0;
-		nbSallesSemiEquipee = 0;
-		nbSallesTresEquipee = 0;
-		nbSallesReserveesUrgence = 0;
+		nbInfirmiere = -1;
+		nbChirurgien = -1;
+		nbSallesPeuEquipee = -1;
+		nbSallesSemiEquipee = -1;
+		nbSallesTresEquipee = -1;
+		nbSallesReserveesUrgence = -1;
 
-		tempsPreparation = 0;
-		tempsAnesthesie = 0;
-		tempsLiberation = 0;
-		moyTempsOperation = 0;
-		marge = 0;
+		tempsPreparation = -1;
+		tempsAnesthesie = -1;
+		tempsLiberation = -1;
+		moyTempsOperation = -1;
+		marge = -1;
 
 		nbPatientsRDVPE = 0;
 		nbPatientsRDVSE = 0;
@@ -119,6 +119,12 @@ public class Saisie extends javax.swing.JFrame {
 			public void timeSelected(String string) {
 				heureDebutJournee = getHeure(pickerHeureDebut);
 				btnHeureDebut.setText(heureDebutJournee.toString());
+				
+				nbPatientsRDVPE = 0;
+				nbPatientsRDVSE = 0;
+				nbPatientsRDVTE = 0;
+				nbPatientsUrgent = 0;
+				map = new HashMap<Integer, List<LocalTime>>();
 			}
 		});
 		heureDebutJournee = LocalTime.of(8, 0);
@@ -130,6 +136,12 @@ public class Saisie extends javax.swing.JFrame {
 			public void timeSelected(String string) {
 				heureFinJournee = getHeure(pickerHeureFin);
 				btnHeureFin.setText(heureFinJournee.toString());
+				
+				nbPatientsRDVPE = 0;
+				nbPatientsRDVSE = 0;
+				nbPatientsRDVTE = 0;
+				nbPatientsUrgent = 0;
+				map = new HashMap<Integer, List<LocalTime>>();
 			}
 		});
 		heureFinJournee = LocalTime.of(18, 0);
@@ -209,11 +221,11 @@ public class Saisie extends javax.swing.JFrame {
         valueNbSalleReserve = new javax.swing.JTextField();
         titleConstantes = new javax.swing.JLabel();
         txtPrepa = new javax.swing.JLabel();
-        valueNbInfirmier1 = new javax.swing.JTextField();
+        valueTempsPrepa = new javax.swing.JTextField();
         txtAnesthesie = new javax.swing.JLabel();
-        valueNbChirurgien1 = new javax.swing.JTextField();
+        valueTempsAnes = new javax.swing.JTextField();
         txtLibe = new javax.swing.JLabel();
-        valueNbSallePE1 = new javax.swing.JTextField();
+        valueTempsLiber = new javax.swing.JTextField();
         titlePatients = new javax.swing.JLabel();
         btnOpenSaisiePatient = new javax.swing.JButton();
         btnSimulation = new javax.swing.JButton();
@@ -337,34 +349,34 @@ public class Saisie extends javax.swing.JFrame {
 
         txtPrepa.setText("Temps Prépartion des Salles (en min) :");
 
-        valueNbInfirmier1.setBackground(new java.awt.Color(236, 213, 129));
-        valueNbInfirmier1.setText("0");
-        valueNbInfirmier1.setPreferredSize(new java.awt.Dimension(70, 22));
-        valueNbInfirmier1.addActionListener(new java.awt.event.ActionListener() {
+        valueTempsPrepa.setBackground(new java.awt.Color(236, 213, 129));
+        valueTempsPrepa.setText("0");
+        valueTempsPrepa.setPreferredSize(new java.awt.Dimension(70, 22));
+        valueTempsPrepa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                valueNbInfirmier1ActionPerformed(evt);
+                valueTempsPrepaActionPerformed(evt);
             }
         });
 
         txtAnesthesie.setText("Temps Anesthésie des Patients (en min) :");
 
-        valueNbChirurgien1.setBackground(new java.awt.Color(236, 213, 129));
-        valueNbChirurgien1.setText("0");
-        valueNbChirurgien1.setPreferredSize(new java.awt.Dimension(70, 22));
-        valueNbChirurgien1.addActionListener(new java.awt.event.ActionListener() {
+        valueTempsAnes.setBackground(new java.awt.Color(236, 213, 129));
+        valueTempsAnes.setText("0");
+        valueTempsAnes.setPreferredSize(new java.awt.Dimension(70, 22));
+        valueTempsAnes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                valueNbChirurgien1ActionPerformed(evt);
+                valueTempsAnesActionPerformed(evt);
             }
         });
 
         txtLibe.setText("Temps Libération des Salles (en min) :");
 
-        valueNbSallePE1.setBackground(new java.awt.Color(236, 213, 129));
-        valueNbSallePE1.setText("0");
-        valueNbSallePE1.setPreferredSize(new java.awt.Dimension(70, 22));
-        valueNbSallePE1.addActionListener(new java.awt.event.ActionListener() {
+        valueTempsLiber.setBackground(new java.awt.Color(236, 213, 129));
+        valueTempsLiber.setText("0");
+        valueTempsLiber.setPreferredSize(new java.awt.Dimension(70, 22));
+        valueTempsLiber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                valueNbSallePE1ActionPerformed(evt);
+                valueTempsLiberActionPerformed(evt);
             }
         });
 
@@ -501,9 +513,9 @@ public class Saisie extends javax.swing.JFrame {
                                             .addComponent(txtPrepa))
                                         .addGap(18, 18, 18)
                                         .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(valueNbChirurgien1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(valueNbInfirmier1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(valueNbSallePE1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(valueTempsAnes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(valueTempsPrepa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(valueTempsLiber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(panelSaisieLayout.createSequentialGroup()
                                         .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(txtMoyOpe)
@@ -596,15 +608,15 @@ public class Saisie extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPrepa)
-                    .addComponent(valueNbInfirmier1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(valueTempsPrepa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtAnesthesie)
-                    .addComponent(valueNbChirurgien1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(valueTempsAnes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtLibe)
-                    .addComponent(valueNbSallePE1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(valueTempsLiber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtMoyOpe)
@@ -809,9 +821,11 @@ public class Saisie extends javax.swing.JFrame {
 			if (valeur < 0) {
 				throw new NumberFormatException();
 			}
+			textField.setForeground(new Color(0, 200, 0));
 		} catch (NumberFormatException e) {
 			textField.setText("0");
-			return 0;
+			textField.setForeground(new Color(255, 0 , 0));
+			return -1;
 		}
 		return valeur;
 	}
@@ -839,6 +853,12 @@ public class Saisie extends javax.swing.JFrame {
 	private void valueNbSalleTEActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_valueNbSalleTEActionPerformed
 		// TODO add your handling code here:
 		nbSallesTresEquipee = recupererValeurLue(valueNbSalleTE);
+		if(!valueNbSalleReserve.getText().equals("0")) {
+			valueNbSalleReserve.setText("0");
+			valueNbSalleReserve.setForeground(new Color(255, 0 , 0));
+			
+			nbSallesReserveesUrgence = -1;
+		}
 	}// GEN-LAST:event_valueNbSalleTEActionPerformed
 
 	private void btnOpenSaisiePatientActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnOpenSaisiePatientActionPerformed
@@ -852,20 +872,20 @@ public class Saisie extends javax.swing.JFrame {
 		fenetreSaisiePatient.setVisible(true);
 	}// GEN-LAST:event_btnOpenSaisiePatientActionPerformed
 
-	private void valueNbInfirmier1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_valueNbInfirmier1ActionPerformed
+	private void valueTempsPrepaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_valueTempsPrepaActionPerformed
 		// TODO add your handling code here:
-		tempsPreparation = recupererValeurLue(valueNbInfirmier1);
-	}// GEN-LAST:event_valueNbInfirmier1ActionPerformed
+		tempsPreparation = recupererValeurLue(valueTempsPrepa);
+	}// GEN-LAST:event_valueTempsPrepaActionPerformed
 
-	private void valueNbChirurgien1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_valueNbChirurgien1ActionPerformed
+	private void valueTempsAnesActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_valueTempsAnesActionPerformed
 		// TODO add your handling code here:
-		tempsAnesthesie = recupererValeurLue(valueNbChirurgien1);
-	}// GEN-LAST:event_valueNbChirurgien1ActionPerformed
+		tempsAnesthesie = recupererValeurLue(valueTempsAnes);
+	}// GEN-LAST:event_valueTempsAnesActionPerformed
 
-	private void valueNbSallePE1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_valueNbSallePE1ActionPerformed
+	private void valueTempsLiberActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_valueTempsLiberActionPerformed
 		// TODO add your handling code here:
-		tempsLiberation = recupererValeurLue(valueNbSallePE1);
-	}// GEN-LAST:event_valueNbSallePE1ActionPerformed
+		tempsLiberation = recupererValeurLue(valueTempsLiber);
+	}// GEN-LAST:event_valueTempsLiberActionPerformed
 
 	private void btnHeureDebutActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnHeureDebutActionPerformed
 		// TODO add your handling code here:
@@ -879,16 +899,74 @@ public class Saisie extends javax.swing.JFrame {
 
 	private void btnSimulationActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSimulationActionPerformed
 		// TODO add your handling code here:
-		extraireDonnee();
+		if(nbInfirmiere >= 0 && nbChirurgien >= 0 && nbSallesPeuEquipee >= 0 &&
+		nbSallesSemiEquipee >= 0 && nbSallesTresEquipee >= 0 && nbSallesReserveesUrgence >= 0
+		&& tempsPreparation >= 0 &&	tempsAnesthesie >= 0 && tempsLiberation >= 0 && 
+		moyTempsOperation >= 0 && marge >= 0) {
+			extraireDonnee();
 
-		MainSimulation.main(null);
+			MainSimulation.main(null);
 
-		initialiserGraph();
+			initialiserGraph();
+		} else {
+			if(nbInfirmiere < 0) {
+				valueNbInfirmier.setText("0");
+				valueNbInfirmier.setForeground(new Color(255, 0, 0));
+			}
+			if(nbChirurgien < 0) {
+				valueNbChirurgien.setText("0");
+				valueNbChirurgien.setForeground(new Color(255, 0, 0));
+			}
+			if(nbSallesPeuEquipee < 0) {
+				valueNbSallePE.setText("0");
+				valueNbSallePE.setForeground(new Color(255, 0, 0));
+			}
+			if(nbSallesSemiEquipee < 0) {
+				valueNbSalleSE.setText("0");
+				valueNbSalleSE.setForeground(new Color(255, 0, 0));
+			}
+			if(nbSallesTresEquipee < 0) {
+				valueNbSalleTE.setText("0");
+				valueNbSalleTE.setForeground(new Color(255, 0, 0));
+			}
+			if(nbSallesReserveesUrgence < 0) {
+				valueNbSalleReserve.setText("0");
+				valueNbSalleReserve.setForeground(new Color(255, 0, 0));
+			}
+			if(tempsPreparation < 0) {
+				valueTempsPrepa.setText("0");
+				valueTempsPrepa.setForeground(new Color(255, 0, 0));
+			}
+			if(tempsAnesthesie < 0) {
+				valueTempsAnes.setText("0");
+				valueTempsAnes.setForeground(new Color(255, 0, 0));
+			}
+			if(tempsLiberation < 0) {
+				valueTempsLiber.setText("0");
+				valueTempsLiber.setForeground(new Color(255, 0, 0));
+			}
+			if(moyTempsOperation < 0) {
+				valueMoyTempsOpe.setText("0");
+				valueMoyTempsOpe.setForeground(new Color(255, 0, 0));
+			}
+			if(marge < 0) {
+				valueMarge.setText("0");
+				valueMarge.setForeground(new Color(255, 0, 0));
+			}			
+		}
+		
 	}// GEN-LAST:event_btnSimulationActionPerformed
 
 	private void valueNbSalleReserveActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_valueNbSalleReserveActionPerformed
 		// TODO add your handling code here:
-		nbSallesReserveesUrgence = recupererValeurLue(valueNbSalleReserve);
+		int i = recupererValeurLue(valueNbSalleReserve);
+		
+		if(i <= nbSallesTresEquipee) {
+			nbSallesReserveesUrgence = i;
+		} else {
+			valueNbSalleReserve.setText("0");
+			valueNbSalleReserve.setForeground(new Color(255,0,0));
+		}
 	}// GEN-LAST:event_valueNbSalleReserveActionPerformed
 
 	private void stringRegleGestion3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_stringRegleGestion3ActionPerformed
@@ -1084,11 +1162,11 @@ public class Saisie extends javax.swing.JFrame {
     private javax.swing.JTextField valueMarge;
     private javax.swing.JTextField valueMoyTempsOpe;
     private javax.swing.JTextField valueNbChirurgien;
-    private javax.swing.JTextField valueNbChirurgien1;
+    private javax.swing.JTextField valueTempsAnes;
     private javax.swing.JTextField valueNbInfirmier;
-    private javax.swing.JTextField valueNbInfirmier1;
+    private javax.swing.JTextField valueTempsPrepa;
     private javax.swing.JTextField valueNbSallePE;
-    private javax.swing.JTextField valueNbSallePE1;
+    private javax.swing.JTextField valueTempsLiber;
     private javax.swing.JTextField valueNbSalleReserve;
     private javax.swing.JTextField valueNbSalleSE;
     private javax.swing.JTextField valueNbSalleTE;
