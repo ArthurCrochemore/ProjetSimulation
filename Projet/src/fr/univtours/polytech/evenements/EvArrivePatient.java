@@ -12,7 +12,7 @@ import fr.univtours.polytech.util.Tuple;
 public class EvArrivePatient extends Evenement {
 
 	public void deroulement() {
-		System.out.println(deroulement.getHeureSimulation() + " : arrivee patient " + patient.getId());
+		System.out.println(deroulement.getHeureSimulation() + " : Arrivee patient " + patient.getId());
 		
 		ExtractionJSON ex = new ExtractionJSON(deroulement.getSimulation());
 		ex.extrairePlanning(deroulement.getSimulation().getPlanning().planning, heureDebut);
@@ -24,6 +24,8 @@ public class EvArrivePatient extends Evenement {
 		if (salleAffectee != null && salleAffectee.getEtat() == Salle.listeEtats.LIBRE) {
 			deroulement.ajouterEvenement(heureDebut,
 					new EvArriveDansLaSalle(heureDebut, patient, infirmier, salleAffectee, chirurgien, deroulement));
+		} else {
+			System.out.println("\t=> pas de salles disponibles, entre en attente");
 		}
 
 	}

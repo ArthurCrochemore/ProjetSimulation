@@ -59,6 +59,7 @@ public class Planning {
 	 * utilise lorsqu'un nouveau planning doit etre cree
 	 * 
 	 * @param heure, heure de la simulation au moment du changement de planning
+	 * @param extracteur, objet ExtractionJSON qui effectue la sauvegarde du planning
 	 * @return patients, liste des patients de ce planning
 	 */
 	public List<Patient> extraiteDonnee(LocalTime heure, ExtractionJSON extracteur) {
@@ -71,8 +72,6 @@ public class Planning {
 			for (int indice = 0; indice < patientParSalle.size(); indice++)
 				patients.add(patientParSalle.get(indice));
 		}
-
-		System.out.println(patients);
 
 		return patients;
 	}

@@ -11,7 +11,7 @@ import fr.univtours.polytech.ressource.Salle;
 public class EvDebutOperation extends Evenement {
 
 	public void deroulement() {
-		System.out.println(deroulement.getHeureSimulation() + " : debut ope " + patient.getId());
+		//System.out.println(deroulement.getHeureSimulation() + " : debut ope " + patient.getId());
 
 		patient.setEtat(Patient.listeEtats.ENOPERATION, heureDebut);
 

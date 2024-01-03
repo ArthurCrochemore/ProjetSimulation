@@ -9,6 +9,7 @@ import fr.univtours.polytech.ressource.Salle;
 
 public class EvDeclarationPatientUrgent extends Evenement {
 	public void deroulement() {
+		System.out.println(heureDebut + " : Le patient urgent " + patient.getId() + " est declare");
 		deroulement.getSimulation()
 				.setPlanning(deroulement.getSimulation().getRegles().getRegleGestionPlanning().solution(patient));
 

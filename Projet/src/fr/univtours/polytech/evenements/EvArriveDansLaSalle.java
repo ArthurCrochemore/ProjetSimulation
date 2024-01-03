@@ -12,8 +12,8 @@ import fr.univtours.polytech.ressource.Salle;
 public class EvArriveDansLaSalle extends Evenement {
 
 	public void deroulement() {
-		System.out.println(deroulement.getHeureSimulation() + " : arrivee patient " + patient.getId()
-				+ " dans la salle " + salle.getId());
+		System.out.println(deroulement.getHeureSimulation() + " : patient " + patient.getId()
+				+ " affecte a la salle " + salle.getId());
 		
 		patient.setEtat(Patient.listeEtats.AATTENDUUNESALLE, heureDebut);
 		patient.setEtat(Patient.listeEtats.ATTENTEPREPARATION, heureDebut);

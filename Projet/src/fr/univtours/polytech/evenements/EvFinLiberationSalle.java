@@ -11,7 +11,8 @@ import fr.univtours.polytech.ressource.Salle;
 public class EvFinLiberationSalle extends Evenement {
 
 	public void deroulement() {
-		System.out.println(deroulement.getHeureSimulation() + " : fin libe ");
+		System.out.println(deroulement.getHeureSimulation() + " : La salle " + salle.getId() + " est liberee");
+		//System.out.println(deroulement.getHeureSimulation() + " : fin libe ");
 
 		salle.setEtat(Salle.listeEtats.LIBRE, heureDebut);
 
@@ -24,6 +25,8 @@ public class EvFinLiberationSalle extends Evenement {
 		if (patient != null && patient.getEtat() == Patient.listeEtats.ATTENTESALLE) {
 			deroulement.ajouterEvenement(heureDebut,
 					new EvArriveDansLaSalle(heureDebut, patient, infirmier, salle, chirurgien, deroulement));
+		} else {
+			System.out.println("\t=> pas de patients en attente pour cette salle, la salle devient libre");
 		}
 	}
 
