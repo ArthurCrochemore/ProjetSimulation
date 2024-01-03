@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import fr.univtours.polytech.ExtractionJSON;
 import fr.univtours.polytech.Planning;
 import fr.univtours.polytech.Simulation;
 import fr.univtours.polytech.entite.Patient;
@@ -40,7 +41,8 @@ public class GPPrioritePremierArriveReserveDynamique implements GestionPlanning 
 			// la nouvelle liste
 			Planning ancienPlanning = simulation.getPlanning();
 
-			nouvListePatient = ancienPlanning.extraiteDonnee();
+			nouvListePatient = ancienPlanning.extraiteDonnee(simulation.getDeroulement().getHeureSimulation(),
+					new ExtractionJSON(simulation));
 			nouvListePatient.add(patientUrgent);
 			System.out.println("changement de planning");
 		} else {

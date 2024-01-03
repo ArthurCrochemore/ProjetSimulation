@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import fr.univtours.polytech.Constantes;
+import fr.univtours.polytech.ExtractionJSON;
 import fr.univtours.polytech.Planning;
 import fr.univtours.polytech.Simulation;
 import fr.univtours.polytech.entite.Patient;
@@ -53,12 +54,16 @@ public class GPPrioriteRDV implements GestionPlanning {
 		nouvListePatientUrgent = new ArrayList<>();
 		List<Patient> listePatient;
 
+		constantes = simulation.getConstantes();
+		tempsMoyen = constantes.getTempsMoyen();
+		heureActuelle = simulation.getDeroulement().getHeureSimulation();
+
 		if (patientUrgent != null) {
 			// Si un patient urgent est donné, récupérer le planning existant et l'ajouter à
 			// la nouvelle liste
 			Planning ancienPlanning = simulation.getPlanning();
-
-			listePatient = ancienPlanning.extraiteDonnee();
+			
+			listePatient = ancienPlanning.extraiteDonnee(heureActuelle, new ExtractionJSON(simulation));
 
 			nouvListePatientUrgent.add(patientUrgent);
 			System.out.println("changement de planning");
@@ -85,10 +90,6 @@ public class GPPrioriteRDV implements GestionPlanning {
 		pileSalleRDV = new ArrayList<Salle>(); // Pile utilisée pour placer les patients RDV
 
 		sallesTresEquipees = new ArrayList<Salle>();
-
-		constantes = simulation.getConstantes();
-		tempsMoyen = constantes.getTempsMoyen();
-		heureActuelle = simulation.getDeroulement().getHeureSimulation();
 
 		// Tri des salles
 		Map<Salle, List<Patient>> renvoi = triDesSalles(sallesMap);

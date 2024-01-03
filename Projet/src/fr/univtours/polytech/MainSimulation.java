@@ -6,7 +6,7 @@ import fr.univtours.polytech.initialisation.LectureDeFichierSimulation;
 
 public class MainSimulation {
 	public static void main(String[] args) {		
-		LectureDeFichierSimulation lecture = new LectureDeFichierSimulation("../fichier.txt");
+		LectureDeFichierSimulation lecture = new LectureDeFichierSimulation("../fichier_test.txt");
 
 		DonneeInitialisation data = lecture.initialiserSimulation();
 		

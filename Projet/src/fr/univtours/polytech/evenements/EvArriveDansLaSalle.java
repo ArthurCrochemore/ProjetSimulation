@@ -2,6 +2,7 @@ package fr.univtours.polytech.evenements;
 
 import java.time.LocalTime;
 
+import fr.univtours.polytech.Simulation;
 import fr.univtours.polytech.entite.Patient;
 import fr.univtours.polytech.ressource.Chirurgien;
 import fr.univtours.polytech.ressource.Infirmier;
@@ -13,12 +14,19 @@ public class EvArriveDansLaSalle extends Evenement {
 	public void deroulement() {
 		System.out.println(deroulement.getHeureSimulation() + " : arrivee patient " + patient.getId()
 				+ " dans la salle " + salle.getId());
-
+		
 		patient.setEtat(Patient.listeEtats.AATTENDUUNESALLE, heureDebut);
 		patient.setEtat(Patient.listeEtats.ATTENTEPREPARATION, heureDebut);
 
 		salle.setEtat(Salle.listeEtats.ATTENTEPREPARATION, heureDebut);
 
+		try {
+			deroulement.getSimulation().getPlanning().sortirPatient(patient, salle);			
+		} catch (IllegalAccessError e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+		}
+		
 		Integer i = 0;
 		while (i < deroulement.getSimulation().getInfirmiers().size() && infirmier == null) {
 			Infirmier pott = deroulement.getSimulation().getInfirmiers().get(i);

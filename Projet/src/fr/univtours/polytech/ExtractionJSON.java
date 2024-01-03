@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import fr.univtours.polytech.entite.Patient;
+import fr.univtours.polytech.entite.Patient.listeEtats;
+import fr.univtours.polytech.entite.PatientRDV;
+import fr.univtours.polytech.entite.PatientUrgent;
 import fr.univtours.polytech.ressource.Chirurgien;
 import fr.univtours.polytech.ressource.Infirmier;
 import fr.univtours.polytech.ressource.Salle;
@@ -15,6 +18,7 @@ import fr.univtours.polytech.util.Tuple;
 
 public class ExtractionJSON {
 	Simulation simulation;
+	private static int nbPlanningEnregistre = 0;
 
 	/**
 	 * Methode gerant l'ecriture des donnees de temps stocke dans les entites et
@@ -23,8 +27,9 @@ public class ExtractionJSON {
 	 * @param adresse, adresse du fichier .json ou les donnees doivent etre ecrite
 	 */
 	public void extraiteDonnees(String adresse) {
+		PrintWriter writer = null;
 		try {
-			PrintWriter writer = new PrintWriter(adresse, "UTF-8");
+			writer = new PrintWriter(adresse, "UTF-8");
 
 			/* Recuperation des valeurs */
 			int nbPatientsRDV = simulation.getPatientsRDV().size();
@@ -125,13 +130,123 @@ public class ExtractionJSON {
 			writer.println("\t}");
 
 			writer.println("}");
-			writer.close();
-
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
 		} catch (UnsupportedEncodingException e) {
 			System.out.println(e);
+		} finally {
+			if(writer != null) {
+				writer.close();
+			}
 		}
+	}
+	
+	public void extrairePlanning(Map<Salle, List<Patient>> planning, LocalTime heure) {
+		nbPlanningEnregistre ++;
+		
+		PrintWriter writer = null;
+		String nom_fichiers = nbPlanningEnregistre + "-" + heure.getHour() + "h" + heure.getMinute();
+		try {
+			writer = new PrintWriter("../historique_plannings/" + nom_fichiers +".txt", "UTF-8");
+			
+			String patientSorti = "";
+			String patientsPasEncoreLa = "";
+			String patientsRDV = "";
+			String patientsUrgents = "";
+			String patientEnOperation = "";
+			String patientEnAttenteDeSalle = "";
+			
+			String sallesLibres = "";
+			for(Patient p : simulation.getPatientsRDV()) {
+				patientsRDV = patientsRDV + "n°" + p.getId() + ", ";
+				
+				if(p.getEtat() == Patient.listeEtats.TERMINE) {
+					patientSorti = patientSorti + "n°" + p.getId() + ", ";
+				} else {
+					if(p.getEtat() == Patient.listeEtats.PASARRIVE) {
+						patientsPasEncoreLa = patientsPasEncoreLa + "n°" + p.getId() + ", ";
+					} else {
+						if(p.getEtat() == Patient.listeEtats.ATTENTESALLE) {
+							patientEnAttenteDeSalle = patientEnAttenteDeSalle + "n°" + p.getId() + ", ";
+						} else {
+							patientEnOperation = patientEnOperation + "n°" + p.getId() + ", ";
+						}
+					}
+				} 
+			}
+			
+			for(Patient p : simulation.getPatientsUrgent()) {
+				patientsUrgents = patientsUrgents + "n°" + p.getId() + ", ";
+				
+				if(p.getEtat() == Patient.listeEtats.TERMINE) {
+					patientSorti = patientSorti + "n°" + p.getId() + ", ";
+				} else {
+					if(p.getEtat() == Patient.listeEtats.PASARRIVE) {
+						patientsPasEncoreLa = patientsPasEncoreLa + "n°" + p.getId() + ", ";
+					} else {
+						if(p.getEtat() == Patient.listeEtats.ATTENTESALLE) {
+							patientEnAttenteDeSalle = patientEnAttenteDeSalle + "n°" + p.getId() + ", ";
+						} else {
+							patientEnOperation = patientEnOperation + "n°" + p.getId() + ", ";
+						}
+					}
+				}
+			}
+			writer.println("Patients RDV : " + patientsRDV);
+			writer.println("Patients Urgents : " + patientsUrgents);
+			writer.println("\nPatients pas encore arrives : " + patientsPasEncoreLa);
+			writer.println("Patients en attente de salle : " + patientEnAttenteDeSalle);
+			writer.println("Patients en operation : " + patientEnOperation);
+			writer.println("Patients deja traites : " + patientSorti);
+			
+			writer.println("\nSalles PE :");
+			for(Salle salle : simulation.getSalles().get(Salle.typeSalles.PEUEQUIPE)){
+				ecrireSalle(salle.getId(), planning.get(salle), writer);
+				
+				if(salle.getEtat() == Salle.listeEtats.LIBRE) {
+					sallesLibres = sallesLibres + "n°" + salle.getId() + ", ";
+				}
+			}
+
+			writer.println("\nSalles SE :");
+			for(Salle salle : simulation.getSalles().get(Salle.typeSalles.SEMIEQUIPE)){
+				ecrireSalle(salle.getId(), planning.get(salle), writer);
+				
+				if(salle.getEtat() == Salle.listeEtats.LIBRE) {
+					sallesLibres = sallesLibres + "n°" + salle.getId() + ", ";
+				}
+			}
+
+			writer.println("\nSalles TE :");
+			for(Salle salle : simulation.getSalles().get(Salle.typeSalles.TRESEQUIPE)){
+				ecrireSalle(salle.getId(), planning.get(salle), writer);
+				
+				if(salle.getEtat() == Salle.listeEtats.LIBRE) {
+					sallesLibres = sallesLibres + "n°" + salle.getId() + ", ";
+				}
+			}
+
+			writer.println("\nSalles libres: " + sallesLibres);
+			writer.close();
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (UnsupportedEncodingException e) {
+			System.out.println(e);
+		} finally {
+			if(writer != null) {
+				writer.close();
+			}
+		}
+	}
+	
+	private void ecrireSalle(int idSalle, List<Patient> patients, PrintWriter writer) {
+		String str = "";
+		
+		for(Patient patient : patients) {
+			str = str + "patient n°"  + patient.getId() + " , ";
+		}
+		
+		writer.println("salle n°" + idSalle + " -> " + str);
 	}
 
 	/**
@@ -243,5 +358,9 @@ public class ExtractionJSON {
 
 	public ExtractionJSON(Simulation simulation) {
 		this.simulation = simulation;
+	}
+	
+	public static void reintialiserNbPlanningEnregistre() {
+		nbPlanningEnregistre = 0; 
 	}
 }

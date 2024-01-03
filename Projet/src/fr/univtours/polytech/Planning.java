@@ -1,5 +1,6 @@
 package fr.univtours.polytech;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +9,7 @@ import fr.univtours.polytech.entite.Patient;
 import fr.univtours.polytech.ressource.Salle;
 
 public class Planning {
-	private Map<Salle, List<Patient>> planning;
+	public Map<Salle, List<Patient>> planning;
 
 	/**
 	 * Renvoie la salle a laquelle un patient est affecte s'il est le prochain et
@@ -44,12 +45,25 @@ public class Planning {
 		return null;
 	}
 
+	public void sortirPatient(Patient patient, Salle salle) throws IllegalAccessError {
+		if (lireProchainPatient(salle).getId() == patient.getId()) {
+			planning.get(salle).remove(0);
+		} else {
+			throw new IllegalAccessError(
+					"Le patient " + patient.getId() + " n'est pas le prochain patient de la salle " + salle.getId());
+		}
+	}
+
 	/**
-	 * Renvoie la liste des patients actuellement affecte le planning, methode utilise lorsqu'un nouveau planning doit etre cree
+	 * Renvoie la liste des patients actuellement affecte le planning, methode
+	 * utilise lorsqu'un nouveau planning doit etre cree
 	 * 
+	 * @param heure, heure de la simulation au moment du changement de planning
 	 * @return patients, liste des patients de ce planning
 	 */
-	public List<Patient> extraiteDonnee() {
+	public List<Patient> extraiteDonnee(LocalTime heure, ExtractionJSON extracteur) {
+		extracteur.extrairePlanning(planning, heure);
+
 		List<Patient> patientParSalle;
 		List<Patient> patients = new ArrayList<Patient>();
 		for (Salle salle : planning.keySet()) {
@@ -57,6 +71,8 @@ public class Planning {
 			for (int indice = 0; indice < patientParSalle.size(); indice++)
 				patients.add(patientParSalle.get(indice));
 		}
+
+		System.out.println(patients);
 
 		return patients;
 	}

@@ -120,4 +120,8 @@ public class Patient extends Entite {
 	public boolean estUrgent() {
 		return false;
 	}
+	
+	public String toString() {
+		return "" + getId();
+	}
 }
