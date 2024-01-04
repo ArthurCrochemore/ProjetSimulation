@@ -36,7 +36,6 @@ public class Constantes {
 		return tempsAnesthesie;
 	}
 
-
 	/**
 	 * Accesseur en lecture du temps de libération d'une salle
 	 *
@@ -82,20 +81,17 @@ public class Constantes {
 		this.nbReserve = nbReserve;
 		this.tempsMoyenOperation = tempsMoyenOperation;
 
-		this.marge = marge/100.0;
+		this.marge = marge / 100.0;
 		setTempsMoyen();
 
 		tempsMoyenDepuisAttentePreparation = getHeureMarge(tempsPreparation);
-		tempsMoyenDepuisAttentePreparation = tempsMoyen.minusHours(tempsMoyenDepuisAttentePreparation.getHour())
-				.minusMinutes(tempsMoyenDepuisAttentePreparation.getMinute());
+		tempsMoyenDepuisAttentePreparation = soustraction(tempsMoyen, tempsMoyenDepuisAttentePreparation);
 		tempsMoyenDepuisAttenteOperation = getHeureMarge(0, tempsMoyenOperation);
-		tempsMoyenDepuisAttenteOperation = tempsMoyenDepuisAttentePreparation
-				.minusHours(tempsMoyenDepuisAttenteOperation.getHour())
-				.minusMinutes(tempsMoyenDepuisAttenteOperation.getMinute());
+		tempsMoyenDepuisAttenteOperation = soustraction(tempsMoyenDepuisAttentePreparation,
+				tempsMoyenDepuisAttenteOperation);
 		tempsMoyenDepuisAttenteLiberation = getHeureMarge(tempsLiberation);
-		tempsMoyenDepuisAttenteLiberation = tempsMoyenDepuisAttenteOperation
-				.minusHours(tempsMoyenDepuisAttenteLiberation.getHour())
-				.minusMinutes(tempsMoyenDepuisAttenteLiberation.getMinute());
+		tempsMoyenDepuisAttenteLiberation = soustraction(tempsMoyenDepuisAttenteOperation,
+				tempsMoyenDepuisAttenteLiberation);
 	}
 
 	/**
@@ -111,7 +107,8 @@ public class Constantes {
 	 * Accesseur en lecture du temps moyen d'occupation d'une salle depuis un stade
 	 * 
 	 * @param etat
-	 * @return LocalTime, le temps estimee qu'il reste avant que la salle soit liberee
+	 * @return LocalTime, le temps estimee qu'il reste avant que la salle soit
+	 *         liberee
 	 */
 	public LocalTime getTempsMoyen(Salle.listeEtats etat) {
 		switch (etat) {
@@ -190,5 +187,41 @@ public class Constantes {
 	 */
 	public LocalTime getHeureMarge(Integer nombreHeure, Integer nombreMinute) {
 		return getHeureMarge(null, nombreHeure, nombreMinute);
+	}
+
+	/**
+	 * Méthode pour faire la somme de deux LocalTime
+	 * 
+	 * @param heure1
+	 * @param heure2
+	 * @return heure1 + heure2
+	 */
+	private static LocalTime somme(LocalTime heure1, LocalTime heure2) {
+		LocalTime renvoi = heure1.plusHours(heure2.getHour()).plusMinutes(heure2.getMinute());
+
+		/* Pour éviter les résultats incohérents */
+		if (renvoi.isBefore(heure1) || renvoi.isBefore(heure2)) {
+			return LocalTime.of(23, 59);
+		}
+
+		return renvoi;
+	}
+
+	/**
+	 * Méthode pour faire la soustraction de deux LocalTime
+	 * 
+	 * @param heure1
+	 * @param heure2
+	 * @return heure1 - heure2
+	 */
+	private static LocalTime soustraction(LocalTime heure1, LocalTime heure2) {
+		LocalTime renvoi = heure1.minusHours(heure2.getHour()).minusMinutes(heure2.getMinute());
+
+		/* Pour éviter les résultats incohérents */
+		if (heure2.isAfter(heure1)) {
+			return LocalTime.of(0, 0);
+		}
+
+		return renvoi;
 	}
 }

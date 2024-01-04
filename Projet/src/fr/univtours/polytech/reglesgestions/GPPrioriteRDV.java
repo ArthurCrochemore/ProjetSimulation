@@ -97,7 +97,7 @@ public class GPPrioriteRDV implements GestionPlanning {
 		renvoi = placementDesPatientsRDV(renvoi);
 		
 		mapTrousParSalle = TrouPlanning.RechercheTrouPlanning(sallesTresEquipees, mapTrousParSalle, renvoi, constantes,
-				simulation.getHeureDebutSimulation(), simulation.getHeureFinSimulation());
+				heureActuelle);
 
 		return new Planning(placementDesPatientsUrgent(renvoi), heureActuelle, new ExtractionJSON(simulation));
 	}
@@ -125,7 +125,7 @@ public class GPPrioriteRDV implements GestionPlanning {
 						LocalTime tempsMoyenEnFonctionEtat = constantes.getTempsMoyen(etat);
 
 						List<TrouPlanning> listeTrous = new ArrayList<>();
-						listeTrous.add(TrouPlanning.CreerPlaningDepuisHeureDepuisFinPatient1EtHeureDebutPatient2(
+						listeTrous.add(TrouPlanning.CreerPlaningAvecHeureDebutTheoriqueEtHeureLimite(
 								heureActuelle.plusMinutes(tempsMoyenEnFonctionEtat.getMinute())
 										.plusHours(tempsMoyenEnFonctionEtat.getHour()),
 								LocalTime.of(23, 59, 0), 0, salle, tempsMoyen));
@@ -187,11 +187,11 @@ public class GPPrioriteRDV implements GestionPlanning {
 
 			for (Salle salle : mapTrousParSalle.keySet()) {
 				while (mapTrousParSalle.get(salle).size() > 1 && mapTrousParSalle.get(salle).get(0)
-						.getheureLimiteDebutNouveauPatient().isBefore(heureArrivePatient)) {
+						.getHeureLimite().isBefore(heureArrivePatient)) {
 					mapTrousParSalle.get(salle).remove(0);
 				}
 
-				mapPourTrie.put(salle, mapTrousParSalle.get(salle).get(0).getheureLimiteDebutNouveauPatient());
+				mapPourTrie.put(salle, mapTrousParSalle.get(salle).get(0).getHeureLimite());
 			}
 			pileSalleUrgent = new ArrayList<>(mapPourTrie.entrySet().stream().sorted(Entry.comparingByValue())
 					.collect(Collectors.toMap(Entry::getKey, Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new))
@@ -202,6 +202,10 @@ public class GPPrioriteRDV implements GestionPlanning {
 			TrouPlanning trou = mapTrousParSalle.get(salle).get(0);
 			renvoi.get(salle).add(trou.getIndice(), patient);
 
+			for (TrouPlanning trouAIncrementer : mapTrousParSalle.get(salle)) {
+				trouAIncrementer.incrementerIndice();
+			}
+			
 			pileSalleUrgent.remove(0);
 			pileSalleUrgent.add(salle);
 

@@ -98,7 +98,7 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 		renvoi = placementDesPatientsUrgent(renvoi);
 
 		mapTrousParSalle = TrouPlanning.RechercheTrouPlanning(sallesTresEquipees, mapTrousParSalle, renvoi, constantes,
-				simulation.getHeureDebutSimulation(), simulation.getHeureFinSimulation());
+				heureActuelle);
 
 		return new Planning(placementDesPatientsRDV(renvoi), heureActuelle, new ExtractionJSON(simulation));
 	}
@@ -136,7 +136,7 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 						LocalTime tempsMoyenEnFonctionEtat = constantes.getTempsMoyen(etat);
 
 						List<TrouPlanning> listeTrous = new ArrayList<>();
-						listeTrous.add(TrouPlanning.CreerPlaningDepuisHeureDepuisFinPatient1EtHeureDebutPatient2(
+						listeTrous.add(TrouPlanning.CreerPlaningAvecHeureDebutTheoriqueEtHeureLimite(
 								heureActuelle.plusMinutes(tempsMoyenEnFonctionEtat.getMinute())
 										.plusHours(tempsMoyenEnFonctionEtat.getHour()),
 								LocalTime.of(23, 59, 0), 0, salle, tempsMoyen));
@@ -155,7 +155,7 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 						LocalTime tempsMoyenEnFonctionEtat = constantes.getTempsMoyen(etat);
 
 						List<TrouPlanning> listeTrous = new ArrayList<>();
-						listeTrous.add(TrouPlanning.CreerPlaningDepuisHeureDepuisFinPatient1EtHeureDebutPatient2(
+						listeTrous.add(TrouPlanning.CreerPlaningAvecHeureDebutTheoriqueEtHeureLimite(
 								heureActuelle.plusMinutes(tempsMoyenEnFonctionEtat.getMinute())
 										.plusHours(tempsMoyenEnFonctionEtat.getHour()),
 								LocalTime.of(23, 59, 0), 0, salle, tempsMoyen));
@@ -221,15 +221,13 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 			LocalTime heureArrivePatient = patient.getHeureArrive();
 			Map<Salle, LocalTime> mapPourTrie = new HashMap<>();
 
-			Salle salleu = simulation.getSalles().get(Salle.typeSalles.TRESEQUIPE).get(0);////////////////////////////////
-
 			for (Salle salle : mapTrousParSalle.keySet()) {
 				while (mapTrousParSalle.get(salle).size() > 1 && mapTrousParSalle.get(salle).get(0)
-						.getheureLimiteDebutNouveauPatient().isBefore(heureArrivePatient)) {
+						.getHeureLimite().isBefore(heureArrivePatient)) {
 					mapTrousParSalle.get(salle).remove(0);
 				}
 
-				mapPourTrie.put(salle, mapTrousParSalle.get(salle).get(0).getheureLimiteDebutNouveauPatient());
+				mapPourTrie.put(salle, mapTrousParSalle.get(salle).get(0).getHeureLimite());
 			}
 
 			pileSalleRDV = new ArrayList<>(mapPourTrie.entrySet().stream().sorted(Entry.comparingByValue())
@@ -245,52 +243,25 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 
 				if (patient.getGravite() == PatientRDV.listeGravite.TRESEQUIPE) {
 					if (salle.getType() == Salle.typeSalles.TRESEQUIPE) {
-
-						TrouPlanning trou = mapTrousParSalle.get(salle).get(0);
-						renvoi.get(salle).add(trou.getIndice(), patient);
+						
+						renvoi = placerDansTrous(salle, patient, renvoi, indice);
 						place = true;
-
-						pileSalleRDV.remove(indice);
-						pileSalleRDV.add(salle);
-
-						if (mapTrousParSalle.get(salle).get(0).miseAjourTrou(patient.getHeureArrive(), tempsMoyen,
-								simulation.getHeureFinSimulation()) == null) {
-							mapTrousParSalle.get(salle).remove(0);
-						}
 					}
 				} else {
 					if (patient.getGravite() == PatientRDV.listeGravite.SEMIEQUIPE) {
 						if (salle.getType() == Salle.typeSalles.TRESEQUIPE
 								|| salle.getType() == Salle.typeSalles.SEMIEQUIPE) {
-
-							TrouPlanning trou = mapTrousParSalle.get(salle).get(0);
-							renvoi.get(salle).add(trou.getIndice(), patient);
+							
+							renvoi = placerDansTrous(salle, patient, renvoi, indice);
 							place = true;
-
-							pileSalleRDV.remove(indice);
-							pileSalleRDV.add(salle);
-
-							if (mapTrousParSalle.get(salle).get(0).miseAjourTrou(patient.getHeureArrive(), tempsMoyen,
-									simulation.getHeureFinSimulation()) == null) {
-								mapTrousParSalle.get(salle).remove(0);
-							}
 						}
 					} else {
 						if (salle.getType() == Salle.typeSalles.TRESEQUIPE
 								|| salle.getType() == Salle.typeSalles.SEMIEQUIPE
 								|| salle.getType() == Salle.typeSalles.PEUEQUIPE) {
-
-							TrouPlanning trou = mapTrousParSalle.get(salle).get(0);
-							renvoi.get(salle).add(trou.getIndice(), patient);
+							
+							renvoi = placerDansTrous(salle, patient, renvoi, indice);
 							place = true;
-
-							pileSalleRDV.remove(indice);
-							pileSalleRDV.add(salle);
-
-							if (mapTrousParSalle.get(salle).get(0).miseAjourTrou(patient.getHeureArrive(), tempsMoyen,
-									simulation.getHeureFinSimulation()) == null) {
-								mapTrousParSalle.get(salle).remove(0);
-							}
 						}
 					}
 				}
@@ -300,6 +271,25 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 			}
 		}
 
+		return renvoi;
+	}
+	
+	private Map<Salle, List<Patient>> placerDansTrous(Salle salle, Patient patient, Map<Salle, List<Patient>> renvoi, int indice) {
+		TrouPlanning trou = mapTrousParSalle.get(salle).get(0);
+		renvoi.get(salle).add(trou.getIndice(), patient);
+		
+		for (TrouPlanning trouAIncrementer : mapTrousParSalle.get(salle)) {
+			trouAIncrementer.incrementerIndice();
+		}
+		
+		pileSalleRDV.remove(indice);
+		pileSalleRDV.add(salle);
+
+		if (mapTrousParSalle.get(salle).get(0).miseAjourTrou(patient.getHeureArrive(), tempsMoyen,
+				simulation.getHeureFinSimulation()) == null) {
+			mapTrousParSalle.get(salle).remove(0);
+		}
+		
 		return renvoi;
 	}
 }
