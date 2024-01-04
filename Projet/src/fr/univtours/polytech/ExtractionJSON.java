@@ -131,9 +131,9 @@ public class ExtractionJSON {
 
 			writer.println("}");
 		} catch (FileNotFoundException e) {
-			System.out.println(e);
+			System.err.println(e.getMessage());
 		} catch (UnsupportedEncodingException e) {
-			System.out.println(e);
+			System.err.println(e.getMessage());
 		} finally {
 			if(writer != null) {
 				writer.close();
@@ -229,9 +229,9 @@ public class ExtractionJSON {
 			writer.println("\nSalles libres: " + sallesLibres);
 			writer.close();
 		} catch (FileNotFoundException e) {
-			System.out.println(e);
+			System.err.println(e.getMessage());
 		} catch (UnsupportedEncodingException e) {
-			System.out.println(e);
+			System.err.println(e.getMessage());
 		} finally {
 			if(writer != null) {
 				writer.close();

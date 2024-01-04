@@ -189,14 +189,10 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 	 */
 	private Map<Salle, List<Patient>> placementDesPatientsUrgent(Map<Salle, List<Patient>> renvoi) {
 		for (Patient patient : nouvListePatientUrgent) {
-//			System.out.println("On place le patient " + patient.getId() + "   - Gravite / urgent : "
-//					+ patient.getGravite() + " / " + patient.estUrgent());
 
 			Salle salle;
 
 			salle = pileSalleUrgent.get(0);
-//			System.out.println("Salle " + salle.getId() + " - Gravite : " +
-//			salle.getType());
 
 			renvoi.get(salle).add(patient);
 
@@ -216,8 +212,7 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 	 */
 	private Map<Salle, List<Patient>> placementDesPatientsRDV(Map<Salle, List<Patient>> renvoi) {
 		for (Patient patient : nouvListePatientRDV) {
-//			System.out.println("On place le patient " + patient.getId() + "   - Gravite / urgent : "
-//					+ patient.getGravite() + " / " + patient.estUrgent());
+			
 			LocalTime heureArrivePatient = patient.getHeureArrive();
 			Map<Salle, LocalTime> mapPourTrie = new HashMap<>();
 

@@ -22,26 +22,20 @@ public class Deroulement {
 	private LocalTime heureFinSimulation;
 	private Map<LocalTime, List<Evenement>> evenements;
 
-	// ===========================================
-	Integer aSuppr;
-	Integer aSuppr2;
+	private Integer nbPatientsTraites;
+	private Integer nbPatientsATraiter;
 
-	public void setASuppr(Integer i) {
-		aSuppr = i;
+	public Integer getNbPatientsTraites() {
+		return nbPatientsTraites;
 	}
 
-	public Integer getASuppr() {
-		return aSuppr;
+	public Integer getNbPatientsATraiter() {
+		return nbPatientsATraiter;
 	}
 
-	public void setASuppr2(Integer i) {
-		aSuppr2 = i;
+	public void incrementerNbPatientsTraites() {
+		nbPatientsTraites++;
 	}
-
-	public Integer getASuppr2() {
-		return aSuppr2;
-	}
-	// ===========================================
 
 	/**
 	 * Accesseur en lecture de la simulation
@@ -216,9 +210,9 @@ public class Deroulement {
 			}
 		}
 		new ExtractionJSON(getSimulation()).extrairePlanning(getSimulation().getPlanning().planning, heureSimulation);
-		
-		System.out.println("\n===================================================\n" + aSuppr2 + " patients traites / "
-				+ aSuppr + " patients\n Y a t-il un probleme : " + (!(aSuppr == aSuppr2)));
+
+		System.out.println("\n===================================================\n" + nbPatientsTraites
+				+ " patients traites / " + nbPatientsATraiter + " patients");
 	}
 
 	/**
@@ -228,10 +222,12 @@ public class Deroulement {
 	 * @param heureSimulation
 	 * @param heureFinSimulation
 	 */
-	public Deroulement(Simulation simulation, LocalTime heureSimulation, LocalTime heureFinSimulation) {
+	public Deroulement(Simulation simulation, LocalTime heureSimulation, LocalTime heureFinSimulation, Integer nbPatientsATraiter) {
 		this.simulation = simulation;
 		this.heureSimulation = heureSimulation;
 		this.heureFinSimulation = heureFinSimulation;
+		this.nbPatientsATraiter = nbPatientsATraiter;
+		nbPatientsTraites = 0;
 
 		evenements = new HashMap<LocalTime, List<Evenement>>();
 	}

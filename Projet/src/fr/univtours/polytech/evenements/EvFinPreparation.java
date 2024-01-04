@@ -11,8 +11,6 @@ import fr.univtours.polytech.ressource.Salle;
 public class EvFinPreparation extends Evenement {
 
 	public void deroulement() {
-		//System.out.println(deroulement.getHeureSimulation() + " : fin prepa " + patient.getId());
-
 		patient.setEtat(Patient.listeEtats.ATTENTECHIRURGIEN, heureDebut);
 
 		infirmier.setEtat(Ressource.listeEtats.LIBRE, heureDebut);

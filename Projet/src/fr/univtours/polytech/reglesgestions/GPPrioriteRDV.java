@@ -180,8 +180,7 @@ public class GPPrioriteRDV implements GestionPlanning {
 	 */
 	private Map<Salle, List<Patient>> placementDesPatientsUrgent(Map<Salle, List<Patient>> renvoi) {
 		for (Patient patient : nouvListePatientUrgent) {
-			System.out.println("On place le patient " + patient.getId() + "   - Gravite / urgent : "
-					+ patient.getGravite() + " / " + patient.estUrgent());
+			
 			LocalTime heureArrivePatient = patient.getHeureArrive();
 			Map<Salle, LocalTime> mapPourTrie = new HashMap<>();
 

@@ -11,10 +11,6 @@ import fr.univtours.polytech.ressource.Salle;
 public class EvDebutPreparation extends Evenement {
 
 	public void deroulement() {
-		//System.out.println(deroulement.getHeureSimulation() + " : debut prepa " + patient.getId());
-		// System.out.println(deroulement.getHeureSimulation() + " : Salle " +
-		// salle.getId() + " est affecte au Patient " + patient.getId());
-
 		patient.setEtat(Patient.listeEtats.ENPREPARATION, heureDebut);
 
 		infirmier.setEtat(Ressource.listeEtats.OCCUPE, heureDebut);

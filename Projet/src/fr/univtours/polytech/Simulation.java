@@ -173,14 +173,6 @@ public class Simulation {
 		/* Creation des regles de gestion appliquees */
 		regles = new ReglesDeGestion(this, data.getRegle1(), data.getRegle2(), data.getRegle3());
 
-		/*
-		 * Definition des heures de la journee et creation de l'objet Deroulement qui
-		 * gere le deroulement des evenements de la simulation
-		 */
-		heureDebutSimulation = data.getHeureDebutJournee();
-		heureFinSimulation = data.getHeureFinJournee();
-		deroulement = new Deroulement(this, heureDebutSimulation, data.getHeureFinJournee());
-
 		/* Creations des Ressources */
 		this.infirmiers = new ArrayList<Infirmier>();
 		this.chirurgiens = new ArrayList<Chirurgien>();
@@ -236,6 +228,15 @@ public class Simulation {
 		Map<Integer, LocalTime> mapTempsOperation = data.getMapTempsOperation();
 		Map<Integer, LocalTime> mapDeclaration = data.getMapDeclaration();
 
+		/*
+		 * Definition des heures de la journee et creation de l'objet Deroulement qui
+		 * gere le deroulement des evenements de la simulation
+		 */
+		heureDebutSimulation = data.getHeureDebutJournee();
+		heureFinSimulation = data.getHeureFinJournee();
+		deroulement = new Deroulement(this, heureDebutSimulation, heureFinSimulation,
+				nbPatientsRDV + nbPatientsUrgent);
+		
 		for (int i = 0; i < nbPatientsRDV; i++) {
 			LocalTime heureArrivee = mapArrivees.get(i);
 			PatientRDV nvPatient = new PatientRDV(i, heureArrivee, mapGravites.get(i), mapTempsOperation.get(i));
@@ -256,8 +257,5 @@ public class Simulation {
 
 		/* Creation du premier Planning */
 		this.planning = regles.getRegleGestionPlanning().solution(null);
-		
-		deroulement.setASuppr(nbPatientsRDV + nbPatientsUrgent);
-		deroulement.setASuppr2(0);
 	}
 }

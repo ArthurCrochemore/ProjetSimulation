@@ -12,8 +12,7 @@ public class EvFinLiberationSalle extends Evenement {
 
 	public void deroulement() {
 		System.out.println(deroulement.getHeureSimulation() + " : La salle " + salle.getId() + " est liberee");
-		//System.out.println(deroulement.getHeureSimulation() + " : fin libe ");
-
+		
 		salle.setEtat(Salle.listeEtats.LIBRE, heureDebut);
 
 		infirmier.setEtat(Ressource.listeEtats.LIBRE, heureDebut);
@@ -23,7 +22,6 @@ public class EvFinLiberationSalle extends Evenement {
 
 		patient = deroulement.getSimulation().getPlanning().lireProchainPatient(salle);
 		
-		//System.out.println(patient.getId());
 		if (patient != null && patient.getEtat() == Patient.listeEtats.ATTENTESALLE) {
 			deroulement.ajouterEvenement(heureDebut,
 					new EvArriveDansLaSalle(heureDebut, patient, infirmier, salle, chirurgien, deroulement));

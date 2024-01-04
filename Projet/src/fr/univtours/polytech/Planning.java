@@ -39,9 +39,7 @@ public class Planning {
 	 * @return
 	 */
 	public Patient lireProchainPatient(Salle salle) {
-		System.out.println(salle.getId());
 		if (planning.get(salle).size() > 0) {
-			System.out.println("1 patient au moins");
 			return planning.get(salle).get(0);
 		}
 		return null;
