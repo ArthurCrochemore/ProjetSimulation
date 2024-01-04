@@ -21,7 +21,7 @@ public class GPPrioritePremierArriveReserveDynamique implements GestionPlanning 
 	private Simulation simulation;
 
 	private List<Patient> nouvListePatient;
-	List<Salle> pileSalle;
+	private List<Salle> pileSalle;
 
 	public GPPrioritePremierArriveReserveDynamique(Simulation simulation) {
 		this.simulation = simulation;

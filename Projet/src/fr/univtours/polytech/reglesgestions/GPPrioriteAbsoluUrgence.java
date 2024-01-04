@@ -29,16 +29,17 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 
 	private List<Patient> nouvListePatientRDV;
 	private List<Patient> nouvListePatientUrgent;
-	List<Salle> pileSalleRDV;
-	List<Salle> pileSalleUrgent;
+	private List<Salle> pileSalleRDV;
+	private List<Salle> pileSalleUrgent;
 
-	Constantes constantes;
-	LocalTime tempsMoyen;
-	LocalTime heureActuelle;
+	private Constantes constantes;
+	private LocalTime tempsMoyen;
+	private LocalTime heureActuelle;
 
-	Map<Salle, List<TrouPlanning>> mapTrousParSalle;
-	List<Salle> sallesTresEquipees; // Servira à chercher les trous possibles entre les
-									// patientsUrgents pour placer les patientsRDV
+	private Map<Salle, List<TrouPlanning>> mapTrousParSalle;
+	private List<Salle> sallesTresEquipees; // Servira à chercher les trous possibles entre les
+											// patientsUrgents pour placer les patientsRDV
+	
 
 	public GPPrioriteAbsoluUrgence(Simulation simulation) {
 		this.simulation = simulation;
@@ -213,18 +214,20 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 	 * @return renvoi, la map qui permettra de faire le planning
 	 */
 	private Map<Salle, List<Patient>> placementDesPatientsRDV(Map<Salle, List<Patient>> renvoi) {
+		List<Salle> mapTrousParSalleKeySet = new ArrayList<>(mapTrousParSalle.keySet());
+		
 		for (Patient patient : nouvListePatientRDV) {
 
 			LocalTime heureArrivePatient = patient.getHeureArrive();
 			Map<Salle, LocalTime> mapPourTrie = new HashMap<>();
 
-			for (Salle salle : mapTrousParSalle.keySet()) {
+			for (Salle salle : mapTrousParSalleKeySet) {
 				while (mapTrousParSalle.get(salle).size() > 1
 						&& mapTrousParSalle.get(salle).get(0).getHeureLimite().isBefore(heureArrivePatient)) {
 					mapTrousParSalle.get(salle).remove(0);
 				}
 
-				mapPourTrie.put(salle, mapTrousParSalle.get(salle).get(0).getHeureLimite());
+				mapPourTrie.put(salle, mapTrousParSalle.get(salle).get(0).getHeureDebutTheorique());
 			}
 
 			pileSalleRDV = new ArrayList<>(mapPourTrie.entrySet().stream().sorted(Entry.comparingByValue())
@@ -284,17 +287,18 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 	 */
 	private Map<Salle, List<Patient>> placerDansTrous(Salle salle, Patient patient, Map<Salle, List<Patient>> renvoi,
 			int indice) {
-		TrouPlanning trou = mapTrousParSalle.get(salle).get(0);
+
+		List<TrouPlanning> listeTrous = mapTrousParSalle.get(salle);
+		TrouPlanning trou = listeTrous.get(0);
 		renvoi.get(salle).add(trou.getIndice(), patient);
 
 		for (TrouPlanning trouAIncrementer : mapTrousParSalle.get(salle)) {
 			trouAIncrementer.incrementerIndice();
 		}
 
-		pileSalleRDV.remove(indice);
-		pileSalleRDV.add(salle);
 
-		if (mapTrousParSalle.get(salle).get(0).miseAjourTrou(patient.getHeureArrive(), tempsMoyen) == null) {
+		if (mapTrousParSalle.get(salle).get(0).miseAjourTrou(patient.getHeureArrive(), tempsMoyen,
+				heureActuelle) == null) {
 			mapTrousParSalle.get(salle).remove(0);
 		}
 

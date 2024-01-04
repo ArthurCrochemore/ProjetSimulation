@@ -19,7 +19,7 @@ public class GPPrioritePremierArriveReserveStatique implements GestionPlanning {
 	private Simulation simulation;
 
 	private List<Patient> nouvListePatient;
-	List<Salle> pileSalle;
+	private List<Salle> pileSalle;
 
 	// Constructeur prenant une simulation en paramètre
 	public GPPrioritePremierArriveReserveStatique(Simulation simulation) {

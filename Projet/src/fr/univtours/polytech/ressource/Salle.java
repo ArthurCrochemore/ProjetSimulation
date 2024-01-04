@@ -64,4 +64,10 @@ public class Salle extends Ressource {
 		this.etat = Salle.listeEtats.LIBRE;
 		this.type = type;
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getId() + "";
+	}
 }

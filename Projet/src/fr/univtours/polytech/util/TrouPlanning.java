@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.experimental.max.MaxCore;
+
 import fr.univtours.polytech.Constantes;
 import fr.univtours.polytech.entite.Patient;
 import fr.univtours.polytech.ressource.Salle;
@@ -139,21 +141,27 @@ public class TrouPlanning {
 	 * @return TrouPlanning, renvoi le trou s'il existe toujours un trou et null
 	 *         sinon
 	 */
-	public TrouPlanning miseAjourTrou(LocalTime heureArrivee, LocalTime tempsMoyen) {
+	public TrouPlanning miseAjourTrou(LocalTime heureArrivee, LocalTime tempsMoyen, LocalTime heureActuelle) {
+		if(this.heureDebutTheorique.isAfter(heureArrivee)) {
+			heureArrivee = heureDebutTheorique;
+		}
+		
 		LocalTime heureDebutTheorique = somme(heureArrivee, tempsMoyen); // On calcul l'heureDebutTheorique
-
+		
 		/* Si la nouvelle heureDebutTheorique est après l'heureLimite */
 		if (heureDebutTheorique.isAfter(heureLimite)) {
 			/* Si le trou n'est pas le "trou final" */
 			if (heureLimite != LocalTime.of(23, 59)) {
 				return null; // Le trou est alors rempli, on renvoit donc null
 			}
+			
+			this.heureDebutTheorique = LocalTime.of(23, 59);
 		}
 		/* Sinon, on met à jour l'heureDebutTheorique */
 		else {
 			this.heureDebutTheorique = heureDebutTheorique;
 		}
-
+		
 		return this;
 	}
 
@@ -291,5 +299,11 @@ public class TrouPlanning {
 		}
 
 		return renvoi;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return salle.getId() + " = " + heureDebutTheorique;
 	}
 }

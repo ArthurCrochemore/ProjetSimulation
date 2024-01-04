@@ -115,13 +115,9 @@ public class Patient extends Entite {
 	}
 
 	/*
-	 * Définirion de la méthode estUrgent dont seul les surcharges seront utilisées
+	 * Définition de la méthode estUrgent dont seul les surcharges seront utilisées
 	 */
 	public boolean estUrgent() {
 		return false;
-	}
-	
-	public String toString() {
-		return "" + getId();
 	}
 }

@@ -28,16 +28,16 @@ public class GPPrioriteRDV implements GestionPlanning {
 
 	private List<Patient> nouvListePatientRDV;
 	private List<Patient> nouvListePatientUrgent;
-	List<Salle> pileSalleRDV;
-	List<Salle> pileSalleUrgent;
+	private List<Salle> pileSalleRDV;
+	private List<Salle> pileSalleUrgent;
 
-	Constantes constantes;
-	LocalTime tempsMoyen;
-	LocalTime heureActuelle;
+	private Constantes constantes;
+	private LocalTime tempsMoyen;
+	private LocalTime heureActuelle;
 
-	Map<Salle, List<TrouPlanning>> mapTrousParSalle;
-	List<Salle> sallesTresEquipees; // Servira à chercher les trous possibles entre les
-									// patientsUrgents pour placer les patientsRDV
+	private Map<Salle, List<TrouPlanning>> mapTrousParSalle;
+	private List<Salle> sallesTresEquipees; // Servira à chercher les trous possibles entre les
+										// patientsUrgents pour placer les patientsRDV
 
 	public GPPrioriteRDV(Simulation simulation) {
 		this.simulation = simulation;
@@ -190,7 +190,7 @@ public class GPPrioriteRDV implements GestionPlanning {
 					mapTrousParSalle.get(salle).remove(0);
 				}
 
-				mapPourTrie.put(salle, mapTrousParSalle.get(salle).get(0).getHeureLimite());
+				mapPourTrie.put(salle, mapTrousParSalle.get(salle).get(0).getHeureDebutTheorique());
 			}
 			pileSalleUrgent = new ArrayList<>(mapPourTrie.entrySet().stream().sorted(Entry.comparingByValue())
 					.collect(Collectors.toMap(Entry::getKey, Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new))
@@ -208,7 +208,8 @@ public class GPPrioriteRDV implements GestionPlanning {
 			pileSalleUrgent.remove(0);
 			pileSalleUrgent.add(salle);
 
-			if (mapTrousParSalle.get(salle).get(0).miseAjourTrou(patient.getHeureArrive(), tempsMoyen) == null) {
+			if (mapTrousParSalle.get(salle).get(0).miseAjourTrou(patient.getHeureArrive(), tempsMoyen,
+					heureActuelle) == null) {
 				mapTrousParSalle.get(salle).remove(0);
 
 			}
