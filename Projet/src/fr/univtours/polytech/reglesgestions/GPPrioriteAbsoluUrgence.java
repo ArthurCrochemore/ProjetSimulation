@@ -50,14 +50,16 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 	 * @param patientUrgent, le patient urgent qui vient d'etre declare
 	 */
 	public Planning solution(Patient patientUrgent) {
-		// Initialisation de la nouvelle liste de patients
+		/* Initialisation de la nouvelle liste de patients */
 		nouvListePatientRDV = new ArrayList<>();
 		nouvListePatientUrgent = new ArrayList<>();
 		List<Patient> listePatient;
 
 		if (patientUrgent != null) {
-			// Si un patient urgent est donné, récupérer le planning existant et l'ajouter à
-			// la nouvelle liste
+			/*
+			 * Si un patient urgent est donné, récupérer le planning existant et l'ajouter à
+			 * la nouvelle liste
+			 */
 			Planning ancienPlanning = simulation.getPlanning();
 
 			listePatient = ancienPlanning.extraiteDonnee();
@@ -81,18 +83,18 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 		tempsMoyen = constantes.getTempsMoyen();
 		heureActuelle = simulation.getDeroulement().getHeureSimulation();
 
-		// Tri de la liste de patient en fonction du temps d'arrivée
+		/* Tri de la liste de patient en fonction du temps d'arrivée */
 		Collections.sort(nouvListePatientRDV, (p1, p2) -> p1.getHeureArrive().compareTo(p2.getHeureArrive()));
 		Collections.sort(nouvListePatientUrgent, (p1, p2) -> p1.getHeureArrive().compareTo(p2.getHeureArrive()));
 
-		// Récupération des salles de la simulation
+		/* Récupération des salles de la simulation */
 		Map<Salle.typeSalles, List<Salle>> sallesMap = simulation.getSalles();
 		pileSalleUrgent = new ArrayList<Salle>(); // Pile utilisée pour placer les patients Urgents
 		pileSalleRDV = new ArrayList<Salle>(); // Pile utilisée pour placer les patients RDV
 
 		sallesTresEquipees = new ArrayList<Salle>();
 
-		// Tri des salles
+		/* Tri des salles */
 		Map<Salle, List<Patient>> renvoi = triDesSalles(sallesMap);
 
 		renvoi = placementDesPatientsUrgent(renvoi);
@@ -212,13 +214,13 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 	 */
 	private Map<Salle, List<Patient>> placementDesPatientsRDV(Map<Salle, List<Patient>> renvoi) {
 		for (Patient patient : nouvListePatientRDV) {
-			
+
 			LocalTime heureArrivePatient = patient.getHeureArrive();
 			Map<Salle, LocalTime> mapPourTrie = new HashMap<>();
 
 			for (Salle salle : mapTrousParSalle.keySet()) {
-				while (mapTrousParSalle.get(salle).size() > 1 && mapTrousParSalle.get(salle).get(0)
-						.getHeureLimite().isBefore(heureArrivePatient)) {
+				while (mapTrousParSalle.get(salle).size() > 1
+						&& mapTrousParSalle.get(salle).get(0).getHeureLimite().isBefore(heureArrivePatient)) {
 					mapTrousParSalle.get(salle).remove(0);
 				}
 
@@ -238,7 +240,7 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 
 				if (patient.getGravite() == PatientRDV.listeGravite.TRESEQUIPE) {
 					if (salle.getType() == Salle.typeSalles.TRESEQUIPE) {
-						
+
 						renvoi = placerDansTrous(salle, patient, renvoi, indice);
 						place = true;
 					}
@@ -246,7 +248,7 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 					if (patient.getGravite() == PatientRDV.listeGravite.SEMIEQUIPE) {
 						if (salle.getType() == Salle.typeSalles.TRESEQUIPE
 								|| salle.getType() == Salle.typeSalles.SEMIEQUIPE) {
-							
+
 							renvoi = placerDansTrous(salle, patient, renvoi, indice);
 							place = true;
 						}
@@ -254,7 +256,7 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 						if (salle.getType() == Salle.typeSalles.TRESEQUIPE
 								|| salle.getType() == Salle.typeSalles.SEMIEQUIPE
 								|| salle.getType() == Salle.typeSalles.PEUEQUIPE) {
-							
+
 							renvoi = placerDansTrous(salle, patient, renvoi, indice);
 							place = true;
 						}
@@ -268,23 +270,34 @@ public class GPPrioriteAbsoluUrgence implements GestionPlanning {
 
 		return renvoi;
 	}
-	
-	private Map<Salle, List<Patient>> placerDansTrous(Salle salle, Patient patient, Map<Salle, List<Patient>> renvoi, int indice) {
+
+	/**
+	 * Méthode qui évite le code répetitif dans placementDesPatientsRDV. Gère le
+	 * placement dans patient dans un trou + met à jour les indices de tout les
+	 * autres trous de la salle et met à jour le trou si c'est possible
+	 * 
+	 * @param salle
+	 * @param patient
+	 * @param renvoi
+	 * @param indice
+	 * @return
+	 */
+	private Map<Salle, List<Patient>> placerDansTrous(Salle salle, Patient patient, Map<Salle, List<Patient>> renvoi,
+			int indice) {
 		TrouPlanning trou = mapTrousParSalle.get(salle).get(0);
 		renvoi.get(salle).add(trou.getIndice(), patient);
-		
+
 		for (TrouPlanning trouAIncrementer : mapTrousParSalle.get(salle)) {
 			trouAIncrementer.incrementerIndice();
 		}
-		
+
 		pileSalleRDV.remove(indice);
 		pileSalleRDV.add(salle);
 
-		if (mapTrousParSalle.get(salle).get(0).miseAjourTrou(patient.getHeureArrive(), tempsMoyen,
-				simulation.getHeureFinSimulation()) == null) {
+		if (mapTrousParSalle.get(salle).get(0).miseAjourTrou(patient.getHeureArrive(), tempsMoyen) == null) {
 			mapTrousParSalle.get(salle).remove(0);
 		}
-		
+
 		return renvoi;
 	}
 }

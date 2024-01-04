@@ -209,7 +209,7 @@ public class Deroulement {
 				}
 			}
 		}
-		new ExtractionJSON(getSimulation()).extrairePlanning(getSimulation().getPlanning().planning, heureSimulation);
+		new ExtractionJSON(getSimulation()).extrairePlanning(getSimulation().getPlanning().getPlanning(), heureSimulation);
 
 		System.out.println("\n===================================================\n" + nbPatientsTraites
 				+ " patients traites / " + nbPatientsATraiter + " patients");

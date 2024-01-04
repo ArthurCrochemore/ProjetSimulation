@@ -139,7 +139,7 @@ public class TrouPlanning {
 	 * @return TrouPlanning, renvoi le trou s'il existe toujours un trou et null
 	 *         sinon
 	 */
-	public TrouPlanning miseAjourTrou(LocalTime heureArrivee, LocalTime tempsMoyen, LocalTime heureFin) {
+	public TrouPlanning miseAjourTrou(LocalTime heureArrivee, LocalTime tempsMoyen) {
 		LocalTime heureDebutTheorique = somme(heureArrivee, tempsMoyen); // On calcul l'heureDebutTheorique
 
 		/* Si la nouvelle heureDebutTheorique est après l'heureLimite */

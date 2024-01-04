@@ -9,7 +9,7 @@ import fr.univtours.polytech.entite.Patient;
 import fr.univtours.polytech.ressource.Salle;
 
 public class Planning {
-	public Map<Salle, List<Patient>> planning;
+	private Map<Salle, List<Patient>> planning;
 
 	/**
 	 * Renvoie la salle a laquelle un patient est affecte s'il est le prochain et
@@ -73,6 +73,12 @@ public class Planning {
 		}
 
 		return patients;
+	}
+	
+	
+
+	public Map<Salle, List<Patient>> getPlanning() {
+		return planning;
 	}
 
 	public Planning(Map<Salle, List<Patient>> planning, LocalTime heure, ExtractionJSON extracteur) {

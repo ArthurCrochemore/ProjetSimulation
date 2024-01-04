@@ -95,7 +95,7 @@ public class GPPrioriteRDV implements GestionPlanning {
 		Map<Salle, List<Patient>> renvoi = triDesSalles(sallesMap);
 
 		renvoi = placementDesPatientsRDV(renvoi);
-		
+
 		mapTrousParSalle = TrouPlanning.RechercheTrouPlanning(sallesTresEquipees, mapTrousParSalle, renvoi, constantes,
 				heureActuelle);
 
@@ -180,13 +180,13 @@ public class GPPrioriteRDV implements GestionPlanning {
 	 */
 	private Map<Salle, List<Patient>> placementDesPatientsUrgent(Map<Salle, List<Patient>> renvoi) {
 		for (Patient patient : nouvListePatientUrgent) {
-			
+
 			LocalTime heureArrivePatient = patient.getHeureArrive();
 			Map<Salle, LocalTime> mapPourTrie = new HashMap<>();
 
 			for (Salle salle : mapTrousParSalle.keySet()) {
-				while (mapTrousParSalle.get(salle).size() > 1 && mapTrousParSalle.get(salle).get(0)
-						.getHeureLimite().isBefore(heureArrivePatient)) {
+				while (mapTrousParSalle.get(salle).size() > 1
+						&& mapTrousParSalle.get(salle).get(0).getHeureLimite().isBefore(heureArrivePatient)) {
 					mapTrousParSalle.get(salle).remove(0);
 				}
 
@@ -204,12 +204,11 @@ public class GPPrioriteRDV implements GestionPlanning {
 			for (TrouPlanning trouAIncrementer : mapTrousParSalle.get(salle)) {
 				trouAIncrementer.incrementerIndice();
 			}
-			
+
 			pileSalleUrgent.remove(0);
 			pileSalleUrgent.add(salle);
 
-			if (mapTrousParSalle.get(salle).get(0).miseAjourTrou(patient.getHeureArrive(), tempsMoyen,
-					simulation.getHeureFinSimulation()) == null) {
+			if (mapTrousParSalle.get(salle).get(0).miseAjourTrou(patient.getHeureArrive(), tempsMoyen) == null) {
 				mapTrousParSalle.get(salle).remove(0);
 
 			}
