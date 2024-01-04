@@ -1,6 +1,5 @@
 package fr.univtours.polytech.initialisation;
 
-import java.io.IOException;
 import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -238,7 +237,7 @@ public class DonneeInitialisation {
 			return new Simulation(this);
 		} catch (Exception e) {
 			e.printStackTrace();
-			
+
 			return null;
 		}
 	}

@@ -12,14 +12,12 @@ public class ReglesDeGestion {
 	private GestionInfirmiers regleGestionInfirmiers;
 	private GestionPlanning regleGestionPlanning;
 	private GestionChirurgiens regleGestionChirurgiens;
-	private Integer nbRegles;
 
 	public ReglesDeGestion(Simulation simulation, int regle1, int regle2, int regle3) throws Exception {
 		this.simulation = simulation;
-		nbRegles = 2;
 
 		switch (regle1) {
-		case 1: 
+		case 1:
 			regleGestionInfirmiers = new GIPrioritePreparation(simulation);
 			break;
 		case 2:
@@ -32,7 +30,7 @@ public class ReglesDeGestion {
 			regleGestionInfirmiers = new GIPrioriteUrgence(simulation);
 			break;
 		default:
-			throw new Exception("Entier regle de gestion de type Salle trop grand");
+			throw new Exception("Entier regle de gestion de type Salle incohérent");
 		}
 
 		switch (regle2) {
@@ -49,7 +47,7 @@ public class ReglesDeGestion {
 			regleGestionPlanning = new GPPrioritePremierArriveReserveDynamique(simulation);
 			break;
 		default:
-			throw new Exception("Entier regle de gestion de type Infirmier trop grand");
+			throw new Exception("Entier regle de gestion de type Infirmier incohérent");
 		}
 
 		switch (regle3) {
@@ -60,8 +58,7 @@ public class ReglesDeGestion {
 			regleGestionChirurgiens = new GCPrioriteUrgent(simulation);
 			break;
 		default:
-			throw new Exception("Entier regle de gestion des chirurgiens trop grand");
-
+			throw new Exception("Entier regle de gestion des chirurgiens incohérent");
 		}
 	}
 

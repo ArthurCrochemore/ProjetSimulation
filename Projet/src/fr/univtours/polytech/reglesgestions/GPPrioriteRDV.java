@@ -20,8 +20,8 @@ import fr.univtours.polytech.ressource.Salle;
 import fr.univtours.polytech.util.TrouPlanning;
 
 /**
- * Regle de gestion priorisant la prise en charge des RDV Lorsqu'un patient
- * urgent est déclaré il est affecté aux salles reserve
+ * Regle de gestion qui place d'abords les patients RDV puis les patients
+ * urgents
  */
 public class GPPrioriteRDV implements GestionPlanning {
 	private Simulation simulation;
@@ -37,7 +37,7 @@ public class GPPrioriteRDV implements GestionPlanning {
 
 	private Map<Salle, List<TrouPlanning>> mapTrousParSalle;
 	private List<Salle> sallesTresEquipees; // Servira à chercher les trous possibles entre les
-										// patientsUrgents pour placer les patientsRDV
+											// RDV pour placer les patients urgents
 
 	public GPPrioriteRDV(Simulation simulation) {
 		this.simulation = simulation;
@@ -49,14 +49,16 @@ public class GPPrioriteRDV implements GestionPlanning {
 	 * @param patientUrgent, le patient urgent qui vient d'etre declare
 	 */
 	public Planning solution(Patient patientUrgent) {
-		// Initialisation de la nouvelle liste de patients
+		/* Initialisation des nouvelles listes de patients RDV et urgents */
 		nouvListePatientRDV = new ArrayList<>();
 		nouvListePatientUrgent = new ArrayList<>();
 		List<Patient> listePatient;
 
 		if (patientUrgent != null) {
-			// Si un patient urgent est donné, récupérer le planning existant et l'ajouter à
-			// la nouvelle liste
+			/**
+			 * Si un patient urgent est donné, récupérer le planning existant et l'ajouter à
+			 * la nouvelle liste
+			 */
 			Planning ancienPlanning = simulation.getPlanning();
 
 			listePatient = ancienPlanning.extraiteDonnee();
@@ -64,8 +66,8 @@ public class GPPrioriteRDV implements GestionPlanning {
 			nouvListePatientUrgent.add(patientUrgent);
 			System.out.println("changement de planning");
 		} else {
-			return new GPPrioritePremierArriveReserveStatique(simulation).solution(null); // On applique la règle de
-																							// Gestion la plus simple
+			/* Sinon, on applique la regle de gestion la plus simple */
+			return new GPPrioritePremierArriveReserveStatique(simulation).solution(null);
 		}
 
 		for (Patient p : listePatient) {
@@ -80,30 +82,36 @@ public class GPPrioriteRDV implements GestionPlanning {
 		tempsMoyen = constantes.getTempsMoyen();
 		heureActuelle = simulation.getDeroulement().getHeureSimulation();
 
-		// Tri de la liste de patient en fonction du temps d'arrivée
+		/* Tri des listes de patient en fonction du temps d'arrivée */
 		Collections.sort(nouvListePatientRDV, (p1, p2) -> p1.getHeureArrive().compareTo(p2.getHeureArrive()));
 		Collections.sort(nouvListePatientUrgent, (p1, p2) -> p1.getHeureArrive().compareTo(p2.getHeureArrive()));
 
-		// Récupération des salles de la simulation
+		/* Récupération des salles de la simulation */
 		Map<Salle.typeSalles, List<Salle>> sallesMap = simulation.getSalles();
 		pileSalleUrgent = new ArrayList<Salle>(); // Pile utilisée pour placer les patients Urgents
 		pileSalleRDV = new ArrayList<Salle>(); // Pile utilisée pour placer les patients RDV
 
 		sallesTresEquipees = new ArrayList<Salle>();
 
-		// Tri des salles
+		/*
+		 * Tri des salles, initialisation des piles et de renvoi, qui correspond au
+		 * futur attribut planning de l'objet Planning
+		 */
 		Map<Salle, List<Patient>> renvoi = triDesSalles(sallesMap);
 
 		renvoi = placementDesPatientsRDV(renvoi);
 
 		mapTrousParSalle = TrouPlanning.RechercheTrouPlanning(sallesTresEquipees, mapTrousParSalle, renvoi, constantes,
-				heureActuelle);
+				heureActuelle); // On recherche les trous entre les patients RDV déjà place
 
-		return new Planning(placementDesPatientsUrgent(renvoi), heureActuelle, new ExtractionJSON(simulation));
+		renvoi = placementDesPatientsUrgent(renvoi);
+		
+		return new Planning(renvoi, heureActuelle, new ExtractionJSON(simulation));
 	}
 
 	/**
-	 * Crée la pile des salles qui sera utilisé pour placer les patients
+	 * Crée la pile des salles qui sera utilisé pour placer les patients et
+	 * intialise renvoi et mapTrousParSalle
 	 * 
 	 * @param sallesMap
 	 * @return renvoi, le map qui sera utiliser pout initialiser le planning avec
@@ -113,6 +121,11 @@ public class GPPrioriteRDV implements GestionPlanning {
 		Map<Salle, List<Patient>> renvoi = new HashMap<Salle, List<Patient>>();
 		mapTrousParSalle = new HashMap<>(); // Map qui stokera les trous trouvés
 
+		/**
+		 * Pour toutes les salles reservees on ajoute la salle à la pile pour les
+		 * patient urgents, seul eux peuvent être affecté à ces salles, et on initialise
+		 * un "trou final" dans mapTrousParSalle
+		 */
 		Salle.typeSalles type;
 		for (Salle.listeEtats etat : Salle.listeEtats.values()) {
 			type = Salle.typeSalles.RESERVE;
@@ -128,12 +141,16 @@ public class GPPrioriteRDV implements GestionPlanning {
 						listeTrous.add(TrouPlanning.CreerPlaningAvecHeureDebutTheoriqueEtHeureLimite(
 								heureActuelle.plusMinutes(tempsMoyenEnFonctionEtat.getMinute())
 										.plusHours(tempsMoyenEnFonctionEtat.getHour()),
-								LocalTime.of(23, 59, 0), 0, salle, tempsMoyen));
+								TrouPlanning.getHeureLimiteTrouFinal(), 0, salle, tempsMoyen));
 						mapTrousParSalle.put(salle, listeTrous);
 					}
 				}
 			}
 
+			/**
+			 * Pour toutes les salles PE on ajoute la salle à la pile pour les patient RDV,
+			 * seul eux peuvent être affecté à ces salles
+			 */
 			type = Salle.typeSalles.PEUEQUIPE;
 			if (sallesMap.containsKey(type)) {
 				for (Salle salle : sallesMap.get(type)) {
@@ -144,6 +161,10 @@ public class GPPrioriteRDV implements GestionPlanning {
 				}
 			}
 
+			/**
+			 * Pour toutes les salles PE on ajoute la salle à la pile pour les patient RDV,
+			 * seul eux peuvent être affecté à ces salles
+			 */
 			type = Salle.typeSalles.SEMIEQUIPE;
 			if (sallesMap.containsKey(type)) {
 				for (Salle salle : sallesMap.get(type)) {
@@ -154,6 +175,11 @@ public class GPPrioriteRDV implements GestionPlanning {
 				}
 			}
 
+			/**
+			 * Pour toutes les salles TE on ajoute la salle aux deux pile et on les ajoute à
+			 * sallesTresEquipees qui servira à rechercher les trous après avoir affecté les
+			 * patients urgents (à l'aide de RechercheTrouPlanning)
+			 */
 			type = Salle.typeSalles.TRESEQUIPE;
 			if (sallesMap.containsKey(type)) {
 				for (Salle salle : sallesMap.get(type)) {
@@ -166,61 +192,70 @@ public class GPPrioriteRDV implements GestionPlanning {
 					}
 				}
 			}
-
 		}
-
 		return renvoi;
 	}
 
 	/**
-	 * Méthode qui gère l'affectation des patients Urgents dans les salles
+	 * Méthode qui gère l'affectation des patients Urgents dans les salles, ici il
+	 * s'agit de les placer entre les patients RDV déjà placé puis de de les placer
+	 * les un à la suite des autres en prennant chaque salle une par une
 	 * 
 	 * @param renvoi
 	 * @return renvoi, la map qui permettra de faire le planning
 	 */
 	private Map<Salle, List<Patient>> placementDesPatientsUrgent(Map<Salle, List<Patient>> renvoi) {
-		for (Patient patient : nouvListePatientUrgent) {
 
+		for (Patient patient : nouvListePatientUrgent) {
 			LocalTime heureArrivePatient = patient.getHeureArrive();
 			Map<Salle, LocalTime> mapPourTrie = new HashMap<>();
 
+			/*
+			 * On supprime les trous qui sont devenus obsolètes (les patients que l'on
+			 * regarde arrive après leur heureLimite
+			 */
 			for (Salle salle : mapTrousParSalle.keySet()) {
-				while (mapTrousParSalle.get(salle).size() > 1
+				while (mapTrousParSalle.get(salle).size() > 1 // On garde tout de même le "trou final"
 						&& mapTrousParSalle.get(salle).get(0).getHeureLimite().isBefore(heureArrivePatient)) {
 					mapTrousParSalle.get(salle).remove(0);
 				}
 
+				/*
+				 * On sauvegarde l'heureDebutTheorique du trou le plus cohérent comme réference
+				 * pour le tri des salles
+				 */
 				mapPourTrie.put(salle, mapTrousParSalle.get(salle).get(0).getHeureDebutTheorique());
 			}
+			/* On tri de nouveau la pile de salles (les trous risquent d'avoir changer) */
 			pileSalleUrgent = new ArrayList<>(mapPourTrie.entrySet().stream().sorted(Entry.comparingByValue())
 					.collect(Collectors.toMap(Entry::getKey, Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new))
 					.keySet());
 
-			Salle salle = pileSalleUrgent.get(0);
+			Salle salle = pileSalleUrgent.get(0); // La 1ere salle est forcement compatible (il n'y a sue des salles TE
+													// et Reservees)
 
-			TrouPlanning trou = mapTrousParSalle.get(salle).get(0);
-			renvoi.get(salle).add(trou.getIndice(), patient);
+			TrouPlanning trou = mapTrousParSalle.get(salle).get(0); // On recupere le trou
+			renvoi.get(salle).add(trou.getIndice(), patient); // On bouche le trou avec le patient
 
+			/* Pour chaque trous de la salle choisie, on met à jour leur indice */
 			for (TrouPlanning trouAIncrementer : mapTrousParSalle.get(salle)) {
 				trouAIncrementer.incrementerIndice();
 			}
 
-			pileSalleUrgent.remove(0);
-			pileSalleUrgent.add(salle);
-
+			/* On met à jour le trou, si il est devenu incohérent, on le supprime */
 			if (mapTrousParSalle.get(salle).get(0).miseAjourTrou(patient.getHeureArrive(), tempsMoyen,
 					heureActuelle) == null) {
 				mapTrousParSalle.get(salle).remove(0);
-
 			}
 		}
 
 		return renvoi;
-
 	}
 
 	/**
-	 * Méthode qui gère l'affectation des patients RDV dans les salles
+	 * Méthode qui gère l'affectation des patients RDV dans les salles, ici il
+	 * s'agit simplement de les placer les un à la suite des autres en prennant
+	 * chaque salle une par une
 	 * 
 	 * @param renvoi
 	 * @return renvoi, la map qui permettra de faire le planning
@@ -233,26 +268,33 @@ public class GPPrioriteRDV implements GestionPlanning {
 			Salle salle;
 			while (!place && indice < pileSalleRDV.size()) {
 				salle = pileSalleRDV.get(indice);
-
+				
+				/* Si la salle est TE et le patient a une gravité TE, c'est bon */
 				if (patient.getGravite() == PatientRDV.listeGravite.TRESEQUIPE) {
 					if (salle.getType() == Salle.typeSalles.TRESEQUIPE) {
 						renvoi.get(salle).add(patient);
 						place = true;
 
+						/* On passe la salle en bas de la pile */
 						pileSalleRDV.remove(indice);
 						pileSalleRDV.add(salle);
 					}
 				} else {
+					/* Sinon, si la salle est TE ou SE et le patient a une gravité SE, c'est bon */
 					if (patient.getGravite() == PatientRDV.listeGravite.SEMIEQUIPE) {
 						if (salle.getType() == Salle.typeSalles.TRESEQUIPE
 								|| salle.getType() == Salle.typeSalles.SEMIEQUIPE) {
 							renvoi.get(salle).add(patient);
 							place = true;
 
+							/* On passe la salle en bas de la pile */
 							pileSalleRDV.remove(indice);
 							pileSalleRDV.add(salle);
 						}
 					} else {
+						/*
+						 * Sinon, si la salle est TE, SE ou PE et le patient a une gravité PE, c'est bon
+						 */
 						if (salle.getType() == Salle.typeSalles.TRESEQUIPE
 								|| salle.getType() == Salle.typeSalles.SEMIEQUIPE
 								|| salle.getType() == Salle.typeSalles.PEUEQUIPE) {
@@ -260,14 +302,13 @@ public class GPPrioriteRDV implements GestionPlanning {
 							renvoi.get(salle).add(patient);
 							place = true;
 
+							/* On passe la salle en bas de la pile */
 							pileSalleRDV.remove(indice);
 							pileSalleRDV.add(salle);
 						}
 					}
 				}
-
 				indice++;
-
 			}
 		}
 

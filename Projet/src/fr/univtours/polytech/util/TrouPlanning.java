@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.experimental.max.MaxCore;
-
 import fr.univtours.polytech.Constantes;
 import fr.univtours.polytech.entite.Patient;
 import fr.univtours.polytech.ressource.Salle;
@@ -121,8 +119,8 @@ public class TrouPlanning {
 			 * a des patients) et le plus tard possible (23h59 puisque l'on utilise des
 			 * LocalTime)
 			 */
-			listeTrouPlanning.add(CreerPlaningAvecHeureDebutTheoriqueEtHeureLimite(debutTrouFinal, LocalTime.of(23, 59),
-					listePatientTE.size(), salleTE, tempsMoyen));
+			listeTrouPlanning.add(CreerPlaningAvecHeureDebutTheoriqueEtHeureLimite(debutTrouFinal,
+					getHeureLimiteTrouFinal(), listePatientTE.size(), salleTE, tempsMoyen));
 
 			trousMap.put(salleTE, listeTrouPlanning); // On met à jour le map de trous
 		}
@@ -142,26 +140,26 @@ public class TrouPlanning {
 	 *         sinon
 	 */
 	public TrouPlanning miseAjourTrou(LocalTime heureArrivee, LocalTime tempsMoyen, LocalTime heureActuelle) {
-		if(this.heureDebutTheorique.isAfter(heureArrivee)) {
+		if (this.heureDebutTheorique.isAfter(heureArrivee)) {
 			heureArrivee = heureDebutTheorique;
 		}
-		
+
 		LocalTime heureDebutTheorique = somme(heureArrivee, tempsMoyen); // On calcul l'heureDebutTheorique
-		
+
 		/* Si la nouvelle heureDebutTheorique est après l'heureLimite */
 		if (heureDebutTheorique.isAfter(heureLimite)) {
 			/* Si le trou n'est pas le "trou final" */
-			if (heureLimite != LocalTime.of(23, 59)) {
+			if (heureLimite != getHeureLimiteTrouFinal()) {
 				return null; // Le trou est alors rempli, on renvoit donc null
 			}
-			
-			this.heureDebutTheorique = LocalTime.of(23, 59);
+
+			this.heureDebutTheorique = getHeureLimiteTrouFinal();
 		}
 		/* Sinon, on met à jour l'heureDebutTheorique */
 		else {
 			this.heureDebutTheorique = heureDebutTheorique;
 		}
-		
+
 		return this;
 	}
 
@@ -300,10 +298,14 @@ public class TrouPlanning {
 
 		return renvoi;
 	}
-	
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return salle.getId() + " = " + heureDebutTheorique;
+
+	/**
+	 * Permet d'obtenir l'heure limite maximale (23:59 puisque l'on utilise des
+	 * LocalTime)
+	 * 
+	 * @return 23:59
+	 */
+	public static LocalTime getHeureLimiteTrouFinal() {
+		return LocalTime.of(23, 59);
 	}
 }
