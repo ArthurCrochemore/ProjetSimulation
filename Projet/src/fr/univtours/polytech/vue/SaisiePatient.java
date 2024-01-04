@@ -765,7 +765,7 @@ public class SaisiePatient extends javax.swing.JFrame {
 		// TODO add your handling code here:
 		DefaultTableModel tableauModif = (DefaultTableModel) tableau.getModel();
 
-		if (tableau.getSelectedRowCount() >= 0) {
+		if (tableau.getSelectedRowCount() > 0) {
 			int[] lignesSelectionnees = tableau.getSelectedRows();
 			int indexSuppr = lignesSelectionnees[0];
 
