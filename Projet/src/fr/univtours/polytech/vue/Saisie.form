@@ -38,7 +38,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,3,-24,0,0,7,48"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,3,-24,0,0,6,-2"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -52,7 +52,7 @@
           <Dimension value="[300, 720]"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[470, 1000]"/>
+          <Dimension value="[400, 1000]"/>
         </Property>
       </Properties>
       <Constraints>
@@ -65,128 +65,128 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="txtFin" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtDebut" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                          <Component id="titleConstantes" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="titleRegleG" min="-2" pref="366" max="-2" attributes="0"/>
+                                  <Component id="titleHorraires" min="-2" pref="365" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="titlePatients" min="-2" pref="365" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnHeureDebut" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnHeureFin" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="49" max="32767" attributes="0"/>
               </Group>
-              <Component id="titlePatients" alignment="0" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="titleHorraires" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="txtAnesthesie" min="-2" max="-2" attributes="0"/>
-                                              <Component id="txtLibe" min="-2" max="-2" attributes="0"/>
-                                              <Component id="txtPrepa" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="valueNbChirurgien1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="valueNbInfirmier1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="valueNbSallePE1" min="-2" max="-2" attributes="0"/>
-                                          </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="txtSE" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txtTE" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txtNbSalles" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="txtMoyOpe" min="-2" max="-2" attributes="0"/>
-                                              <Component id="txtMarge" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="valueMoyTempsOpe" min="-2" max="-2" attributes="0"/>
-                                              <Component id="valueMarge" min="-2" pref="70" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace min="0" pref="75" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="titleConstantes" alignment="1" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Component id="titleQteRessources" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="btnOpenSaisiePatient" max="32767" attributes="0"/>
-                                      <Component id="btnSimulation" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="txtRegleInf" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtRegleSalle" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="txtRegleChir" min="-2" max="-2" attributes="0"/>
-                                              <Component id="txtNbSalles" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="valueNbSalleSE" min="-2" max="-2" attributes="0"/>
+                                          <Component id="valueNbSalleTE" min="-2" max="-2" attributes="0"/>
                                           <Component id="valueNbSalleReserve" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="stringRegleGestion2" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="stringRegleGestion1" max="32767" attributes="0"/>
-                                      <Component id="stringRegleGestion3" alignment="0" min="-2" pref="377" max="-2" attributes="0"/>
                                   </Group>
+                                  <Component id="titleQteRessources" alignment="1" min="-2" pref="379" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="txtTE" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="valueNbSalleTE" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="valueNbSalleSE" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="txtPE" min="-2" max="-2" attributes="0"/>
-                                              <Component id="txtSE" min="-2" max="-2" attributes="0"/>
-                                              <Component id="txtNbChir" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="txtNbInf" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="valueNbSallePE" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="valueNbChirurgien" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="valueNbInfirmier" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
+                                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="txtNbChir" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtPE" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtNbInf" alignment="1" min="-2" max="-2" attributes="0"/>
                                   </Group>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="valueNbInfirmier" min="-2" max="-2" attributes="0"/>
+                                      <Component id="valueNbChirurgien" min="-2" max="-2" attributes="0"/>
+                                      <Component id="valueNbSallePE" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="61" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="titleRegleG" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="stringRegleGestion3" alignment="0" max="32767" attributes="0"/>
+                              <Component id="stringRegleGestion1" alignment="0" max="32767" attributes="0"/>
+                              <Component id="stringRegleGestion2" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="txtRegleSalle" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtRegleInf" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtRegleChir" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="txtLibe" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtAnesthesie" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtMoyOpe" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtMarge" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtPrepa" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="valueTempsPrepa" min="-2" max="-2" attributes="0"/>
+                              <Component id="valueTempsAnes" min="-2" max="-2" attributes="0"/>
+                              <Component id="valueTempsLiber" min="-2" max="-2" attributes="0"/>
+                              <Component id="valueMoyTempsOpe" min="-2" max="-2" attributes="0"/>
+                              <Component id="valueMarge" min="-2" pref="70" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="txtFin" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtDebut" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="btnHeureDebut" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnHeureFin" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="btnSimulation" min="-2" pref="188" max="-2" attributes="0"/>
+                              <Component id="btnOpenSaisiePatient" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Component id="titleHorraires" min="-2" pref="20" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnHeureDebut" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtDebut" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -198,39 +198,34 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="titleRegleG" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="txtRegleInf" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="stringRegleGestion1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="txtRegleSalle" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="stringRegleGestion2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="txtRegleChir" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="stringRegleGestion3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="valueNbSalleReserve" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtNbSalles" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Component id="titleConstantes" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtPrepa" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="valueNbInfirmier1" alignment="3" max="-2" attributes="0"/>
+                      <Component id="valueTempsPrepa" alignment="3" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="valueTempsAnes" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtAnesthesie" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="valueNbChirurgien1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtLibe" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="valueNbSallePE1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="valueTempsLiber" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -242,19 +237,17 @@
                       <Component id="txtMarge" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="valueMarge" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Component id="titleQteRessources" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="txtNbChir" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="valueNbInfirmier" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtNbInf" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="valueNbChirurgien" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtNbInf" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="valueNbInfirmier" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtNbChir" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="valueNbChirurgien" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -271,13 +264,18 @@
                       <Component id="txtTE" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="valueNbSalleTE" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="13" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtNbSalles" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="valueNbSalleReserve" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Component id="titlePatients" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnOpenSaisiePatient" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="21" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnSimulation" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                  <EmptySpace pref="32" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -351,10 +349,10 @@
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">
-                <StringItem index="0" value="Priorite aux salles en attente de preparation"/>
-                <StringItem index="1" value="Priorite aux salles en attente de liberation"/>
-                <StringItem index="2" value="Dans l&apos;ordre des attentes"/>
-                <StringItem index="3" value="Priorite aux salles d&apos;urgence"/>
+                <StringItem index="0" value="Priorit&#xe9; pr&#xe9;paration des salles"/>
+                <StringItem index="1" value="Priorit&#xe9; lib&#xe9;ration des salles"/>
+                <StringItem index="2" value="Premi&#xe8;re en attente"/>
+                <StringItem index="3" value="Priorit&#xe9; aux Urgences"/>
               </StringArray>
             </Property>
           </Properties>
@@ -377,10 +375,10 @@
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">
-                <StringItem index="0" value="Priorit&#xe9; premier en attente, salle R&#xe9;serv&#xe9;e statique"/>
+                <StringItem index="0" value="Premier en attente"/>
                 <StringItem index="1" value="Priorit&#xe9; rendez-vous"/>
                 <StringItem index="2" value="Priorit&#xe9; urgence"/>
-                <StringItem index="3" value="Priorit&#xe9; premier en attente, salle R&#xe9;serv&#xe9;e dynamique"/>
+                <StringItem index="3" value="Premier en attente, r&#xe9;servation dynamique"/>
               </StringArray>
             </Property>
           </Properties>
@@ -451,7 +449,7 @@
             <Property name="text" type="java.lang.String" value="Temps Pr&#xe9;partion des Salles (en min) :"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="valueNbInfirmier1">
+        <Component class="javax.swing.JTextField" name="valueTempsPrepa">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="81" green="d5" red="ec" type="rgb"/>
@@ -462,7 +460,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="valueNbInfirmier1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="valueTempsPrepaActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="txtAnesthesie">
@@ -470,7 +468,7 @@
             <Property name="text" type="java.lang.String" value="Temps Anesth&#xe9;sie des Patients (en min) :"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="valueNbChirurgien1">
+        <Component class="javax.swing.JTextField" name="valueTempsAnes">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="81" green="d5" red="ec" type="rgb"/>
@@ -481,7 +479,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="valueNbChirurgien1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="valueTempsAnesActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="txtLibe">
@@ -489,7 +487,7 @@
             <Property name="text" type="java.lang.String" value="Temps Lib&#xe9;ration des Salles (en min) :"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="valueNbSallePE1">
+        <Component class="javax.swing.JTextField" name="valueTempsLiber">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="81" green="d5" red="ec" type="rgb"/>
@@ -500,7 +498,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="valueNbSallePE1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="valueTempsLiberActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="titlePatients">
