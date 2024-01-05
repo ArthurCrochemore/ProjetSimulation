@@ -24,7 +24,7 @@ import fr.univtours.polytech.util.LoiDePoisson;
 
 /**
  *
- * @author Utilisateur
+ * @author Arthur
  */
 public class SaisiePatient extends javax.swing.JFrame {
 	Integer id;
@@ -617,32 +617,6 @@ public class SaisiePatient extends javax.swing.JFrame {
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 
-	private void btnAjouterActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAjouterActionPerformed
-		// TODO add your handling code here:
-		try {
-			if (currTempsOperation < 0) {
-				throw new IllegalArgumentException("Veuillez saisir un temps d'operation");
-			}
-
-			DefaultTableModel modele = (DefaultTableModel) tableau.getModel();
-
-			String urgent;
-			String gravite;
-
-			if (currEstUrgent) {
-				ajouterPatientUrgent(id, currHeureArrivee, null, currHeureDeclaration);
-			} else {
-				ajouterPatientRDV(id, currGravite, currHeureArrivee, null);
-			}
-		} catch (IllegalArgumentException e) {
-			strTempsOpe.setText("0");
-			strTempsOpe.setForeground(new Color(255, 0, 0));
-
-			System.err.println(e.getMessage());
-		}
-
-	}// GEN-LAST:event_btnAjouterActionPerformed
-
 	private void btnHeureArriveeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnHeureArriveeActionPerformed
 		// TODO add your handling code here:
 		pickerHeureArrivee.showPopup(this, 350, 0);
@@ -675,23 +649,6 @@ public class SaisiePatient extends javax.swing.JFrame {
 		}
 	}// GEN-LAST:event_strGraviteActionPerformed
 
-	private Integer recupererValeurLue(javax.swing.JTextField textField) {
-		String str = textField.getText();
-		Integer valeur = 0;
-		try {
-			valeur = Integer.parseInt(str);
-			if (valeur < 0) {
-				throw new NumberFormatException();
-			}
-			textField.setForeground(new Color(0, 200, 0));
-		} catch (NumberFormatException e) {
-			textField.setText("0");
-			textField.setForeground(new Color(255, 0, 0));
-			return -1;
-		}
-		return valeur;
-	}
-
 	private void strTempsOpeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_strTempsOpeActionPerformed
 		// TODO add your handling code here:
 		currTempsOperation = recupererValeurLue(strTempsOpe);
@@ -699,78 +656,150 @@ public class SaisiePatient extends javax.swing.JFrame {
 
 	private void strTempsOpeMinActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_strTempsOpeMinActionPerformed
 		// TODO add your handling code here:
-		currTempsOperationMin = recupererValeurLue(strTempsOpeMin);
-		strTempsOpeMin1.setText(strTempsOpeMin.getText());
+		int renvoi = recupererValeurLue(strTempsOpeMin);
+
+		if (renvoi >= 0 && (renvoi <= currTempsOperationMax || currTempsOperationMax == -1)) {
+			currTempsOperationMin = renvoi;
+			strTempsOpeMin1.setText(currTempsOperationMin.toString());
+			strTempsOpeMin1.setForeground(new Color(0, 200, 0));
+		} else {
+			strTempsOpeMin.setText("0");
+			strTempsOpeMin.setForeground(new Color(255, 0, 0));
+			strTempsOpeMin1.setText("0");
+			strTempsOpeMin1.setForeground(new Color(255, 0, 0));
+		}
 	}// GEN-LAST:event_strTempsOpeMinActionPerformed
 
 	private void strTempsOpeMaxActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_strTempsOpeMaxActionPerformed
 		// TODO add your handling code here:
-		currTempsOperationMax = recupererValeurLue(strTempsOpeMax);
-		strTempsOpeMax1.setText(strTempsOpeMax.getText());
+		int renvoi = recupererValeurLue(strTempsOpeMax);
+
+		if (renvoi >= 0 && renvoi >= currTempsOperationMin) {
+			currTempsOperationMax = renvoi;
+			strTempsOpeMax1.setText(currTempsOperationMax.toString());
+			strTempsOpeMax1.setForeground(new Color(0, 200, 0));
+		} else {
+			strTempsOpeMax.setText("0");
+			strTempsOpeMax.setForeground(new Color(255, 0, 0));
+			strTempsOpeMax1.setText("0");
+			strTempsOpeMax1.setForeground(new Color(255, 0, 0));
+		}
 	}// GEN-LAST:event_strTempsOpeMaxActionPerformed
+
+	private void strTempsOpeMin1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_strTempsOpeMin1ActionPerformed
+		// TODO add your handling code here:
+		int renvoi = recupererValeurLue(strTempsOpeMin1);
+
+		if (renvoi >= 0 && (renvoi <= currTempsOperationMax || currTempsOperationMax == -1)) {
+			currTempsOperationMin = renvoi;
+			strTempsOpeMin.setText(currTempsOperationMin.toString());
+			strTempsOpeMin.setForeground(new Color(0, 200, 0));
+		} else {
+			strTempsOpeMin.setText("0");
+			strTempsOpeMin.setForeground(new Color(255, 0, 0));
+			strTempsOpeMin1.setText("0");
+			strTempsOpeMin1.setForeground(new Color(255, 0, 0));
+		}
+	}// GEN-LAST:event_strTempsOpeMin1ActionPerformed
+
+	private void strTempsOpeMax1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_strTempsOpeMax1ActionPerformed
+		// TODO add your handling code here:
+		int renvoi = recupererValeurLue(strTempsOpeMax1);
+
+		if (renvoi >= 0 && renvoi >= currTempsOperationMin) {
+			currTempsOperationMax = renvoi;
+			strTempsOpeMax.setText(currTempsOperationMax.toString());
+			strTempsOpeMax.setForeground(new Color(0, 200, 0));
+		} else {
+			strTempsOpeMax.setText("0");
+			strTempsOpeMax.setForeground(new Color(255, 0, 0));
+			strTempsOpeMax1.setText("0");
+			strTempsOpeMax1.setForeground(new Color(255, 0, 0));
+		}
+	}// GEN-LAST:event_strTempsOpeMax1ActionPerformed
+
+	private void strNbPatientACreerActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_strNbPatientACreerActionPerformed
+		// TODO add your handling code here:
+		nbPatientsUrgentAcreer = recupererValeurLue(strNbPatientACreer);
+	}// GEN-LAST:event_strNbPatientACreerActionPerformed
 
 	private void btnGenererActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnGenererActionPerformed
 		// TODO add your handling code here:
-		if (currTempsOperationMin >= 0 && currTempsOperationMax >= 0) {
-			currTempsOperation = LoiDePoisson.genererEntier(currTempsOperationMin, currTempsOperationMax, 50);
-			strTempsOpe.setText(String.valueOf(currTempsOperation));
-		} else {
-			if (currTempsOperationMin < 0) {
-				strTempsOpeMin.setText("0");
-				strTempsOpeMin1.setText("0");
+		try {
+			int pottCurrTempsOperationMin = recupererValeurLue(strTempsOpeMin);
+			int pottCurrTempsOperationMax = recupererValeurLue(strTempsOpeMax);
 
-				strTempsOpeMin.setForeground(new Color(255, 0, 0));
-				strTempsOpeMin1.setForeground(new Color(255, 0, 0));
+			if (pottCurrTempsOperationMin != currTempsOperationMin) {
+				currTempsOperationMin = pottCurrTempsOperationMin;
 			}
-			if (currTempsOperationMin < 0) {
-				strTempsOpeMax.setText("0");
-				strTempsOpeMax1.setText("0");
 
-				strTempsOpeMax.setForeground(new Color(255, 0, 0));
-				strTempsOpeMax1.setForeground(new Color(255, 0, 0));
+			if (pottCurrTempsOperationMax != currTempsOperationMax) {
+				currTempsOperationMax = pottCurrTempsOperationMax;
 			}
+			
+			if(pottCurrTempsOperationMin > pottCurrTempsOperationMax) {
+				currTempsOperationMin = -1;
+			}
+
+			if (currTempsOperationMin >= 0 && currTempsOperationMax >= 0) {
+				strTempsOpeMin1.setText(currTempsOperationMin.toString());
+				strTempsOpeMax1.setText(currTempsOperationMax.toString());
+			
+				strTempsOpeMin.setForeground(new Color(0, 200, 0));
+				strTempsOpeMax.setForeground(new Color(0, 200, 0));
+				strTempsOpeMin1.setForeground(new Color(0, 200, 0));
+				strTempsOpeMax1.setForeground(new Color(0, 200, 0));
+				
+				currTempsOperation = LoiDePoisson.genererEntier(currTempsOperationMin, currTempsOperationMax, 50);
+				strTempsOpe.setText(String.valueOf(currTempsOperation));
+				strTempsOpe.setForeground(new Color(0, 200, 0));
+			} else {
+				if (currTempsOperationMin < 0) {
+					strTempsOpeMin.setText("0");
+					strTempsOpeMin1.setText("0");
+
+					strTempsOpeMin.setForeground(new Color(255, 0, 0));
+					strTempsOpeMin1.setForeground(new Color(255, 0, 0));
+				}
+				if (currTempsOperationMin < 0) {
+					strTempsOpeMax.setText("0");
+					strTempsOpeMax1.setText("0");
+
+					strTempsOpeMax.setForeground(new Color(255, 0, 0));
+					strTempsOpeMax1.setForeground(new Color(255, 0, 0));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 	}// GEN-LAST:event_btnGenererActionPerformed
 
-	private void btnAnnulerActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAnnulerActionPerformed
+	private void btnAjouterActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAjouterActionPerformed
 		// TODO add your handling code here:
-		this.dispose();
-	}// GEN-LAST:event_btnAnnulerActionPerformed
+		try {
+			if (currTempsOperation < 0) {
+				throw new IllegalArgumentException("Veuillez saisir un temps d'operation");
+			}
 
-	private void btnValiderActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnValiderActionPerformed
-		// TODO add your handling code here:
-		Map<Integer, List<LocalTime>> map = new HashMap<Integer, List<LocalTime>>();
-		int index = 0;
+			DefaultTableModel modele = (DefaultTableModel) tableau.getModel();
 
-		for (int i : mapPE.keySet()) {
-			// se balader dans le tableau
-			map.put(index, mapPE.get(i));
-			index++;
-		}
-		for (int i : mapSE.keySet()) {
-			// se balader dans le tableau
-			map.put(index, mapSE.get(i));
-			index++;
-		}
-		for (int i : mapTE.keySet()) {
-			// se balader dans le tableau
-			map.put(index, mapTE.get(i));
-			index++;
-		}
-		for (int i : mapUrgent.keySet()) {
-			// se balader dans le tableau
-			map.put(index, mapUrgent.get(i));
-			index++;
+			String urgent;
+			String gravite;
+
+			if (currEstUrgent) {
+				ajouterPatientUrgent(id, currHeureArrivee, null, currHeureDeclaration);
+			} else {
+				ajouterPatientRDV(id, currGravite, currHeureArrivee, null);
+			}
+		} catch (IllegalArgumentException e) {
+			strTempsOpe.setText("0");
+			strTempsOpe.setForeground(new Color(255, 0, 0));
+
+			System.err.println(e.getMessage());
 		}
 
-		saisie.setNbPatientsRDVPE(nbPatientsRDVPE);
-		saisie.setNbPatientsRDVSE(nbPatientsRDVSE);
-		saisie.setNbPatientsRDVTE(nbPatientsRDVTE);
-		saisie.setNbPatientsUrgent(nbPatientsUrgent);
-		saisie.setMap(map);
-		this.dispose();
-	}// GEN-LAST:event_btnValiderActionPerformed
+	}// GEN-LAST:event_btnAjouterActionPerformed
 
 	private void btnSupprActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSupprActionPerformed
 		// TODO add your handling code here:
@@ -810,57 +839,71 @@ public class SaisiePatient extends javax.swing.JFrame {
 		}
 	}// GEN-LAST:event_btnSupprActionPerformed
 
-	private void strTempsOpeMin1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_strTempsOpeMin1ActionPerformed
-		// TODO add your handling code here:
-		currTempsOperationMin = recupererValeurLue(strTempsOpeMin1);
-		strTempsOpeMin.setText(currTempsOperationMin.toString());
-	}// GEN-LAST:event_strTempsOpeMin1ActionPerformed
-
-	private void strTempsOpeMax1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_strTempsOpeMax1ActionPerformed
-		// TODO add your handling code here:
-		currTempsOperationMax = recupererValeurLue(strTempsOpeMax1);
-		strTempsOpeMax.setText(currTempsOperationMax.toString());
-	}// GEN-LAST:event_strTempsOpeMax1ActionPerformed
-
-	private void strNbPatientACreerActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_strNbPatientACreerActionPerformed
-		// TODO add your handling code here:
-		nbPatientsUrgentAcreer = recupererValeurLue(strNbPatientACreer);
-	}// GEN-LAST:event_strNbPatientACreerActionPerformed
-
 	private void btnGenererPatientUrgentActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnGenererPatientUrgentActionPerformed
 		// TODO add your handling code here:
-		if (currTempsOperationMin >= 0 && currTempsOperationMax >= 0 && nbPatientsUrgentAcreer >= 0) {
-			DefaultTableModel modele = (DefaultTableModel) tableau.getModel();
+		try {
+			int pottCurrTempsOperationMin = recupererValeurLue(strTempsOpeMin1);
+			int pottCurrTempsOperationMax = recupererValeurLue(strTempsOpeMax1);
+			int pottNbPatientsUrgentAcreer = recupererValeurLue(strNbPatientACreer);
 
-			for (int i = 0; i < nbPatientsUrgentAcreer; i++) {
-				currTempsOperation = LoiDePoisson.genererEntier(currTempsOperationMin, currTempsOperationMax, 50);
-				currHeureArrivee = LoiDePoisson.genererHeure(saisie.getHeureDebutJournee(), saisie.getHeureFinJournee(),
-						50);
-				currHeureDeclaration = currHeureArrivee.minusMinutes(LoiDePoisson.genererEntier(5, 45, 50));
+			if (pottCurrTempsOperationMin != currTempsOperationMin) {
+				currTempsOperationMin = pottCurrTempsOperationMin;
+			}
 
-				ajouterPatientUrgent(id, currHeureArrivee, null, currHeureDeclaration);
+			if (pottCurrTempsOperationMax != currTempsOperationMax) {
+				currTempsOperationMax = pottCurrTempsOperationMax;
 			}
-		} else {
-			if (currTempsOperationMin < 0) {
-				strTempsOpeMin.setText("0");
-				strTempsOpeMin1.setText("0");
 
-				strTempsOpeMin.setForeground(new Color(255, 0, 0));
-				strTempsOpeMin1.setForeground(new Color(255, 0, 0));
+			if (pottNbPatientsUrgentAcreer != nbPatientsUrgentAcreer) {
+				nbPatientsUrgentAcreer = pottNbPatientsUrgentAcreer;
 			}
-			if (currTempsOperationMin < 0) {
-				strTempsOpeMax.setText("0");
-				strTempsOpeMax1.setText("0");
+			
+			if(pottCurrTempsOperationMin > pottCurrTempsOperationMax) {
+				currTempsOperationMin = -1;
+			}
 
-				strTempsOpeMax.setForeground(new Color(255, 0, 0));
-				strTempsOpeMax1.setForeground(new Color(255, 0, 0));
+			if (currTempsOperationMin >= 0 && currTempsOperationMax >= 0 && nbPatientsUrgentAcreer >= 0) {
+				DefaultTableModel modele = (DefaultTableModel) tableau.getModel();
+				
+				strTempsOpeMin.setText(currTempsOperationMin.toString());
+				strTempsOpeMax.setText(currTempsOperationMax.toString());
+			
+				strTempsOpeMin.setForeground(new Color(0, 200, 0));
+				strTempsOpeMax.setForeground(new Color(0, 200, 0));
+				strTempsOpeMin1.setForeground(new Color(0, 200, 0));
+				strTempsOpeMax1.setForeground(new Color(0, 200, 0));
+				
+				for (int i = 0; i < nbPatientsUrgentAcreer; i++) {
+					currTempsOperation = LoiDePoisson.genererEntier(currTempsOperationMin, currTempsOperationMax, 50);
+					currHeureArrivee = LoiDePoisson.genererHeure(saisie.getHeureDebutJournee(),
+							saisie.getHeureFinJournee(), 50);
+					currHeureDeclaration = currHeureArrivee.minusMinutes(LoiDePoisson.genererEntier(5, 45, 50));
+
+					ajouterPatientUrgent(id, currHeureArrivee, null, currHeureDeclaration);
+				}
+			} else {
+				if (currTempsOperationMin < 0) {
+					strTempsOpeMin.setText("0");
+					strTempsOpeMin1.setText("0");
+
+					strTempsOpeMin.setForeground(new Color(255, 0, 0));
+					strTempsOpeMin1.setForeground(new Color(255, 0, 0));
+				}
+				if (currTempsOperationMin < 0) {
+					strTempsOpeMax.setText("0");
+					strTempsOpeMax1.setText("0");
+
+					strTempsOpeMax.setForeground(new Color(255, 0, 0));
+					strTempsOpeMax1.setForeground(new Color(255, 0, 0));
+				}
+				if (nbPatientsUrgentAcreer < 0) {
+					strNbPatientACreer.setText("0");
+					strNbPatientACreer.setForeground(new Color(255, 0, 0));
+				}
 			}
-			if (nbPatientsUrgentAcreer < 0) {
-				strNbPatientACreer.setText("0");
-				strNbPatientACreer.setForeground(new Color(255, 0, 0));
-			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
 	}// GEN-LAST:event_btnGenererPatientUrgentActionPerformed
 
 	private void ajouterPatientRDV(Integer id, Integer gravite, LocalTime heureArrive, LocalTime tempsOperation) {
@@ -938,6 +981,62 @@ public class SaisiePatient extends javax.swing.JFrame {
 			System.err.println(e.getMessage());
 		}
 	}
+
+	private Integer recupererValeurLue(javax.swing.JTextField textField) {
+		String str = textField.getText();
+		Integer valeur = 0;
+		try {
+			valeur = Integer.parseInt(str);
+			if (valeur < 0) {
+				throw new NumberFormatException();
+			}
+			textField.setForeground(new Color(0, 200, 0));
+		} catch (NumberFormatException e) {
+			textField.setText("0");
+			textField.setForeground(new Color(255, 0, 0));
+			return -1;
+		}
+		return valeur;
+	}
+
+	private void btnAnnulerActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAnnulerActionPerformed
+		// TODO add your handling code here:
+		this.dispose();
+	}// GEN-LAST:event_btnAnnulerActionPerformed
+
+	private void btnValiderActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnValiderActionPerformed
+		// TODO add your handling code here:
+		Map<Integer, List<LocalTime>> map = new HashMap<Integer, List<LocalTime>>();
+		int index = 0;
+
+		for (int i : mapPE.keySet()) {
+			// se balader dans le tableau
+			map.put(index, mapPE.get(i));
+			index++;
+		}
+		for (int i : mapSE.keySet()) {
+			// se balader dans le tableau
+			map.put(index, mapSE.get(i));
+			index++;
+		}
+		for (int i : mapTE.keySet()) {
+			// se balader dans le tableau
+			map.put(index, mapTE.get(i));
+			index++;
+		}
+		for (int i : mapUrgent.keySet()) {
+			// se balader dans le tableau
+			map.put(index, mapUrgent.get(i));
+			index++;
+		}
+
+		saisie.setNbPatientsRDVPE(nbPatientsRDVPE);
+		saisie.setNbPatientsRDVSE(nbPatientsRDVSE);
+		saisie.setNbPatientsRDVTE(nbPatientsRDVTE);
+		saisie.setNbPatientsUrgent(nbPatientsUrgent);
+		saisie.setMap(map);
+		this.dispose();
+	}// GEN-LAST:event_btnValiderActionPerformed
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JComboBox<String> boolUrgent;

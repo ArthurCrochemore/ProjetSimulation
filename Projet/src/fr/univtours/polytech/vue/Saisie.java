@@ -46,7 +46,7 @@ import fr.univtours.polytech.util.Tuple;
 
 /**
  *
- * @author Utilisateur
+ * @author Arthur
  */
 public class Saisie extends javax.swing.JFrame {
 
@@ -201,618 +201,652 @@ public class Saisie extends javax.swing.JFrame {
 	// <editor-fold defaultstate="collapsed" desc="Generated
 	// <editor-fold defaultstate="collapsed" desc="Generated
 	// <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
-        pickerHeureDebut = new com.raven.swing.TimePicker();
-        pickerHeureFin = new com.raven.swing.TimePicker();
-        panelSaisie = new javax.swing.JPanel();
-        txtDebut = new javax.swing.JLabel();
-        btnHeureDebut = new javax.swing.JButton();
-        txtFin = new javax.swing.JLabel();
-        btnHeureFin = new javax.swing.JButton();
-        titleHorraires = new javax.swing.JLabel();
-        titleRegleG = new javax.swing.JLabel();
-        txtRegleInf = new javax.swing.JLabel();
-        stringRegleGestion1 = new javax.swing.JComboBox<>();
-        txtRegleSalle = new javax.swing.JLabel();
-        stringRegleGestion2 = new javax.swing.JComboBox<>();
-        txtRegleChir = new javax.swing.JLabel();
-        stringRegleGestion3 = new javax.swing.JComboBox<>();
-        txtNbSalles = new javax.swing.JLabel();
-        valueNbSalleReserve = new javax.swing.JTextField();
-        titleConstantes = new javax.swing.JLabel();
-        txtPrepa = new javax.swing.JLabel();
-        valueTempsPrepa = new javax.swing.JTextField();
-        txtAnesthesie = new javax.swing.JLabel();
-        valueTempsAnes = new javax.swing.JTextField();
-        txtLibe = new javax.swing.JLabel();
-        valueTempsLiber = new javax.swing.JTextField();
-        titlePatients = new javax.swing.JLabel();
-        btnOpenSaisiePatient = new javax.swing.JButton();
-        btnSimulation = new javax.swing.JButton();
-        titleQteRessources = new javax.swing.JLabel();
-        txtNbInf = new javax.swing.JLabel();
-        valueNbInfirmier = new javax.swing.JTextField();
-        txtNbChir = new javax.swing.JLabel();
-        valueNbChirurgien = new javax.swing.JTextField();
-        txtPE = new javax.swing.JLabel();
-        valueNbSallePE = new javax.swing.JTextField();
-        txtSE = new javax.swing.JLabel();
-        valueNbSalleSE = new javax.swing.JTextField();
-        txtTE = new javax.swing.JLabel();
-        valueNbSalleTE = new javax.swing.JTextField();
-        txtMoyOpe = new javax.swing.JLabel();
-        valueMoyTempsOpe = new javax.swing.JTextField();
-        txtMarge = new javax.swing.JLabel();
-        valueMarge = new javax.swing.JTextField();
-        panelChart = new javax.swing.JPanel();
-        labelLancez = new javax.swing.JLabel();
-        labelImage = new javax.swing.JLabel();
-        panelChartTools = new javax.swing.JPanel();
-        btnChartInfirmier = new javax.swing.JButton();
-        btnChartChirugien = new javax.swing.JButton();
-        btnChartSalle = new javax.swing.JButton();
-        chkBoxPE = new javax.swing.JCheckBox();
-        chkBoxSE = new javax.swing.JCheckBox();
-        chkBoxTE = new javax.swing.JCheckBox();
-        btnChartPatient = new javax.swing.JButton();
-        chkBoxRDV = new javax.swing.JCheckBox();
-        chkBoxUrgent = new javax.swing.JCheckBox();
-        txtTitreGraph = new javax.swing.JLabel();
-
-        pickerHeureDebut.setForeground(new java.awt.Color(236, 213, 129));
-
-        pickerHeureFin.setForeground(new java.awt.Color(236, 213, 129));
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setFocusCycleRoot(false);
-        setMinimumSize(new java.awt.Dimension(1280, 720));
-
-        panelSaisie.setBackground(new java.awt.Color(236, 213, 129));
-        panelSaisie.setMinimumSize(new java.awt.Dimension(300, 720));
-        panelSaisie.setPreferredSize(new java.awt.Dimension(400, 1000));
-
-        txtDebut.setText("Heure début simulation :");
-
-        btnHeureDebut.setBackground(new java.awt.Color(236, 213, 129));
-        btnHeureDebut.setText("8:00");
-        btnHeureDebut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHeureDebutActionPerformed(evt);
-            }
-        });
-
-        txtFin.setText("Heure fin simulation :");
-
-        btnHeureFin.setBackground(new java.awt.Color(236, 213, 129));
-        btnHeureFin.setText("18:00");
-        btnHeureFin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHeureFinActionPerformed(evt);
-            }
-        });
-
-        titleHorraires.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        titleHorraires.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleHorraires.setText("Horraires");
-        titleHorraires.setPreferredSize(new java.awt.Dimension(400, 20));
-
-        titleRegleG.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        titleRegleG.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleRegleG.setText("Règles de Gestion");
-        titleRegleG.setPreferredSize(new java.awt.Dimension(400, 20));
-
-        txtRegleInf.setText("Gestion Priorité Infirmiers :");
-
-        stringRegleGestion1.setBackground(new java.awt.Color(236, 213, 129));
-        stringRegleGestion1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Priorité préparation des salles", "Priorité libération des salles", "Première en attente", "Priorité aux Urgences" }));
-        stringRegleGestion1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stringRegleGestion1ActionPerformed(evt);
-            }
-        });
-
-        txtRegleSalle.setText("Gestion Attribution des salles :");
-
-        stringRegleGestion2.setBackground(new java.awt.Color(236, 213, 129));
-        stringRegleGestion2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Premier en attente", "Priorité rendez-vous", "Priorité urgence", "Premier en attente, réservation dynamique" }));
-        stringRegleGestion2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stringRegleGestion2ActionPerformed(evt);
-            }
-        });
-
-        txtRegleChir.setText("Gestion Priorité Chirurgiens :");
-
-        stringRegleGestion3.setBackground(new java.awt.Color(236, 213, 129));
-        stringRegleGestion3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dans l'ordre des attentes", "Priorite aux salles d'urgence" }));
-        stringRegleGestion3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stringRegleGestion3ActionPerformed(evt);
-            }
-        });
-
-        txtNbSalles.setText("Nombre Salle Réservées  :");
-
-        valueNbSalleReserve.setBackground(new java.awt.Color(236, 213, 129));
-        valueNbSalleReserve.setText("0");
-        valueNbSalleReserve.setPreferredSize(new java.awt.Dimension(70, 22));
-        valueNbSalleReserve.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                valueNbSalleReserveActionPerformed(evt);
-            }
-        });
-
-        titleConstantes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        titleConstantes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleConstantes.setText("Constantes");
-        titleConstantes.setPreferredSize(new java.awt.Dimension(400, 20));
-
-        txtPrepa.setText("Temps Prépartion des Salles (en min) :");
-
-        valueTempsPrepa.setBackground(new java.awt.Color(236, 213, 129));
-        valueTempsPrepa.setText("0");
-        valueTempsPrepa.setPreferredSize(new java.awt.Dimension(70, 22));
-        valueTempsPrepa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                valueTempsPrepaActionPerformed(evt);
-            }
-        });
-
-        txtAnesthesie.setText("Temps Anesthésie des Patients (en min) :");
-
-        valueTempsAnes.setBackground(new java.awt.Color(236, 213, 129));
-        valueTempsAnes.setText("0");
-        valueTempsAnes.setPreferredSize(new java.awt.Dimension(70, 22));
-        valueTempsAnes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                valueTempsAnesActionPerformed(evt);
-            }
-        });
-
-        txtLibe.setText("Temps Libération des Salles (en min) :");
-
-        valueTempsLiber.setBackground(new java.awt.Color(236, 213, 129));
-        valueTempsLiber.setText("0");
-        valueTempsLiber.setPreferredSize(new java.awt.Dimension(70, 22));
-        valueTempsLiber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                valueTempsLiberActionPerformed(evt);
-            }
-        });
-
-        titlePatients.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        titlePatients.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titlePatients.setText("Saisie Patients");
-        titlePatients.setPreferredSize(new java.awt.Dimension(400, 20));
-
-        btnOpenSaisiePatient.setBackground(new java.awt.Color(236, 213, 129));
-        btnOpenSaisiePatient.setText("Ouvrir Fenetre de Saisie");
-        btnOpenSaisiePatient.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOpenSaisiePatientActionPerformed(evt);
-            }
-        });
-
-        btnSimulation.setBackground(new java.awt.Color(236, 213, 129));
-        btnSimulation.setText("Lancer Simulation");
-        btnSimulation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSimulationActionPerformed(evt);
-            }
-        });
-
-        titleQteRessources.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        titleQteRessources.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleQteRessources.setText("Quantité de Ressources");
-        titleQteRessources.setPreferredSize(new java.awt.Dimension(400, 20));
-
-        txtNbInf.setText("Nombre Infirmier :");
-
-        valueNbInfirmier.setBackground(new java.awt.Color(236, 213, 129));
-        valueNbInfirmier.setText("0");
-        valueNbInfirmier.setPreferredSize(new java.awt.Dimension(70, 22));
-        valueNbInfirmier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                valueNbInfirmierActionPerformed(evt);
-            }
-        });
-
-        txtNbChir.setText("Nombre Chirurgien :");
-
-        valueNbChirurgien.setBackground(new java.awt.Color(236, 213, 129));
-        valueNbChirurgien.setText("0");
-        valueNbChirurgien.setPreferredSize(new java.awt.Dimension(70, 22));
-        valueNbChirurgien.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                valueNbChirurgienActionPerformed(evt);
-            }
-        });
-
-        txtPE.setText("Nombre Salle Peu équipée :");
-
-        valueNbSallePE.setBackground(new java.awt.Color(236, 213, 129));
-        valueNbSallePE.setText("0");
-        valueNbSallePE.setPreferredSize(new java.awt.Dimension(70, 22));
-        valueNbSallePE.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                valueNbSallePEActionPerformed(evt);
-            }
-        });
-
-        txtSE.setText("Nombre Salle Semi équipée :");
-
-        valueNbSalleSE.setBackground(new java.awt.Color(236, 213, 129));
-        valueNbSalleSE.setText("0");
-        valueNbSalleSE.setPreferredSize(new java.awt.Dimension(70, 22));
-        valueNbSalleSE.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                valueNbSalleSEActionPerformed(evt);
-            }
-        });
-
-        txtTE.setText("Nombre Salle Très équipée :");
-
-        valueNbSalleTE.setBackground(new java.awt.Color(236, 213, 129));
-        valueNbSalleTE.setText("0");
-        valueNbSalleTE.setPreferredSize(new java.awt.Dimension(70, 22));
-        valueNbSalleTE.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                valueNbSalleTEActionPerformed(evt);
-            }
-        });
-
-        txtMoyOpe.setText("Moyenne des temps d'Operation (en min) :");
-
-        valueMoyTempsOpe.setBackground(new java.awt.Color(236, 213, 129));
-        valueMoyTempsOpe.setText("0");
-        valueMoyTempsOpe.setPreferredSize(new java.awt.Dimension(70, 22));
-        valueMoyTempsOpe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                valueMoyTempsOpeActionPerformed(evt);
-            }
-        });
-
-        txtMarge.setText("Marge pour le temps Moyen (en %) :");
-
-        valueMarge.setBackground(new java.awt.Color(236, 213, 129));
-        valueMarge.setText("0");
-        valueMarge.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                valueMargeActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelSaisieLayout = new javax.swing.GroupLayout(panelSaisie);
-        panelSaisie.setLayout(panelSaisieLayout);
-        panelSaisieLayout.setHorizontalGroup(
-            panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSaisieLayout.createSequentialGroup()
-                .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(panelSaisieLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(titleConstantes, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelSaisieLayout.createSequentialGroup()
-                            .addGap(1, 1, 1)
-                            .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(titleRegleG, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(titleHorraires, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(panelSaisieLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(titlePatients, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 49, Short.MAX_VALUE))
-            .addGroup(panelSaisieLayout.createSequentialGroup()
-                .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelSaisieLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(panelSaisieLayout.createSequentialGroup()
-                                    .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(txtSE)
-                                        .addComponent(txtTE)
-                                        .addComponent(txtNbSalles))
-                                    .addGap(89, 89, 89)
-                                    .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(valueNbSalleSE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(valueNbSalleTE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(valueNbSalleReserve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addComponent(titleQteRessources, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelSaisieLayout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtNbChir)
-                                    .addComponent(txtPE)
-                                    .addComponent(txtNbInf))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(valueNbInfirmier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(valueNbChirurgien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(valueNbSallePE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(31, 31, 31))))
-                    .addGroup(panelSaisieLayout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(stringRegleGestion3, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(stringRegleGestion1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(stringRegleGestion2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelSaisieLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtRegleSalle)
-                            .addComponent(txtRegleInf)
-                            .addComponent(txtRegleChir)))
-                    .addGroup(panelSaisieLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtLibe)
-                            .addComponent(txtAnesthesie)
-                            .addComponent(txtMoyOpe)
-                            .addComponent(txtMarge)
-                            .addComponent(txtPrepa))
-                        .addGap(18, 18, 18)
-                        .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(valueTempsPrepa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(valueTempsAnes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(valueTempsLiber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(valueMoyTempsOpe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(valueMarge, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelSaisieLayout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtFin)
-                            .addComponent(txtDebut))
-                        .addGap(30, 30, 30)
-                        .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnHeureDebut)
-                            .addComponent(btnHeureFin)))
-                    .addGroup(panelSaisieLayout.createSequentialGroup()
-                        .addGap(101, 101, 101)
-                        .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnOpenSaisiePatient))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelSaisieLayout.setVerticalGroup(
-            panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSaisieLayout.createSequentialGroup()
-                .addComponent(titleHorraires, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnHeureDebut)
-                    .addComponent(txtDebut))
-                .addGap(18, 18, 18)
-                .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFin)
-                    .addComponent(btnHeureFin))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(titleRegleG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(txtRegleInf)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(stringRegleGestion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(txtRegleSalle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(stringRegleGestion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtRegleChir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(stringRegleGestion3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(titleConstantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPrepa)
-                    .addComponent(valueTempsPrepa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(valueTempsAnes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAnesthesie))
-                .addGap(18, 18, 18)
-                .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtLibe)
-                    .addComponent(valueTempsLiber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtMoyOpe)
-                    .addComponent(valueMoyTempsOpe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtMarge)
-                    .addComponent(valueMarge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addComponent(titleQteRessources, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNbInf)
-                    .addComponent(valueNbInfirmier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNbChir)
-                    .addComponent(valueNbChirurgien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPE)
-                    .addComponent(valueNbSallePE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSE)
-                    .addComponent(valueNbSalleSE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTE)
-                    .addComponent(valueNbSalleTE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNbSalles)
-                    .addComponent(valueNbSalleReserve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addComponent(titlePatients, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnOpenSaisiePatient)
-                .addGap(18, 18, 18)
-                .addComponent(btnSimulation)
-                .addContainerGap(32, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(panelSaisie, java.awt.BorderLayout.CENTER);
-
-        panelChart.setBackground(new java.awt.Color(255, 255, 255));
-        panelChart.setForeground(new java.awt.Color(255, 255, 255));
-        panelChart.setMinimumSize(new java.awt.Dimension(980, 720));
-        panelChart.setPreferredSize(new java.awt.Dimension(1370, 1000));
-
-        labelLancez.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        labelLancez.setForeground(new java.awt.Color(51, 51, 51));
-        labelLancez.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelLancez.setText("Lancez une simulation pour voir vos resultats s'afficher ici");
-        labelLancez.setPreferredSize(new java.awt.Dimension(1480, 25));
-
-        labelImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fr/univtours/polytech/vue/image.jpg"))); // NOI18N
-        labelImage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        panelChartTools.setBackground(new java.awt.Color(153, 153, 153));
-
-        btnChartInfirmier.setText("Attente Infirmiers");
-        btnChartInfirmier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChartInfirmierActionPerformed(evt);
-            }
-        });
-
-        btnChartChirugien.setText("Attente Chirurgiens");
-        btnChartChirugien.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChartChirugienActionPerformed(evt);
-            }
-        });
-
-        btnChartSalle.setText("Attente Salles");
-        btnChartSalle.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChartSalleActionPerformed(evt);
-            }
-        });
-
-        chkBoxPE.setText("Peu équipées");
-
-        chkBoxSE.setText("Semi équipées");
-
-        chkBoxTE.setText("Très équipées");
-
-        btnChartPatient.setText("Attente Patients");
-        btnChartPatient.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChartPatientActionPerformed(evt);
-            }
-        });
-
-        chkBoxRDV.setText("RDV");
-
-        chkBoxUrgent.setText("Urgent");
-
-        javax.swing.GroupLayout panelChartToolsLayout = new javax.swing.GroupLayout(panelChartTools);
-        panelChartTools.setLayout(panelChartToolsLayout);
-        panelChartToolsLayout.setHorizontalGroup(
-            panelChartToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelChartToolsLayout.createSequentialGroup()
-                .addGroup(panelChartToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelChartToolsLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(panelChartToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnChartInfirmier, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnChartChirugien, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-                            .addComponent(btnChartSalle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(panelChartToolsLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(panelChartToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chkBoxPE)
-                            .addComponent(chkBoxTE)
-                            .addComponent(chkBoxSE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(panelChartToolsLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(panelChartToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnChartPatient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(panelChartToolsLayout.createSequentialGroup()
-                                .addGap(32, 32, 32)
-                                .addGroup(panelChartToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(chkBoxUrgent)
-                                    .addComponent(chkBoxRDV))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addContainerGap())
-        );
-        panelChartToolsLayout.setVerticalGroup(
-            panelChartToolsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelChartToolsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnChartInfirmier)
-                .addGap(12, 12, 12)
-                .addComponent(btnChartChirugien)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnChartSalle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chkBoxPE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chkBoxSE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chkBoxTE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnChartPatient)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chkBoxRDV)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chkBoxUrgent)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        txtTitreGraph.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
-        txtTitreGraph.setForeground(new java.awt.Color(255, 255, 255));
-        txtTitreGraph.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtTitreGraph.setText("_");
-        txtTitreGraph.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
-        panelChart.setLayout(panelChartLayout);
-        panelChartLayout.setHorizontalGroup(
-            panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelChartLayout.createSequentialGroup()
-                .addContainerGap(166, Short.MAX_VALUE)
-                .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelChartLayout.createSequentialGroup()
-                        .addComponent(labelLancez, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(81, 81, 81))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelChartLayout.createSequentialGroup()
-                        .addComponent(txtTitreGraph, javax.swing.GroupLayout.PREFERRED_SIZE, 824, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(157, 157, 157))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelChartLayout.createSequentialGroup()
-                        .addComponent(labelImage)
-                        .addGap(127, 127, 127)))
-                .addComponent(panelChartTools, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        panelChartLayout.setVerticalGroup(
-            panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelChartLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtTitreGraph)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(labelImage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelLancez, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
-            .addGroup(panelChartLayout.createSequentialGroup()
-                .addComponent(panelChartTools, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(panelChart, java.awt.BorderLayout.EAST);
-
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+	// <editor-fold defaultstate="collapsed" desc="Generated
+	// Code">//GEN-BEGIN:initComponents
+	private void initComponents() {
+
+		pickerHeureDebut = new com.raven.swing.TimePicker();
+		pickerHeureFin = new com.raven.swing.TimePicker();
+		panelSaisie = new javax.swing.JPanel();
+		txtDebut = new javax.swing.JLabel();
+		btnHeureDebut = new javax.swing.JButton();
+		txtFin = new javax.swing.JLabel();
+		btnHeureFin = new javax.swing.JButton();
+		titleHorraires = new javax.swing.JLabel();
+		titleRegleG = new javax.swing.JLabel();
+		txtRegleInf = new javax.swing.JLabel();
+		stringRegleGestion1 = new javax.swing.JComboBox<>();
+		txtRegleSalle = new javax.swing.JLabel();
+		stringRegleGestion2 = new javax.swing.JComboBox<>();
+		txtRegleChir = new javax.swing.JLabel();
+		stringRegleGestion3 = new javax.swing.JComboBox<>();
+		txtNbSalles = new javax.swing.JLabel();
+		valueNbSalleReserve = new javax.swing.JTextField();
+		titleConstantes = new javax.swing.JLabel();
+		txtPrepa = new javax.swing.JLabel();
+		valueTempsPrepa = new javax.swing.JTextField();
+		txtAnesthesie = new javax.swing.JLabel();
+		valueTempsAnes = new javax.swing.JTextField();
+		txtLibe = new javax.swing.JLabel();
+		valueTempsLiber = new javax.swing.JTextField();
+		titlePatients = new javax.swing.JLabel();
+		btnOpenSaisiePatient = new javax.swing.JButton();
+		btnSimulation = new javax.swing.JButton();
+		titleQteRessources = new javax.swing.JLabel();
+		txtNbInf = new javax.swing.JLabel();
+		valueNbInfirmier = new javax.swing.JTextField();
+		txtNbChir = new javax.swing.JLabel();
+		valueNbChirurgien = new javax.swing.JTextField();
+		txtPE = new javax.swing.JLabel();
+		valueNbSallePE = new javax.swing.JTextField();
+		txtSE = new javax.swing.JLabel();
+		valueNbSalleSE = new javax.swing.JTextField();
+		txtTE = new javax.swing.JLabel();
+		valueNbSalleTE = new javax.swing.JTextField();
+		txtMoyOpe = new javax.swing.JLabel();
+		valueMoyTempsOpe = new javax.swing.JTextField();
+		txtMarge = new javax.swing.JLabel();
+		valueMarge = new javax.swing.JTextField();
+		panelChart = new javax.swing.JPanel();
+		labelLancez = new javax.swing.JLabel();
+		labelImage = new javax.swing.JLabel();
+		panelChartTools = new javax.swing.JPanel();
+		btnChartInfirmier = new javax.swing.JButton();
+		btnChartChirugien = new javax.swing.JButton();
+		btnChartSalle = new javax.swing.JButton();
+		chkBoxPE = new javax.swing.JCheckBox();
+		chkBoxSE = new javax.swing.JCheckBox();
+		chkBoxTE = new javax.swing.JCheckBox();
+		btnChartPatient = new javax.swing.JButton();
+		chkBoxRDV = new javax.swing.JCheckBox();
+		chkBoxUrgent = new javax.swing.JCheckBox();
+		txtTitreGraph = new javax.swing.JLabel();
+
+		pickerHeureDebut.setForeground(new java.awt.Color(236, 213, 129));
+
+		pickerHeureFin.setForeground(new java.awt.Color(236, 213, 129));
+
+		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		setFocusCycleRoot(false);
+		setMinimumSize(new java.awt.Dimension(1280, 720));
+
+		panelSaisie.setBackground(new java.awt.Color(236, 213, 129));
+		panelSaisie.setMinimumSize(new java.awt.Dimension(300, 720));
+		panelSaisie.setPreferredSize(new java.awt.Dimension(400, 1000));
+
+		txtDebut.setText("Heure début simulation :");
+
+		btnHeureDebut.setBackground(new java.awt.Color(236, 213, 129));
+		btnHeureDebut.setText("8:00");
+		btnHeureDebut.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				btnHeureDebutActionPerformed(evt);
+			}
+		});
+
+		txtFin.setText("Heure fin simulation :");
+
+		btnHeureFin.setBackground(new java.awt.Color(236, 213, 129));
+		btnHeureFin.setText("18:00");
+		btnHeureFin.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				btnHeureFinActionPerformed(evt);
+			}
+		});
+
+		titleHorraires.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+		titleHorraires.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		titleHorraires.setText("Horraires");
+		titleHorraires.setPreferredSize(new java.awt.Dimension(400, 20));
+
+		titleRegleG.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+		titleRegleG.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		titleRegleG.setText("Règles de Gestion");
+		titleRegleG.setPreferredSize(new java.awt.Dimension(400, 20));
+
+		txtRegleInf.setText("Gestion Priorité Infirmiers :");
+
+		stringRegleGestion1.setBackground(new java.awt.Color(236, 213, 129));
+		stringRegleGestion1
+				.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Priorité préparation des salles",
+						"Priorité libération des salles", "Première en attente", "Priorité aux Urgences" }));
+		stringRegleGestion1.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				stringRegleGestion1ActionPerformed(evt);
+			}
+		});
+
+		txtRegleSalle.setText("Gestion Attribution des salles :");
+
+		stringRegleGestion2.setBackground(new java.awt.Color(236, 213, 129));
+		stringRegleGestion2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Premier en attente",
+				"Priorité rendez-vous", "Priorité urgence", "Premier en attente, réservation dynamique" }));
+		stringRegleGestion2.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				stringRegleGestion2ActionPerformed(evt);
+			}
+		});
+
+		txtRegleChir.setText("Gestion Priorité Chirurgiens :");
+
+		stringRegleGestion3.setBackground(new java.awt.Color(236, 213, 129));
+		stringRegleGestion3.setModel(new javax.swing.DefaultComboBoxModel<>(
+				new String[] { "Dans l'ordre des attentes", "Priorite aux salles d'urgence" }));
+		stringRegleGestion3.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				stringRegleGestion3ActionPerformed(evt);
+			}
+		});
+
+		txtNbSalles.setText("Nombre Salle Réservées  :");
+
+		valueNbSalleReserve.setBackground(new java.awt.Color(236, 213, 129));
+		valueNbSalleReserve.setText("0");
+		valueNbSalleReserve.setPreferredSize(new java.awt.Dimension(70, 22));
+		valueNbSalleReserve.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				valueNbSalleReserveActionPerformed(evt);
+			}
+		});
+
+		titleConstantes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+		titleConstantes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		titleConstantes.setText("Constantes");
+		titleConstantes.setPreferredSize(new java.awt.Dimension(400, 20));
+
+		txtPrepa.setText("Temps Prépartion des Salles (en min) :");
+
+		valueTempsPrepa.setBackground(new java.awt.Color(236, 213, 129));
+		valueTempsPrepa.setText("0");
+		valueTempsPrepa.setPreferredSize(new java.awt.Dimension(70, 22));
+		valueTempsPrepa.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				valueTempsPrepaActionPerformed(evt);
+			}
+		});
+
+		txtAnesthesie.setText("Temps Anesthésie des Patients (en min) :");
+
+		valueTempsAnes.setBackground(new java.awt.Color(236, 213, 129));
+		valueTempsAnes.setText("0");
+		valueTempsAnes.setPreferredSize(new java.awt.Dimension(70, 22));
+		valueTempsAnes.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				valueTempsAnesActionPerformed(evt);
+			}
+		});
+
+		txtLibe.setText("Temps Libération des Salles (en min) :");
+
+		valueTempsLiber.setBackground(new java.awt.Color(236, 213, 129));
+		valueTempsLiber.setText("0");
+		valueTempsLiber.setPreferredSize(new java.awt.Dimension(70, 22));
+		valueTempsLiber.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				valueTempsLiberActionPerformed(evt);
+			}
+		});
+
+		titlePatients.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+		titlePatients.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		titlePatients.setText("Saisie Patients");
+		titlePatients.setPreferredSize(new java.awt.Dimension(400, 20));
+
+		btnOpenSaisiePatient.setBackground(new java.awt.Color(236, 213, 129));
+		btnOpenSaisiePatient.setText("Ouvrir Fenetre de Saisie");
+		btnOpenSaisiePatient.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				btnOpenSaisiePatientActionPerformed(evt);
+			}
+		});
+
+		btnSimulation.setBackground(new java.awt.Color(236, 213, 129));
+		btnSimulation.setText("Lancer Simulation");
+		btnSimulation.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				btnSimulationActionPerformed(evt);
+			}
+		});
+
+		titleQteRessources.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+		titleQteRessources.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		titleQteRessources.setText("Quantité de Ressources");
+		titleQteRessources.setPreferredSize(new java.awt.Dimension(400, 20));
+
+		txtNbInf.setText("Nombre Infirmier :");
+
+		valueNbInfirmier.setBackground(new java.awt.Color(236, 213, 129));
+		valueNbInfirmier.setText("0");
+		valueNbInfirmier.setPreferredSize(new java.awt.Dimension(70, 22));
+		valueNbInfirmier.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				valueNbInfirmierActionPerformed(evt);
+			}
+		});
+
+		txtNbChir.setText("Nombre Chirurgien :");
+
+		valueNbChirurgien.setBackground(new java.awt.Color(236, 213, 129));
+		valueNbChirurgien.setText("0");
+		valueNbChirurgien.setPreferredSize(new java.awt.Dimension(70, 22));
+		valueNbChirurgien.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				valueNbChirurgienActionPerformed(evt);
+			}
+		});
+
+		txtPE.setText("Nombre Salle Peu équipée :");
+
+		valueNbSallePE.setBackground(new java.awt.Color(236, 213, 129));
+		valueNbSallePE.setText("0");
+		valueNbSallePE.setPreferredSize(new java.awt.Dimension(70, 22));
+		valueNbSallePE.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				valueNbSallePEActionPerformed(evt);
+			}
+		});
+
+		txtSE.setText("Nombre Salle Semi équipée :");
+
+		valueNbSalleSE.setBackground(new java.awt.Color(236, 213, 129));
+		valueNbSalleSE.setText("0");
+		valueNbSalleSE.setPreferredSize(new java.awt.Dimension(70, 22));
+		valueNbSalleSE.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				valueNbSalleSEActionPerformed(evt);
+			}
+		});
+
+		txtTE.setText("Nombre Salle Très équipée :");
+
+		valueNbSalleTE.setBackground(new java.awt.Color(236, 213, 129));
+		valueNbSalleTE.setText("0");
+		valueNbSalleTE.setPreferredSize(new java.awt.Dimension(70, 22));
+		valueNbSalleTE.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				valueNbSalleTEActionPerformed(evt);
+			}
+		});
+
+		txtMoyOpe.setText("Moyenne des temps d'Operation (en min) :");
+
+		valueMoyTempsOpe.setBackground(new java.awt.Color(236, 213, 129));
+		valueMoyTempsOpe.setText("0");
+		valueMoyTempsOpe.setPreferredSize(new java.awt.Dimension(70, 22));
+		valueMoyTempsOpe.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				valueMoyTempsOpeActionPerformed(evt);
+			}
+		});
+
+		txtMarge.setText("Marge pour le temps Moyen (en %) :");
+
+		valueMarge.setBackground(new java.awt.Color(236, 213, 129));
+		valueMarge.setText("0");
+		valueMarge.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				valueMargeActionPerformed(evt);
+			}
+		});
+
+		javax.swing.GroupLayout panelSaisieLayout = new javax.swing.GroupLayout(panelSaisie);
+		panelSaisie.setLayout(panelSaisieLayout);
+		panelSaisieLayout.setHorizontalGroup(panelSaisieLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(panelSaisieLayout.createSequentialGroup().addGroup(panelSaisieLayout
+						.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+						.addGroup(panelSaisieLayout.createSequentialGroup().addGap(6, 6, 6).addComponent(
+								titleConstantes, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+						.addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								.addGroup(panelSaisieLayout.createSequentialGroup().addGap(1, 1, 1)
+										.addGroup(panelSaisieLayout
+												.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+												.addComponent(titleRegleG, javax.swing.GroupLayout.PREFERRED_SIZE, 366,
+														javax.swing.GroupLayout.PREFERRED_SIZE)
+												.addComponent(titleHorraires, javax.swing.GroupLayout.PREFERRED_SIZE,
+														365, javax.swing.GroupLayout.PREFERRED_SIZE)))
+								.addGroup(panelSaisieLayout.createSequentialGroup().addContainerGap().addComponent(
+										titlePatients, javax.swing.GroupLayout.PREFERRED_SIZE, 365,
+										javax.swing.GroupLayout.PREFERRED_SIZE))))
+						.addGap(0, 49, Short.MAX_VALUE))
+				.addGroup(panelSaisieLayout.createSequentialGroup().addGroup(panelSaisieLayout
+						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(panelSaisieLayout.createSequentialGroup().addContainerGap().addGroup(panelSaisieLayout
+								.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+								.addGroup(panelSaisieLayout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addGroup(panelSaisieLayout.createSequentialGroup().addGroup(panelSaisieLayout
+												.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+												.addComponent(txtSE).addComponent(txtTE).addComponent(txtNbSalles))
+												.addGap(89, 89, 89)
+												.addGroup(panelSaisieLayout
+														.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+														.addComponent(valueNbSalleSE,
+																javax.swing.GroupLayout.PREFERRED_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.PREFERRED_SIZE)
+														.addComponent(valueNbSalleTE,
+																javax.swing.GroupLayout.PREFERRED_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.PREFERRED_SIZE)
+														.addComponent(valueNbSalleReserve,
+																javax.swing.GroupLayout.PREFERRED_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.PREFERRED_SIZE)))
+										.addComponent(titleQteRessources, javax.swing.GroupLayout.Alignment.TRAILING,
+												javax.swing.GroupLayout.PREFERRED_SIZE, 379,
+												javax.swing.GroupLayout.PREFERRED_SIZE))
+								.addGroup(panelSaisieLayout.createSequentialGroup().addGap(8, 8, 8)
+										.addGroup(panelSaisieLayout
+												.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+												.addComponent(txtNbChir).addComponent(txtPE).addComponent(txtNbInf))
+										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addGroup(panelSaisieLayout
+												.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+												.addComponent(valueNbInfirmier, javax.swing.GroupLayout.PREFERRED_SIZE,
+														javax.swing.GroupLayout.DEFAULT_SIZE,
+														javax.swing.GroupLayout.PREFERRED_SIZE)
+												.addComponent(valueNbChirurgien, javax.swing.GroupLayout.PREFERRED_SIZE,
+														javax.swing.GroupLayout.DEFAULT_SIZE,
+														javax.swing.GroupLayout.PREFERRED_SIZE)
+												.addComponent(valueNbSallePE, javax.swing.GroupLayout.PREFERRED_SIZE,
+														javax.swing.GroupLayout.DEFAULT_SIZE,
+														javax.swing.GroupLayout.PREFERRED_SIZE))
+										.addGap(31, 31, 31))))
+						.addGroup(panelSaisieLayout.createSequentialGroup().addGap(45, 45, 45)
+								.addGroup(panelSaisieLayout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+										.addComponent(stringRegleGestion3, javax.swing.GroupLayout.Alignment.LEADING, 0,
+												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(stringRegleGestion1, javax.swing.GroupLayout.Alignment.LEADING, 0,
+												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(stringRegleGestion2, javax.swing.GroupLayout.Alignment.LEADING,
+												javax.swing.GroupLayout.PREFERRED_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.PREFERRED_SIZE)))
+						.addGroup(panelSaisieLayout.createSequentialGroup().addGap(32, 32, 32).addGroup(
+								panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addComponent(txtRegleSalle).addComponent(txtRegleInf)
+										.addComponent(txtRegleChir)))
+						.addGroup(panelSaisieLayout.createSequentialGroup().addContainerGap()
+								.addGroup(panelSaisieLayout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+										.addComponent(txtLibe).addComponent(txtAnesthesie).addComponent(txtMoyOpe)
+										.addComponent(txtMarge).addComponent(txtPrepa))
+								.addGap(18, 18, 18).addGroup(
+										panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+												.addComponent(valueTempsPrepa, javax.swing.GroupLayout.PREFERRED_SIZE,
+														javax.swing.GroupLayout.DEFAULT_SIZE,
+														javax.swing.GroupLayout.PREFERRED_SIZE)
+												.addComponent(valueTempsAnes, javax.swing.GroupLayout.PREFERRED_SIZE,
+														javax.swing.GroupLayout.DEFAULT_SIZE,
+														javax.swing.GroupLayout.PREFERRED_SIZE)
+												.addComponent(valueTempsLiber, javax.swing.GroupLayout.PREFERRED_SIZE,
+														javax.swing.GroupLayout.DEFAULT_SIZE,
+														javax.swing.GroupLayout.PREFERRED_SIZE)
+												.addComponent(valueMoyTempsOpe, javax.swing.GroupLayout.PREFERRED_SIZE,
+														javax.swing.GroupLayout.DEFAULT_SIZE,
+														javax.swing.GroupLayout.PREFERRED_SIZE)
+												.addComponent(valueMarge, javax.swing.GroupLayout.PREFERRED_SIZE, 70,
+														javax.swing.GroupLayout.PREFERRED_SIZE)))
+						.addGroup(panelSaisieLayout.createSequentialGroup().addGap(58, 58, 58)
+								.addGroup(panelSaisieLayout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+										.addComponent(txtFin).addComponent(txtDebut))
+								.addGap(30, 30, 30).addGroup(
+										panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+												.addComponent(btnHeureDebut).addComponent(btnHeureFin)))
+						.addGroup(panelSaisieLayout.createSequentialGroup().addGap(101, 101, 101).addGroup(
+								panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addComponent(btnSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 188,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addComponent(btnOpenSaisiePatient))))
+						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+		panelSaisieLayout.setVerticalGroup(panelSaisieLayout.createParallelGroup(
+				javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(panelSaisieLayout.createSequentialGroup()
+						.addComponent(titleHorraires, javax.swing.GroupLayout.PREFERRED_SIZE, 20,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+						.addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(btnHeureDebut).addComponent(txtDebut))
+						.addGap(18, 18, 18)
+						.addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(txtFin).addComponent(btnHeureFin))
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+						.addComponent(titleRegleG, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(18, 18, 18).addComponent(txtRegleInf)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(stringRegleGestion1, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(18, 18, 18).addComponent(txtRegleSalle)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(stringRegleGestion2, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+						.addComponent(txtRegleChir).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(stringRegleGestion3, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+						.addComponent(titleConstantes, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(18, 18, 18)
+						.addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(txtPrepa).addComponent(valueTempsPrepa,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+										javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+						.addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(valueTempsAnes, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtAnesthesie))
+						.addGap(18, 18, 18)
+						.addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(txtLibe)
+								.addComponent(valueTempsLiber, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addGap(18, 18, 18)
+						.addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(txtMoyOpe)
+								.addComponent(valueMoyTempsOpe, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addGap(18, 18, 18)
+						.addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(txtMarge).addComponent(valueMarge, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addGap(26, 26, 26)
+						.addComponent(titleQteRessources, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(18, 18, 18)
+						.addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(txtNbInf)
+								.addComponent(valueNbInfirmier, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addGap(18, 18, 18)
+						.addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(txtNbChir)
+								.addComponent(valueNbChirurgien, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addGap(18, 18, 18)
+						.addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(txtPE)
+								.addComponent(valueNbSallePE, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addGap(18, 18, 18)
+						.addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(txtSE)
+								.addComponent(valueNbSalleSE, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addGap(18, 18, 18)
+						.addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(txtTE)
+								.addComponent(valueNbSalleTE, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addGap(18, 18, 18)
+						.addGroup(panelSaisieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(txtNbSalles)
+								.addComponent(valueNbSalleReserve, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addGap(26, 26, 26)
+						.addComponent(titlePatients, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(18, 18, 18).addComponent(btnOpenSaisiePatient).addGap(18, 18, 18)
+						.addComponent(btnSimulation).addContainerGap(32, Short.MAX_VALUE)));
+
+		getContentPane().add(panelSaisie, java.awt.BorderLayout.CENTER);
+
+		panelChart.setBackground(new java.awt.Color(255, 255, 255));
+		panelChart.setForeground(new java.awt.Color(255, 255, 255));
+		panelChart.setMinimumSize(new java.awt.Dimension(980, 720));
+		panelChart.setPreferredSize(new java.awt.Dimension(1370, 1000));
+
+		labelLancez.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+		labelLancez.setForeground(new java.awt.Color(51, 51, 51));
+		labelLancez.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		labelLancez.setText("Lancez une simulation pour voir vos resultats s'afficher ici");
+		labelLancez.setPreferredSize(new java.awt.Dimension(1480, 25));
+
+		labelImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		labelImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fr/univtours/polytech/vue/image.jpg"))); // NOI18N
+		labelImage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+		panelChartTools.setBackground(new java.awt.Color(153, 153, 153));
+
+		btnChartInfirmier.setText("Attente Infirmiers");
+		btnChartInfirmier.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				btnChartInfirmierActionPerformed(evt);
+			}
+		});
+
+		btnChartChirugien.setText("Attente Chirurgiens");
+		btnChartChirugien.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				btnChartChirugienActionPerformed(evt);
+			}
+		});
+
+		btnChartSalle.setText("Attente Salles");
+		btnChartSalle.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				btnChartSalleActionPerformed(evt);
+			}
+		});
+
+		chkBoxPE.setText("Peu équipées");
+
+		chkBoxSE.setText("Semi équipées");
+
+		chkBoxTE.setText("Très équipées");
+
+		btnChartPatient.setText("Attente Patients");
+		btnChartPatient.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				btnChartPatientActionPerformed(evt);
+			}
+		});
+
+		chkBoxRDV.setText("RDV");
+
+		chkBoxUrgent.setText("Urgent");
+
+		javax.swing.GroupLayout panelChartToolsLayout = new javax.swing.GroupLayout(panelChartTools);
+		panelChartTools.setLayout(panelChartToolsLayout);
+		panelChartToolsLayout.setHorizontalGroup(panelChartToolsLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(panelChartToolsLayout.createSequentialGroup().addGroup(panelChartToolsLayout
+						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(panelChartToolsLayout.createSequentialGroup().addGap(6, 6, 6)
+								.addGroup(panelChartToolsLayout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addComponent(btnChartInfirmier, javax.swing.GroupLayout.Alignment.TRAILING,
+												javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(btnChartChirugien, javax.swing.GroupLayout.Alignment.TRAILING,
+												javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+										.addComponent(btnChartSalle, javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+						.addGroup(panelChartToolsLayout.createSequentialGroup().addGap(32, 32, 32)
+								.addGroup(panelChartToolsLayout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addComponent(chkBoxPE).addComponent(chkBoxTE).addComponent(chkBoxSE))
+								.addGap(0, 0, Short.MAX_VALUE))
+						.addGroup(panelChartToolsLayout.createSequentialGroup().addContainerGap()
+								.addGroup(panelChartToolsLayout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addComponent(btnChartPatient, javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addGroup(panelChartToolsLayout.createSequentialGroup().addGap(32, 32, 32)
+												.addGroup(panelChartToolsLayout
+														.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+														.addComponent(chkBoxUrgent).addComponent(chkBoxRDV))
+												.addGap(0, 0, Short.MAX_VALUE)))))
+						.addContainerGap()));
+		panelChartToolsLayout.setVerticalGroup(panelChartToolsLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(panelChartToolsLayout.createSequentialGroup().addContainerGap()
+						.addComponent(btnChartInfirmier).addGap(12, 12, 12).addComponent(btnChartChirugien)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+						.addComponent(btnChartSalle).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(chkBoxPE).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(chkBoxSE).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(chkBoxTE).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(btnChartPatient)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(chkBoxRDV)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(chkBoxUrgent)
+						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+
+		txtTitreGraph.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+		txtTitreGraph.setForeground(new java.awt.Color(255, 255, 255));
+		txtTitreGraph.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		txtTitreGraph.setText("_");
+		txtTitreGraph.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+		javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
+		panelChart.setLayout(panelChartLayout);
+		panelChartLayout.setHorizontalGroup(panelChartLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelChartLayout.createSequentialGroup()
+						.addContainerGap(166, Short.MAX_VALUE)
+						.addGroup(panelChartLayout
+								.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+										panelChartLayout.createSequentialGroup()
+												.addComponent(labelLancez, javax.swing.GroupLayout.PREFERRED_SIZE, 900,
+														javax.swing.GroupLayout.PREFERRED_SIZE)
+												.addGap(81, 81, 81))
+								.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+										panelChartLayout.createSequentialGroup()
+												.addComponent(txtTitreGraph, javax.swing.GroupLayout.PREFERRED_SIZE,
+														824, javax.swing.GroupLayout.PREFERRED_SIZE)
+												.addGap(157, 157, 157))
+								.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+										panelChartLayout.createSequentialGroup().addComponent(labelImage).addGap(127,
+												127, 127)))
+						.addComponent(panelChartTools, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)));
+		panelChartLayout.setVerticalGroup(panelChartLayout
+				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+						panelChartLayout.createSequentialGroup().addContainerGap().addComponent(txtTitreGraph)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(labelImage)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(labelLancez, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addGap(30, 30, 30))
+				.addGroup(panelChartLayout.createSequentialGroup()
+						.addComponent(panelChartTools, javax.swing.GroupLayout.PREFERRED_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+
+		getContentPane().add(panelChart, java.awt.BorderLayout.EAST);
+
+		pack();
+	}// </editor-fold>//GEN-END:initComponents
 
 	private Integer recupererValeurLue(javax.swing.JTextField textField) {
 		String str = textField.getText();
@@ -868,7 +902,6 @@ public class Saisie extends javax.swing.JFrame {
 		SaisiePatient fenetreSaisiePatient = new SaisiePatient(this, nbPatientsRDVPE, nbPatientsRDVSE, nbPatientsRDVTE,
 				nbPatientsUrgent, map);
 		fenetreSaisiePatient.setLocationRelativeTo(null);
-		fenetreSaisiePatient.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		fenetreSaisiePatient.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		fenetreSaisiePatient.setVisible(true);
 	}// GEN-LAST:event_btnOpenSaisiePatientActionPerformed
@@ -1141,64 +1174,64 @@ public class Saisie extends javax.swing.JFrame {
 		}
 	}
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnChartChirugien;
-    private javax.swing.JButton btnChartInfirmier;
-    private javax.swing.JButton btnChartPatient;
-    private javax.swing.JButton btnChartSalle;
-    private javax.swing.JButton btnHeureDebut;
-    private javax.swing.JButton btnHeureFin;
-    private javax.swing.JButton btnOpenSaisiePatient;
-    private javax.swing.JButton btnSimulation;
-    private javax.swing.JCheckBox chkBoxPE;
-    private javax.swing.JCheckBox chkBoxRDV;
-    private javax.swing.JCheckBox chkBoxSE;
-    private javax.swing.JCheckBox chkBoxTE;
-    private javax.swing.JCheckBox chkBoxUrgent;
-    private javax.swing.JLabel labelImage;
-    private javax.swing.JLabel labelLancez;
-    private javax.swing.JPanel panelChart;
-    private javax.swing.JPanel panelChartTools;
-    private javax.swing.JPanel panelSaisie;
-    private com.raven.swing.TimePicker pickerHeureDebut;
-    private com.raven.swing.TimePicker pickerHeureFin;
-    private javax.swing.JComboBox<String> stringRegleGestion1;
-    private javax.swing.JComboBox<String> stringRegleGestion2;
-    private javax.swing.JComboBox<String> stringRegleGestion3;
-    private javax.swing.JLabel titleConstantes;
-    private javax.swing.JLabel titleHorraires;
-    private javax.swing.JLabel titlePatients;
-    private javax.swing.JLabel titleQteRessources;
-    private javax.swing.JLabel titleRegleG;
-    private javax.swing.JLabel txtAnesthesie;
-    private javax.swing.JLabel txtDebut;
-    private javax.swing.JLabel txtFin;
-    private javax.swing.JLabel txtLibe;
-    private javax.swing.JLabel txtMarge;
-    private javax.swing.JLabel txtMoyOpe;
-    private javax.swing.JLabel txtNbChir;
-    private javax.swing.JLabel txtNbInf;
-    private javax.swing.JLabel txtNbSalles;
-    private javax.swing.JLabel txtPE;
-    private javax.swing.JLabel txtPrepa;
-    private javax.swing.JLabel txtRegleChir;
-    private javax.swing.JLabel txtRegleInf;
-    private javax.swing.JLabel txtRegleSalle;
-    private javax.swing.JLabel txtSE;
-    private javax.swing.JLabel txtTE;
-    private javax.swing.JLabel txtTitreGraph;
-    private javax.swing.JTextField valueMarge;
-    private javax.swing.JTextField valueMoyTempsOpe;
-    private javax.swing.JTextField valueNbChirurgien;
-    private javax.swing.JTextField valueNbInfirmier;
-    private javax.swing.JTextField valueNbSallePE;
-    private javax.swing.JTextField valueNbSalleReserve;
-    private javax.swing.JTextField valueNbSalleSE;
-    private javax.swing.JTextField valueNbSalleTE;
-    private javax.swing.JTextField valueTempsAnes;
-    private javax.swing.JTextField valueTempsLiber;
-    private javax.swing.JTextField valueTempsPrepa;
-    // End of variables declaration//GEN-END:variables
+	// Variables declaration - do not modify//GEN-BEGIN:variables
+	private javax.swing.JButton btnChartChirugien;
+	private javax.swing.JButton btnChartInfirmier;
+	private javax.swing.JButton btnChartPatient;
+	private javax.swing.JButton btnChartSalle;
+	private javax.swing.JButton btnHeureDebut;
+	private javax.swing.JButton btnHeureFin;
+	private javax.swing.JButton btnOpenSaisiePatient;
+	private javax.swing.JButton btnSimulation;
+	private javax.swing.JCheckBox chkBoxPE;
+	private javax.swing.JCheckBox chkBoxRDV;
+	private javax.swing.JCheckBox chkBoxSE;
+	private javax.swing.JCheckBox chkBoxTE;
+	private javax.swing.JCheckBox chkBoxUrgent;
+	private javax.swing.JLabel labelImage;
+	private javax.swing.JLabel labelLancez;
+	private javax.swing.JPanel panelChart;
+	private javax.swing.JPanel panelChartTools;
+	private javax.swing.JPanel panelSaisie;
+	private com.raven.swing.TimePicker pickerHeureDebut;
+	private com.raven.swing.TimePicker pickerHeureFin;
+	private javax.swing.JComboBox<String> stringRegleGestion1;
+	private javax.swing.JComboBox<String> stringRegleGestion2;
+	private javax.swing.JComboBox<String> stringRegleGestion3;
+	private javax.swing.JLabel titleConstantes;
+	private javax.swing.JLabel titleHorraires;
+	private javax.swing.JLabel titlePatients;
+	private javax.swing.JLabel titleQteRessources;
+	private javax.swing.JLabel titleRegleG;
+	private javax.swing.JLabel txtAnesthesie;
+	private javax.swing.JLabel txtDebut;
+	private javax.swing.JLabel txtFin;
+	private javax.swing.JLabel txtLibe;
+	private javax.swing.JLabel txtMarge;
+	private javax.swing.JLabel txtMoyOpe;
+	private javax.swing.JLabel txtNbChir;
+	private javax.swing.JLabel txtNbInf;
+	private javax.swing.JLabel txtNbSalles;
+	private javax.swing.JLabel txtPE;
+	private javax.swing.JLabel txtPrepa;
+	private javax.swing.JLabel txtRegleChir;
+	private javax.swing.JLabel txtRegleInf;
+	private javax.swing.JLabel txtRegleSalle;
+	private javax.swing.JLabel txtSE;
+	private javax.swing.JLabel txtTE;
+	private javax.swing.JLabel txtTitreGraph;
+	private javax.swing.JTextField valueMarge;
+	private javax.swing.JTextField valueMoyTempsOpe;
+	private javax.swing.JTextField valueNbChirurgien;
+	private javax.swing.JTextField valueNbInfirmier;
+	private javax.swing.JTextField valueNbSallePE;
+	private javax.swing.JTextField valueNbSalleReserve;
+	private javax.swing.JTextField valueNbSalleSE;
+	private javax.swing.JTextField valueNbSalleTE;
+	private javax.swing.JTextField valueTempsAnes;
+	private javax.swing.JTextField valueTempsLiber;
+	private javax.swing.JTextField valueTempsPrepa;
+	// End of variables declaration//GEN-END:variables
 
 // ============ POST EXECUTION ========================================================================
 
