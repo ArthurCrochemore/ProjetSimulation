@@ -24,7 +24,6 @@ public class GPPrioritePremierArriveReserveStatique implements GestionPlanning {
 	private List<Patient> nouvListePatient;
 	private List<Salle> pileSalle;
 
-	
 	public GPPrioritePremierArriveReserveStatique(Simulation simulation) {
 		this.simulation = simulation;
 	}
@@ -126,7 +125,8 @@ public class GPPrioritePremierArriveReserveStatique implements GestionPlanning {
 			Salle salle;
 
 			/* On répète l'opération jusqu'à ce que le patient soit affecté à une salle */
-			while (!place && indice < pileSalle.size()) {
+			while (!place && indice < pileSalle.size()) { // Si indice == pileSalle.size(), alors toutes les salles ont
+															// été parcourus, le patient ne peut donc pas être placé
 				salle = pileSalle.get(indice);
 
 				if (patient.estUrgent()) {

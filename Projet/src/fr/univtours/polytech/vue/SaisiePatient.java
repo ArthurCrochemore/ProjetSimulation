@@ -619,15 +619,26 @@ public class SaisiePatient extends javax.swing.JFrame {
 
 	private void btnAjouterActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAjouterActionPerformed
 		// TODO add your handling code here:
-		DefaultTableModel modele = (DefaultTableModel) tableau.getModel();
+		try {
+			if (currTempsOperation < 0) {
+				throw new IllegalArgumentException("Veuillez saisir un temps d'operation");
+			}
 
-		String urgent;
-		String gravite;
+			DefaultTableModel modele = (DefaultTableModel) tableau.getModel();
 
-		if (currEstUrgent) {
-			ajouterPatientUrgent(id, currHeureArrivee, null, currHeureDeclaration);
-		} else {
-			ajouterPatientRDV(id, currGravite, currHeureArrivee, null);
+			String urgent;
+			String gravite;
+
+			if (currEstUrgent) {
+				ajouterPatientUrgent(id, currHeureArrivee, null, currHeureDeclaration);
+			} else {
+				ajouterPatientRDV(id, currGravite, currHeureArrivee, null);
+			}
+		} catch (IllegalArgumentException e) {
+			strTempsOpe.setText("0");
+			strTempsOpe.setForeground(new Color(255, 0, 0));
+
+			System.err.println(e.getMessage());
 		}
 
 	}// GEN-LAST:event_btnAjouterActionPerformed
@@ -675,7 +686,7 @@ public class SaisiePatient extends javax.swing.JFrame {
 			textField.setForeground(new Color(0, 200, 0));
 		} catch (NumberFormatException e) {
 			textField.setText("0");
-			textField.setForeground(new Color(255, 0 , 0));
+			textField.setForeground(new Color(255, 0, 0));
 			return -1;
 		}
 		return valeur;
@@ -700,18 +711,18 @@ public class SaisiePatient extends javax.swing.JFrame {
 
 	private void btnGenererActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnGenererActionPerformed
 		// TODO add your handling code here:
-		if(currTempsOperationMin >= 0 && currTempsOperationMax >= 0) {
+		if (currTempsOperationMin >= 0 && currTempsOperationMax >= 0) {
 			currTempsOperation = LoiDePoisson.genererEntier(currTempsOperationMin, currTempsOperationMax, 50);
 			strTempsOpe.setText(String.valueOf(currTempsOperation));
 		} else {
-			if(currTempsOperationMin < 0) {
+			if (currTempsOperationMin < 0) {
 				strTempsOpeMin.setText("0");
 				strTempsOpeMin1.setText("0");
 
 				strTempsOpeMin.setForeground(new Color(255, 0, 0));
 				strTempsOpeMin1.setForeground(new Color(255, 0, 0));
 			}
-			if(currTempsOperationMin < 0) { 
+			if (currTempsOperationMin < 0) {
 				strTempsOpeMax.setText("0");
 				strTempsOpeMax1.setText("0");
 
@@ -719,7 +730,7 @@ public class SaisiePatient extends javax.swing.JFrame {
 				strTempsOpeMax1.setForeground(new Color(255, 0, 0));
 			}
 		}
-		
+
 	}// GEN-LAST:event_btnGenererActionPerformed
 
 	private void btnAnnulerActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAnnulerActionPerformed
@@ -818,7 +829,7 @@ public class SaisiePatient extends javax.swing.JFrame {
 
 	private void btnGenererPatientUrgentActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnGenererPatientUrgentActionPerformed
 		// TODO add your handling code here:
-		if(currTempsOperationMin >= 0 && currTempsOperationMax >= 0 && nbPatientsUrgentAcreer >= 0) {
+		if (currTempsOperationMin >= 0 && currTempsOperationMax >= 0 && nbPatientsUrgentAcreer >= 0) {
 			DefaultTableModel modele = (DefaultTableModel) tableau.getModel();
 
 			for (int i = 0; i < nbPatientsUrgentAcreer; i++) {
@@ -830,31 +841,31 @@ public class SaisiePatient extends javax.swing.JFrame {
 				ajouterPatientUrgent(id, currHeureArrivee, null, currHeureDeclaration);
 			}
 		} else {
-			if(currTempsOperationMin < 0) {
+			if (currTempsOperationMin < 0) {
 				strTempsOpeMin.setText("0");
 				strTempsOpeMin1.setText("0");
 
 				strTempsOpeMin.setForeground(new Color(255, 0, 0));
 				strTempsOpeMin1.setForeground(new Color(255, 0, 0));
 			}
-			if(currTempsOperationMin < 0) { 
+			if (currTempsOperationMin < 0) {
 				strTempsOpeMax.setText("0");
 				strTempsOpeMax1.setText("0");
 
 				strTempsOpeMax.setForeground(new Color(255, 0, 0));
 				strTempsOpeMax1.setForeground(new Color(255, 0, 0));
 			}
-			if(nbPatientsUrgentAcreer < 0) {
+			if (nbPatientsUrgentAcreer < 0) {
 				strNbPatientACreer.setText("0");
 				strNbPatientACreer.setForeground(new Color(255, 0, 0));
 			}
 		}
-		
+
 	}// GEN-LAST:event_btnGenererPatientUrgentActionPerformed
 
 	private void ajouterPatientRDV(Integer id, Integer gravite, LocalTime heureArrive, LocalTime tempsOperation) {
-		
-		if (currTempsOperation >= 0){
+
+		if (currTempsOperation >= 0) {
 			DefaultTableModel modele = (DefaultTableModel) tableau.getModel();
 
 			String str;
@@ -862,8 +873,7 @@ public class SaisiePatient extends javax.swing.JFrame {
 			liste.add(currHeureArrivee);
 
 			if (tempsOperation == null) {
-				LocalTime tempsOpe = LocalTime.of((currTempsOperation - currTempsOperation % 60) / 60,
-						currTempsOperation % 60);
+				LocalTime tempsOpe = LocalTime.of((currTempsOperation / 60) % 24, currTempsOperation % 60);
 				liste.add(tempsOpe);
 			} else {
 				currTempsOperation = 60 * tempsOperation.getHour() + tempsOperation.getMinute();
@@ -897,22 +907,20 @@ public class SaisiePatient extends javax.swing.JFrame {
 			strTempsOpe.setText("0");
 			strTempsOpe.setForeground(new Color(255, 0, 0));
 		}
-		
+
 	}
 
 	private void ajouterPatientUrgent(Integer id, LocalTime heureArrive, LocalTime tempsOperation,
 			LocalTime heureDeclaration) {
 		DefaultTableModel modele = (DefaultTableModel) tableau.getModel();
 		try {
-			if (heureArrive.isBefore(heureDeclaration)) {
-
-				throw new Exception();
+			if (heureDeclaration.isAfter(heureArrive)) {
+				throw new IllegalArgumentException("Le patient urgent ne peut pas etre declare apres etre arrive");
 			}
 			List<LocalTime> liste = new ArrayList();
 			liste.add(heureArrive);
 			if (tempsOperation == null) {
-				LocalTime tempsOpe = LocalTime.of(((currTempsOperation - currTempsOperation % 60) / 60) % 24,
-						currTempsOperation % 60);
+				LocalTime tempsOpe = LocalTime.of((currTempsOperation / 60) % 24, currTempsOperation % 60);
 				liste.add(tempsOpe);
 			} else {
 				currTempsOperation = tempsOperation.getHour() * 60 + tempsOperation.getMinute();
@@ -926,51 +934,9 @@ public class SaisiePatient extends javax.swing.JFrame {
 			modele.addRow(
 					new Object[] { id, "Oui", heureArrive, currTempsOperation, "Tres Equipee", heureDeclaration });
 			this.id++;
-		} catch (Exception e) {
-			System.err.println("Le patient urgent ne peut pas etre declare apres etre arrive");
+		} catch (IllegalArgumentException e) {
+			System.err.println(e.getMessage());
 		}
-	}
-
-	/**
-	 * @param args the command line arguments
-	 */
-	public static void main(String args[]) {
-		/* Set the Nimbus look and feel */
-		// <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
-		// (optional) ">
-		/*
-		 * If Nimbus (introduced in Java SE 6) is not available, stay with the default
-		 * look and feel. For details see
-		 * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-		 */
-		try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					javax.swing.UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(SaisiePatient.class.getName()).log(java.util.logging.Level.SEVERE, null,
-					ex);
-		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(SaisiePatient.class.getName()).log(java.util.logging.Level.SEVERE, null,
-					ex);
-		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(SaisiePatient.class.getName()).log(java.util.logging.Level.SEVERE, null,
-					ex);
-		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(SaisiePatient.class.getName()).log(java.util.logging.Level.SEVERE, null,
-					ex);
-		}
-		// </editor-fold>
-
-		/* Create and display the form */
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new SaisiePatient().setVisible(true);
-			}
-		});
 	}
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables

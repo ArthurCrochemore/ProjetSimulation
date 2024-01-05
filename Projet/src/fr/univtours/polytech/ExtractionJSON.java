@@ -33,7 +33,7 @@ public class ExtractionJSON {
 			int nbPatientsUrgent = simulation.getPatientsUrgent().size();
 
 			Map<Salle.typeSalles, List<Salle>> salles = simulation.getSalles();
-			int nbInfirmier = simulation.getPatientsUrgent().size();
+			int nbInfirmier = simulation.getInfirmiers().size();
 			int nbChirurgien = simulation.getChirurgiens().size();
 			int nbSallePE = salles.get(Salle.typeSalles.PEUEQUIPE).size();
 			int nbSalleSE = salles.get(Salle.typeSalles.SEMIEQUIPE).size();
