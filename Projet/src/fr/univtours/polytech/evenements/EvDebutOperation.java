@@ -27,7 +27,7 @@ public class EvDebutOperation extends Evenement {
 
 	public EvDebutOperation(LocalTime heureDebut, Patient patient, Infirmier infirmier, Salle salle,
 			Chirurgien chirurgien, Deroulement deroulement) {
-		super(heureDebut, patient, infirmier, salle, chirurgien, deroulement);
+		super(heureDebut, patient, null, salle, chirurgien, deroulement);
 	}
 
 }

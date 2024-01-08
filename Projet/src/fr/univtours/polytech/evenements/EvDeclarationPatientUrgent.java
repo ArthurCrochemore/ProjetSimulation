@@ -19,6 +19,6 @@ public class EvDeclarationPatientUrgent extends Evenement {
 
 	public EvDeclarationPatientUrgent(LocalTime heureDebut, Patient patient, Infirmier infirmier, Salle salle,
 			Chirurgien chirurgien, Deroulement deroulement) {
-		super(heureDebut, patient, infirmier, salle, chirurgien, deroulement);
+		super(heureDebut, patient, null, null, null, deroulement);
 	}
 }

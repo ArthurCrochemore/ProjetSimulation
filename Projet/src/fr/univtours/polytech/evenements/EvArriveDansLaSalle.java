@@ -46,7 +46,7 @@ public class EvArriveDansLaSalle extends Evenement {
 
 	public EvArriveDansLaSalle(LocalTime heureDebut, Patient patient, Infirmier infirmier, Salle salle,
 			Chirurgien chirurgien, Deroulement deroulement) {
-		super(heureDebut, patient, infirmier, salle, chirurgien, deroulement);
+		super(heureDebut, patient, 	null, salle, null, deroulement);
 	}
 
 }

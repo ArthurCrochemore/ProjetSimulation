@@ -32,6 +32,6 @@ public class EvFinLiberationSalle extends Evenement {
 
 	public EvFinLiberationSalle(LocalTime heureDebut, Patient patient, Infirmier infirmier, Salle salle,
 			Chirurgien chirurgien, Deroulement deroulement) {
-		super(heureDebut, patient, infirmier, salle, chirurgien, deroulement);
+		super(heureDebut, patient, infirmier, salle, null, deroulement);
 	}
 }

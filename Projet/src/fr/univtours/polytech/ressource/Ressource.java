@@ -44,30 +44,22 @@ public abstract class Ressource {
 	 * @param heure, heure à partir de laquelle la ressource change d'état
 	 */
 	public void setEtat(listeEtats etat, LocalTime heure) {
-		try {
-			
-			/*
-			 * Si la ressource devient occupée, on ferme l'intervalle de temps précedemment
-			 * ouvert
-			 */
-			if (this.etat == Ressource.listeEtats.LIBRE && etat == Ressource.listeEtats.OCCUPE) {
-				tempsAttente.get(taille - 1).setSecondElement(heure);
-			}
-			/* Sinon, on ouvre un nouvel intervalle de temps */
-			else {
-				if (this.etat == Ressource.listeEtats.OCCUPE && etat == Ressource.listeEtats.LIBRE) {
-					tempsAttente.add(new Tuple<LocalTime, LocalTime>(heure));
-	
-					incrementerTaille();
-					;
-				} else {
-					throw new Exception("Changement d'etat illegal");
-				}
-			}
-			this.etat = etat;
-		} catch(Exception e) {
-			e.printStackTrace();
+		/*
+		 * Si la ressource devient occupée, on ferme l'intervalle de temps précedemment
+		 * ouvert
+		 */
+		if (this.etat == Ressource.listeEtats.LIBRE && etat == Ressource.listeEtats.OCCUPE) {
+			tempsAttente.get(taille - 1).setSecondElement(heure);
 		}
+		/* Sinon, on ouvre un nouvel intervalle de temps */
+		else {
+			if (this.etat == Ressource.listeEtats.OCCUPE && etat == Ressource.listeEtats.LIBRE) {
+				tempsAttente.add(new Tuple<LocalTime, LocalTime>(heure));
+
+				incrementerTaille();
+			} 
+		}
+		this.etat = etat;
 	}
 
 	public Ressource(Integer id, LocalTime heureDebut) {

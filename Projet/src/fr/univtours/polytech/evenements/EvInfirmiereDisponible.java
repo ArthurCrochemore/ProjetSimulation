@@ -26,6 +26,6 @@ public class EvInfirmiereDisponible extends Evenement {
 
 	public EvInfirmiereDisponible(LocalTime heureDebut, Patient patient, Infirmier infirmier, Salle salle,
 			Chirurgien chirurgien, Deroulement deroulement) {
-		super(heureDebut, patient, infirmier, salle, chirurgien, deroulement);
+		super(heureDebut, null, infirmier, null, null, deroulement);
 	}
 }

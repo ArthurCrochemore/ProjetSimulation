@@ -12,7 +12,7 @@ public class EvDebutPreparation extends Evenement {
 
 	public void deroulement() {
 		patient.setEtat(Patient.listeEtats.ENPREPARATION, heureDebut);
-
+		
 		infirmier.setEtat(Ressource.listeEtats.OCCUPE, heureDebut);
 
 		salle.setEtat(Salle.listeEtats.PREPARATION, heureDebut);
@@ -27,7 +27,7 @@ public class EvDebutPreparation extends Evenement {
 
 	public EvDebutPreparation(LocalTime heureDebut, Patient patient, Infirmier infirmier, Salle salle,
 			Chirurgien chirurgien, Deroulement deroulement) {
-		super(heureDebut, patient, infirmier, salle, chirurgien, deroulement);
+		super(heureDebut, patient, infirmier, salle, null, deroulement);
 	}
 
 }
