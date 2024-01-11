@@ -8,6 +8,9 @@ import java.util.Map;
 import fr.univtours.polytech.entite.Patient;
 import fr.univtours.polytech.ressource.Salle;
 
+/**
+ * 
+ */
 public class Planning {
 	private Map<Salle, List<Patient>> planning;
 
@@ -75,12 +78,22 @@ public class Planning {
 		return patients;
 	}
 	
-	
-
+	/**
+	 * Accesseur en lecture du planning
+	 * 
+	 * @return planning
+	 */
 	public Map<Salle, List<Patient>> getPlanning() {
 		return planning;
 	}
 
+	/**
+	 * Constructeur de confort
+	 * 
+	 * @param planning
+	 * @param heure
+	 * @param extracteur
+	 */
 	public Planning(Map<Salle, List<Patient>> planning, LocalTime heure, ExtractionJSON extracteur) {
 		extracteur.extrairePlanning(planning, heure);
 		this.planning = planning;

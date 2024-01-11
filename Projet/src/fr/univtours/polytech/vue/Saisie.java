@@ -876,7 +876,7 @@ public class Saisie extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void valueNbInfirmierActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_valueNbInfirmierActionPerformed
-		// TODO add your handling code here:
+
 		nbInfirmiere = recupererValeurLue(valueNbInfirmier);
 	}// GEN-LAST:event_valueNbInfirmierActionPerformed
 
@@ -887,7 +887,7 @@ public class Saisie extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void valueNbChirurgienActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_valueNbChirurgienActionPerformed
-		// TODO add your handling code here:
+
 		nbChirurgien = recupererValeurLue(valueNbChirurgien);
 	}// GEN-LAST:event_valueNbChirurgienActionPerformed
 
@@ -898,7 +898,7 @@ public class Saisie extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void valueNbSallePEActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_valueNbSallePEActionPerformed
-		// TODO add your handling code here:
+
 		nbSallesPeuEquipee = recupererValeurLue(valueNbSallePE);
 	}// GEN-LAST:event_valueNbSallePEActionPerformed
 
@@ -909,7 +909,7 @@ public class Saisie extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void valueNbSalleSEActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_valueNbSalleSEActionPerformed
-		// TODO add your handling code here:
+
 		nbSallesSemiEquipee = recupererValeurLue(valueNbSalleSE);
 	}// GEN-LAST:event_valueNbSalleSEActionPerformed
 
@@ -920,7 +920,7 @@ public class Saisie extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void valueNbSalleTEActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_valueNbSalleTEActionPerformed
-		// TODO add your handling code here:
+
 		nbSallesTresEquipee = recupererValeurLue(valueNbSalleTE);
 
 		/* On réinitialise le nb de salles réservées */
@@ -937,7 +937,7 @@ public class Saisie extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void valueTempsPrepaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_valueTempsPrepaActionPerformed
-		// TODO add your handling code here:
+
 		tempsPreparation = recupererValeurLue(valueTempsPrepa);
 	}// GEN-LAST:event_valueTempsPrepaActionPerformed
 
@@ -948,7 +948,7 @@ public class Saisie extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void valueTempsAnesActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_valueTempsAnesActionPerformed
-		// TODO add your handling code here:
+
 		tempsAnesthesie = recupererValeurLue(valueTempsAnes);
 	}// GEN-LAST:event_valueTempsAnesActionPerformed
 
@@ -959,7 +959,7 @@ public class Saisie extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void valueTempsLiberActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_valueTempsLiberActionPerformed
-		// TODO add your handling code here:
+
 		tempsLiberation = recupererValeurLue(valueTempsLiber);
 	}// GEN-LAST:event_valueTempsLiberActionPerformed
 
@@ -970,7 +970,7 @@ public class Saisie extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void valueNbSalleReserveActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_valueNbSalleReserveActionPerformed
-		// TODO add your handling code here:
+
 		int i = recupererValeurLue(valueNbSalleReserve);
 
 		/*
@@ -994,7 +994,7 @@ public class Saisie extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void valueMoyTempsOpeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_valueMoyTempsOpeActionPerformed
-		// TODO add your handling code here:
+
 		moyTempsOperation = recupererValeurLue(valueMoyTempsOpe);
 	}// GEN-LAST:event_valueMoyTempsOpeActionPerformed
 
@@ -1005,7 +1005,7 @@ public class Saisie extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void valueMargeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_valueMargeActionPerformed
-		// TODO add your handling code here:
+
 		marge = recupererValeurLue(valueMarge);
 	}// GEN-LAST:event_valueMargeActionPerformed
 
@@ -1033,7 +1033,7 @@ public class Saisie extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void btnHeureDebutActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnHeureDebutActionPerformed
-		// TODO add your handling code here:
+
 		pickerHeureDebut.showPopup(this, 350, 0);
 	}// GEN-LAST:event_btnHeureDebutActionPerformed
 
@@ -1044,7 +1044,7 @@ public class Saisie extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void btnHeureFinActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnHeureFinActionPerformed
-		// TODO add your handling code here:
+
 		pickerHeureFin.showPopup(this, 350, 30);
 	}// GEN-LAST:event_btnHeureFinActionPerformed
 
@@ -1055,7 +1055,7 @@ public class Saisie extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void stringRegleGestion1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_stringRegleGestion1ActionPerformed
-		// TODO add your handling code here:
+
 		String str = stringRegleGestion1.getSelectedItem().toString();
 
 		if (str.equals("Priorite aux salles en attente de preparation")) {
@@ -1080,7 +1080,7 @@ public class Saisie extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void stringRegleGestion2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_stringRegleGestion2ActionPerformed
-		// TODO add your handling code here:
+
 		String str = stringRegleGestion2.getSelectedItem().toString();
 
 		if (str.equals("Priorite aux urgences")) {
@@ -1101,7 +1101,7 @@ public class Saisie extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void stringRegleGestion3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_stringRegleGestion3ActionPerformed
-		// TODO add your handling code here:
+
 		String str = stringRegleGestion3.getSelectedItem().toString();
 
 		if (str.equals("Dans l'ordre des attentes")) {
@@ -1117,7 +1117,7 @@ public class Saisie extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void btnSimulationActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSimulationActionPerformed
-		// TODO add your handling code here:
+
 		try {
 			/*
 			 * On récupère les valeurs des champs qui n'ont pottentiellement pas été valider
@@ -1498,7 +1498,7 @@ public class Saisie extends javax.swing.JFrame {
 			ajouterAuDatasetPatient(attPatientUrgent, "Urgent en attente d'un chirugien", 2);
 			ajouterAuDatasetPatient(attPatientUrgent, "Urgent en attente de liberation de la salle", 3);
 		}
-		
+
 		dataset.removeRow(heureFinJournee);
 
 		if (chart == null)

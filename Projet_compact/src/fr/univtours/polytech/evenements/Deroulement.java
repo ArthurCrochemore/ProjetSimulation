@@ -33,6 +33,10 @@ public class Deroulement {
 		return nbPatientsATraiter;
 	}
 
+	/**
+	 * Méthode permettant de traquer le nombre de patients sortie de la salle
+	 * d'opération
+	 */
 	public void incrementerNbPatientsTraites() {
 		nbPatientsTraites++;
 	}
@@ -209,7 +213,8 @@ public class Deroulement {
 				}
 			}
 		}
-		new ExtractionJSON(getSimulation()).extrairePlanning(getSimulation().getPlanning().getPlanning(), heureSimulation);
+		new ExtractionJSON(getSimulation()).extrairePlanning(getSimulation().getPlanning().getPlanning(),
+				heureSimulation);
 
 		System.out.println("\n===================================================\n" + nbPatientsTraites
 				+ " patients traites / " + nbPatientsATraiter + " patients");
@@ -222,7 +227,8 @@ public class Deroulement {
 	 * @param heureSimulation
 	 * @param heureFinSimulation
 	 */
-	public Deroulement(Simulation simulation, LocalTime heureSimulation, LocalTime heureFinSimulation, Integer nbPatientsATraiter) {
+	public Deroulement(Simulation simulation, LocalTime heureSimulation, LocalTime heureFinSimulation,
+			Integer nbPatientsATraiter) {
 		this.simulation = simulation;
 		this.heureSimulation = heureSimulation;
 		this.heureFinSimulation = heureFinSimulation;

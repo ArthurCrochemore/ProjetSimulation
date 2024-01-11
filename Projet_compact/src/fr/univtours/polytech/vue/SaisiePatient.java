@@ -72,7 +72,6 @@ public class SaisiePatient extends javax.swing.JFrame {
 	public SaisiePatient(Saisie saisie, Integer nbPatientsRDVPE, Integer nbPatientsRDVSE, Integer nbPatientsRDVTE,
 			Integer nbPatientsUrgent, Map<Integer, List<LocalTime>> map) {
 
-
 		this.saisie = saisie;
 		this.nbPatientsRDVPE = 0;
 		this.nbPatientsRDVSE = 0;
@@ -626,7 +625,7 @@ public class SaisiePatient extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void btnHeureArriveeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnHeureArriveeActionPerformed
-		// TODO add your handling code here:
+
 		pickerHeureArrivee.showPopup(this, 350, 0);
 	}// GEN-LAST:event_btnHeureArriveeActionPerformed
 
@@ -637,7 +636,7 @@ public class SaisiePatient extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void btnHeureDeclarationActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnHeureDeclarationActionPerformed
-		// TODO add your handling code here:
+
 		pickerHeureDeclaration.showPopup(this, 350, 30);
 	}// GEN-LAST:event_btnHeureDeclarationActionPerformed
 
@@ -647,7 +646,7 @@ public class SaisiePatient extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void boolUrgentActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_boolUrgentActionPerformed
-		// TODO add your handling code here:
+
 		if (boolUrgent.getSelectedItem().toString().equals("Oui")) {
 			currEstUrgent = true;
 		} else {
@@ -661,7 +660,7 @@ public class SaisiePatient extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void strGraviteActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_strGraviteActionPerformed
-		// TODO add your handling code here:
+
 		if (strGravite.getSelectedItem().toString().equals("Peu equipee")) {
 			currGravite = 1;
 		} else {
@@ -679,7 +678,7 @@ public class SaisiePatient extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void strTempsOpeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_strTempsOpeActionPerformed
-		// TODO add your handling code here:
+
 		currTempsOperation = recupererValeurLue(strTempsOpe);
 	}// GEN-LAST:event_strTempsOpeActionPerformed
 
@@ -690,7 +689,7 @@ public class SaisiePatient extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void strTempsOpeMinActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_strTempsOpeMinActionPerformed
-		// TODO add your handling code here:
+
 		int renvoi = recupererValeurLue(strTempsOpeMin);
 
 		if (renvoi >= 0 && (renvoi <= currTempsOperationMax || currTempsOperationMax == -1)) {
@@ -712,7 +711,7 @@ public class SaisiePatient extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void strTempsOpeMaxActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_strTempsOpeMaxActionPerformed
-		// TODO add your handling code here:
+
 		int renvoi = recupererValeurLue(strTempsOpeMax);
 
 		if (renvoi >= 0 && renvoi >= currTempsOperationMin) {
@@ -734,7 +733,7 @@ public class SaisiePatient extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void strTempsOpeMin1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_strTempsOpeMin1ActionPerformed
-		// TODO add your handling code here:
+
 		int renvoi = recupererValeurLue(strTempsOpeMin1);
 
 		if (renvoi >= 0 && (renvoi <= currTempsOperationMax || currTempsOperationMax == -1)) {
@@ -756,7 +755,7 @@ public class SaisiePatient extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void strTempsOpeMax1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_strTempsOpeMax1ActionPerformed
-		// TODO add your handling code here:
+
 		int renvoi = recupererValeurLue(strTempsOpeMax1);
 
 		if (renvoi >= 0 && renvoi >= currTempsOperationMin) {
@@ -778,7 +777,7 @@ public class SaisiePatient extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void strNbPatientACreerActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_strNbPatientACreerActionPerformed
-		// TODO add your handling code here:
+
 		nbPatientsUrgentAcreer = recupererValeurLue(strNbPatientACreer);
 	}// GEN-LAST:event_strNbPatientACreerActionPerformed
 
@@ -789,7 +788,7 @@ public class SaisiePatient extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void btnGenererActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnGenererActionPerformed
-		// TODO add your handling code here:
+
 		try {
 			int pottCurrTempsOperationMin = recupererValeurLue(strTempsOpeMin);
 			int pottCurrTempsOperationMax = recupererValeurLue(strTempsOpeMax);
@@ -846,7 +845,7 @@ public class SaisiePatient extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void btnAjouterActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAjouterActionPerformed
-		// TODO add your handling code here:
+
 		try {
 			if (currTempsOperation < 0) {
 				throw new IllegalArgumentException("Veuillez saisir un temps d'operation");
@@ -877,7 +876,7 @@ public class SaisiePatient extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void btnSupprActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSupprActionPerformed
-		// TODO add your handling code here:
+
 		DefaultTableModel tableauModif = (DefaultTableModel) tableau.getModel();
 
 		if (tableau.getSelectedRowCount() > 0) {
@@ -920,7 +919,7 @@ public class SaisiePatient extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void btnGenererPatientUrgentActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnGenererPatientUrgentActionPerformed
-		// TODO add your handling code here:
+
 		try {
 			int pottCurrTempsOperationMin = recupererValeurLue(strTempsOpeMin1);
 			int pottCurrTempsOperationMax = recupererValeurLue(strTempsOpeMax1);
@@ -1056,12 +1055,12 @@ public class SaisiePatient extends javax.swing.JFrame {
 			}
 			List<LocalTime> liste = new ArrayList();
 			liste.add(heureArrive);
-			
+
 			/* Si le patient est crée à partir de l'interaction avec la fenêtre */
 			if (tempsOperation == null) {
 				LocalTime tempsOpe = LocalTime.of((currTempsOperation / 60) % 24, currTempsOperation % 60);
 				liste.add(tempsOpe);
-			} 
+			}
 			/*
 			 * Si le patient est crée à l'ouverture de la fenêtre, lors de la récupération
 			 * des patients déjà crée
@@ -1112,7 +1111,7 @@ public class SaisiePatient extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void btnAnnulerActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAnnulerActionPerformed
-		// TODO add your handling code here:
+
 		this.dispose(); // Aucun changements n'est effectué, les patients saisie sont perdus
 	}// GEN-LAST:event_btnAnnulerActionPerformed
 
@@ -1122,7 +1121,7 @@ public class SaisiePatient extends javax.swing.JFrame {
 	 * @param evt
 	 */
 	private void btnValiderActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnValiderActionPerformed
-		// TODO add your handling code here:
+
 		Map<Integer, List<LocalTime>> map = new HashMap<Integer, List<LocalTime>>();
 		int index = 0;
 
@@ -1147,7 +1146,10 @@ public class SaisiePatient extends javax.swing.JFrame {
 			index++;
 		}
 
-		/* On remplace les patients stockés dans la fenetre principale par ceux du tableaux */
+		/*
+		 * On remplace les patients stockés dans la fenetre principale par ceux du
+		 * tableaux
+		 */
 		saisie.setNbPatientsRDVPE(nbPatientsRDVPE);
 		saisie.setNbPatientsRDVSE(nbPatientsRDVSE);
 		saisie.setNbPatientsRDVTE(nbPatientsRDVTE);

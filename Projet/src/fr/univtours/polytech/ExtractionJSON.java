@@ -138,6 +138,12 @@ public class ExtractionJSON {
 		}
 	}
 
+	/**
+	 * Méthode gérant l'extraction du planning en paramètre dans un fichier txt
+	 * 
+	 * @param planning
+	 * @param heure
+	 */
 	public void extrairePlanning(Map<Salle, List<Patient>> planning, LocalTime heure) {
 		nbPlanningEnregistre++;
 
@@ -236,6 +242,13 @@ public class ExtractionJSON {
 		}
 	}
 
+	/**
+	 * Méthode utilisé pour écrire une salle dans le fichier texte des plannings
+	 * 
+	 * @param idSalle
+	 * @param patients
+	 * @param writer
+	 */
 	private void ecrireSalle(int idSalle, List<Patient> patients, PrintWriter writer) {
 		String str = "";
 
@@ -254,7 +267,7 @@ public class ExtractionJSON {
 	}
 
 	/**
-	 * Methode gerant l'ecriture pour un patient
+	 * Méthode utilisé pour écrire un patient dans le fichier json d'extraction
 	 * 
 	 * @param p,     patient
 	 * @param writer
@@ -322,6 +335,9 @@ public class ExtractionJSON {
 	}
 
 	/**
+	 * Méthode utilisé pour écrire une ressource (infirmier ou chirurgien) dans le
+	 * fichier json d'extraction
+	 * 
 	 * @param temps, List<Tuple<LocalTime, LocalTime>> stocke dans la ressource
 	 *               associee
 	 * @param writer
@@ -338,6 +354,8 @@ public class ExtractionJSON {
 	}
 
 	/**
+	 * Méthode utilisé pour écrire une salle dans le fichier json d'extraction
+	 * 
 	 * @param temps, List<Tuple<LocalTime, LocalTime>> stocke dans la salle associee
 	 * @param writer
 	 * @param i,     indice de la salle
@@ -356,6 +374,10 @@ public class ExtractionJSON {
 		this.simulation = simulation;
 	}
 
+	/**
+	 * Utilisé à la fin de la simulation pour réinitialiser la valeur utiliser dans
+	 * le nommage des fichiers
+	 */
 	public static void reintialiserNbPlanningEnregistre() {
 		nbPlanningEnregistre = 0;
 	}
