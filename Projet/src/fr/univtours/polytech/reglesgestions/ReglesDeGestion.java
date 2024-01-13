@@ -77,13 +77,4 @@ public class ReglesDeGestion {
 	public Simulation getSimulation() {
 		return simulation;
 	}
-
-	public static void trierParHeureArrivee(List<Patient> listePatients) {
-		Collections.sort(listePatients, new Comparator<Patient>() {
-			@Override
-			public int compare(Patient patient1, Patient patient2) {
-				return patient1.getHeureArrive().compareTo(patient2.getHeureArrive());
-			}
-		});
-	}
 }
