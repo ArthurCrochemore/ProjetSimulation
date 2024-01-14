@@ -9,7 +9,7 @@ Le fichier **Projet_Simulation_Hopital-Crochemore_Soulier.jar** permet d'execute
 Le code peut etre trouve dans **Projet_compact**. Le projet fonctionne en utilisant plusieurs fichiers jar :
 
 - **swing-time-picker.jar** et **TimingFramework-0.55.jar** : utilent pour les timePicker
-- tout les fichiers .jar dans **/jfreechart-1.0.19/lib/**
+- tout les fichiers .jar dans **/jfreechart-1.0.19/lib/** : utilent pour generer les graphiques
 
 Il faut aussi specifier le chemin vers un jdk.
 
@@ -26,3 +26,6 @@ Vous trouverez aussi deux fichier .jpg correspondant respectivement au premier e
 ## JavaDoc
 
 Dans le dossier **JavaDoc** se trouve se qui a ete generee par JavaDoc pour notre projet. Ouvrir **index.html** sur un navigateur pour la visualiser.
+
+
+_Crochemore Arthur (Sheerven) et Soulier Louis (Hatraxe)_
