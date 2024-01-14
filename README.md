@@ -4,6 +4,8 @@
 
 Le fichier **Projet_Simulation_Hopital-Crochemore_Soulier.jar** permet d'executer le code avec une grande interface (application par defaut). Si celle-ci est trop grande, essayer avec **Projet_Simulation_Hopital-Crochemore_Soulier-Petite_Interface.jar**.
 
+Le dossier **fichiers/** est important pour assurer le bon fonctionnement de ces fichiers executables.
+
 ## Code Source
 
 Le code peut etre trouve dans **Projet_compact**. Le projet fonctionne en utilisant plusieurs fichiers jar :
