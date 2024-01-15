@@ -8,7 +8,7 @@ Le dossier **fichiers/** est important pour assurer le bon fonctionnement de ces
 
 ## Code Source
 
-Le code peut etre trouve dans **Projet_compact**. Le projet fonctionne en utilisant plusieurs fichiers jar :
+Le code peut etre trouve dans **Projet**. Le projet fonctionne en utilisant plusieurs fichiers jar :
 
 - **swing-time-picker.jar** et **TimingFramework-0.55.jar** : utilent pour les timePicker
 - tous les fichiers .jar dans **/jfreechart-1.0.19/lib/** : utilent pour generer les graphiques
