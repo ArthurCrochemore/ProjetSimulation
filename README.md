@@ -1,5 +1,11 @@
 # Projet Simulation Hopital
 
+## Objectif
+
+L'objectif de ce projet était de développer un modèle de simulation à événement discret sur un modèle choisi. Nous avons choisi de représenter la répartition des salles d'opérations d'un hôpital.
+
+Pour plus de détails, vous pouvez consulter le rapport ici : https://docs.google.com/document/d/1EDGARHhCo8SgqxnvzbSIp-IZV1chDh5p5DkGzwETCZs/edit
+
 ## Guide d'utilisation
 
 Le fichier **Projet_Simulation_Hopital-Crochemore_Soulier.jar** permet d'exécuter le code avec une grande interface (application par défaut). Si celle-ci est trop grande, essayer avec **Projet_Simulation_Hopital-Crochemore_Soulier-Petite_Interface.jar**.
@@ -43,4 +49,4 @@ Dans le dossier **JavaDoc** se trouve ce qui a été généré par JavaDoc pour 
 
 ##
 
-_Crochemore Arthur (Sheerven) et Soulier Louis (Hatraxe)_
+_Arthur Crochemore et Louis Soulier_
